@@ -1,0 +1,24 @@
+/src
+    /auth
+    /pages
+        /login
+        /dashboard
+        /home
+    /components
+        /show
+        /carta
+        /nosotros
+    /assets
+
+
+
+
+    campos de show
+    id: automatico de firebase
+    titulo: String
+    subtitulo: String
+    fecha: Fecha
+    hora: String
+    descripcion: String
+    precios: String
+    imagen: url
