@@ -36,7 +36,7 @@ export default function Descripcion({ cambiaDescripcion }) {
 
   return (
     <>
-      <label className="input-labelDescripcion" htmlFor="titulo">
+      <label className="input-labelDescripcion" htmlFor="descripcion">
         Descripción
       </label>
       <ReactQuill
