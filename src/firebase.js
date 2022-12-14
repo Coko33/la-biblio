@@ -2,11 +2,11 @@
 //import "firebase/firebase-firestore";
 import "firebase/storage";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+//import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 
-import { startTransition } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,8 +23,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-//export const db = app.firestore();
-const db = getFirestore(app);
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
 
-const analytics = getAnalytics(app);
+//referencia a la base de datos
+export const showsCollectionRef = collection(db, "shows");
+
+//analytics
+//const analytics = getAnalytics(app);
