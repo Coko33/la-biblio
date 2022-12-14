@@ -9,10 +9,10 @@ import img2 from "./../../assets/show2.jpg";
 const Shows = () => {
   const [losShows, setLosShows] = useState([
     {
-      titulo: "Cuando el danubio era azul",
-      subtitulo: "un buen espectaculo",
+      titulo: "Sil Wassington, entre dos guerras otro espectaculo",
+      subtitulo: "Jazz & Movies",
       imagen: img1,
-      fechaYHora: "Jue 15 a las 21",
+      fechaYHora: "Jueves 15 - 20:30 hs.",
       descripcion: "<p>lorem ipsum</p>",
     },
     {
@@ -57,6 +57,7 @@ const Shows = () => {
                   <i class="material-icons">schedule</i>
                 </div>
                 <p className="fecha-texto">{show.fechaYHora}</p>
+                <button className="fecha-button">Información</button>
               </div>
             </div>
           ))

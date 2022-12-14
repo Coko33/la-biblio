@@ -1,10 +1,17 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=DM+Serif+Display&display=swap');
+/*
+font-family: 'DM Serif Display', serif;
+font-family: 'Archivo', sans-serif;
+*/
 :root {
  --gris-nav: #d8d3d2;
  --marron-logo: #201916;
  --icon-enabled: #7d4336;
  --icon-disabled: #b6b6b6;
  --background: #e7e1df;
- font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+ --blanco: #fff;
+ font-family: 'DM Serif Display', serif;
 }
 body {
     margin: 0;
