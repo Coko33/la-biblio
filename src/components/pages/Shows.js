@@ -46,13 +46,18 @@ const Shows = () => {
           losShows.map((show) => (
             <div className="show-container">
               <img className="show-img" src={show.imagen}></img>
-              <h2>{show.titulo}</h2>
-              <h3>{show.subtitulo}</h3>
+              <h2 className="show-titulo">{show.titulo}</h2>
+              <h3 className="show-subtitulo">{show.subtitulo}</h3>
               <div
-                className="descripcion-containers"
+                className="descripcion-container"
                 dangerouslySetInnerHTML={{ __html: show.descripcion }}
               ></div>
-              <p>{show.fechaYHora}</p>
+              <div className="fecha-container">
+                <div className="fecha-iconoSchedule">
+                  <i class="material-icons">schedule</i>
+                </div>
+                <p className="fecha-texto">{show.fechaYHora}</p>
+              </div>
             </div>
           ))
         ) : (

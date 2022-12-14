@@ -9,6 +9,7 @@ export default function Nav() {
             <a href="_blank" className="nav-link active">
               <div className="nav-icon">
                 <i class="material-icons">star</i>
+                <p className="icon-text">shows</p>
               </div>
               <div className="nav-notch"></div>
             </a>
@@ -17,6 +18,7 @@ export default function Nav() {
             <a href="_blank" className="nav-link">
               <div className="nav-icon">
                 <i class="material-icons">restaurant</i>
+                <p className="icon-text">carta</p>
               </div>
               <div className="nav-notch"></div>
             </a>
@@ -25,6 +27,7 @@ export default function Nav() {
             <a href="_blank" className="nav-link">
               <div className="nav-icon">
                 <i class="material-icons">favorite</i>
+                <p className="icon-text">nosotros</p>
               </div>
               <div className="nav-notch"></div>
             </a>
