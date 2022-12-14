@@ -1,0 +1,11 @@
+.shows-container {
+  position: relative;
+  background-color: teal;
+  width: 100%;
+  height: auto;
+}
+
+.show-container {
+  position: relative;
+  height: 100px;
+}

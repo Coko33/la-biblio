@@ -14,6 +14,11 @@ export default function ShowForm() {
   const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaYHora, setFechaYHora] = useState("");
+  const [habilitado, setHabilitado] = useState(true);
+  const [eliminado, setEliminado] = useState(false);
+  const [destacado, setDestacado] = useState(false);
+  const [suspendido, setSuspendido] = useState(false);
+
   const cambiaTitulo = (e) => setTitulo(e.target.value);
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
@@ -22,7 +27,7 @@ export default function ShowForm() {
 
   const enviar = async () => {
     console.log({ titulo, subtitulo, descripcion, fechaYHora });
-    /* addDoc(showsCollectionRef, {
+    addDoc(showsCollectionRef, {
       titulo,
       subtitulo,
       descripcion,
@@ -30,7 +35,7 @@ export default function ShowForm() {
       .then((res) => console.log(res))
       .catch((err) => {
         console.log(err.message);
-      }); */
+      });
   };
   return (
     <>
