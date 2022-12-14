@@ -1,15 +1,13 @@
 import "./App.css";
-//import ShowForm from "./components/pages/ShowForm";
-import Shows from "./components/pages/Shows";
-//import EditorTexto from "./components/EditorTexto";
+import Nav from "./components/Layout/Nav";
+import Shows from "./components/Pages/Shows";
 
 function App() {
   return (
-    <div className="container">
-      <div className="form">
-        <Shows />
-      </div>
-    </div>
+    <>
+      <Nav />
+      <Shows />
+    </>
   );
 }
 

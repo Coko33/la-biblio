@@ -1,11 +1,27 @@
 .shows-container {
   position: relative;
-  background-color: teal;
   width: 100%;
   height: auto;
+  background-color: var(--background);
+  height: calc(100vh - 100px);
 }
 
 .show-container {
+  background-color: var(--background);
   position: relative;
-  height: 100px;
+  width: calc(100% - 50px);
+  left: 25px;
+  top: 25px;
+  margin-bottom: 25px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 40px;
+  box-shadow: 0px 0px 11px 5px rgba(153,153,153,1);
+-webkit-box-shadow: 0px 0px 11px 5px rgba(153,153,153,1);
+-moz-box-shadow: 0px 0px 11px 5px rgba(153,153,153,1);
+}
+
+.show-img {
+  width: 100%;
+  border-radius: 25px;
 }

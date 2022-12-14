@@ -1,0 +1,10 @@
+:root {
+ --gris-nav: #d8d3d2;
+ --marron-logo: #201916;
+ --icon-enabled: #7d4336;
+ --icon-disabled: #b6b6b6;
+ --background: #e7e1df;
+}
+body {
+    margin: 0;
+}
