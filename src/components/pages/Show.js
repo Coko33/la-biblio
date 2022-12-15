@@ -4,7 +4,7 @@ import { showsCollectionRef } from "../../firebase";
 import "./Show.css";
 
 import img1 from "./../../assets/show1.jpg";
-const Show = () => {
+const Show = ({ closeSingle }) => {
   const [elShow, setElShow] = useState({
     titulo: "Sil Wassington",
     subtitulo: "Jazz & Movies",
@@ -20,7 +20,7 @@ const Show = () => {
     <>
       <div className="elShow-container">
         <div className="elShow-imagen-container">
-          <button className="volver">
+          <button onClick={closeSingle} className="volver">
             <i class="material-icons volver-icon">keyboard_arrow_left</i>
           </button>
           <img className="elShow-imagen" src={img1}></img>

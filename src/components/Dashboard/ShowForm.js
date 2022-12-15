@@ -1,13 +1,19 @@
 import { useState } from "react";
-
-import Descripcion from "../CRUDshows/Descripcion";
-import Subtitulo from "../CRUDshows/Subtitulo";
+import "./Dashboard.css";
 import Titulo from "../CRUDshows/Titulo";
-
-import { addDoc, collection } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { showsCollectionRef } from "../../firebase";
+import Subtitulo from "../CRUDshows/Subtitulo";
+import Descripcion from "../CRUDshows/Descripcion";
 import Fecha from "../CRUDshows/Fecha";
+import Imagen from "../CRUDshows/Imagen";
+
+//firestore
+import { addDoc } from "firebase/firestore";
+import { showsCollectionRef } from "../../firebase";
+import { imagenesRef } from "../../firebase";
+
+//Storage
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../firebase";
 
 export default function ShowForm() {
   const [titulo, setTitulo] = useState("");
@@ -19,31 +25,58 @@ export default function ShowForm() {
   const [destacado, setDestacado] = useState(false);
   const [suspendido, setSuspendido] = useState(false);
 
+  const [file, setFile] = useState(null);
+
   const cambiaTitulo = (e) => setTitulo(e.target.value);
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
   const cambiaFechaYHora = (e) => setFechaYHora(e);
-  const [previewUrl, setPreviewUrl] = useState([]);
+  const cambiaFile = (file) => setFile(file);
 
-  const enviar = async () => {
-    console.log({ titulo, subtitulo, descripcion, fechaYHora });
-    addDoc(showsCollectionRef, {
-      titulo,
-      subtitulo,
-      descripcion,
-    })
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err.message);
-      });
+  const enviar = () => {
+    const storageRef = ref(storage, `imagenes-shows/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          addDoc(showsCollectionRef, {
+            titulo,
+            subtitulo,
+            descripcion,
+            imagenURL: downloadURL,
+          })
+            .then((res) => console.log(res))
+            .catch((err) => {
+              console.log(err.message);
+            });
+        });
+      }
+    );
   };
+
   return (
     <>
-      <Titulo cambiaTitulo={cambiaTitulo} />
-      <Subtitulo cambiaSubtitulo={cambiaSubtitulo} />
-      <Descripcion cambiaDescripcion={cambiaDescripcion} />
-      <Fecha cambiaFechaYHora={cambiaFechaYHora} />
-      <button onClick={enviar}>Enviar</button>
+      <div className="formShow-container">
+        <Titulo cambiaTitulo={cambiaTitulo} />
+        <Subtitulo cambiaSubtitulo={cambiaSubtitulo} />
+        <Descripcion cambiaDescripcion={cambiaDescripcion} />
+        <Fecha cambiaFechaYHora={cambiaFechaYHora} />
+        <Imagen cambiaFile={cambiaFile} />
+        <div className="formShow-button-container">
+          <button className="formShow-button" onClick={enviar}>
+            Enviar
+          </button>
+        </div>
+      </div>
     </>
   );
 }

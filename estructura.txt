@@ -22,3 +22,21 @@
     descripcion: String
     precios: String
     imagen: url
+
+
+    const initialShows = [
+    {
+      titulo: "Sil Wassington, entre dos guerras otro espectaculo",
+      subtitulo: "Jazz & Movies",
+      imagen: img1,
+      fechaYHora: "Jueves 15 - 20:30 hs.",
+      descripcion: "<p>lorem ipsum</p>",
+    },
+    {
+      titulo: "Entre dos guerras",
+      subtitulo: "otro espectaculo",
+      imagen: img2,
+      fechaYHora: "Mie 14 a las 21",
+      descripcion: "<p>lorem ipsum</p>",
+    },
+  ];

@@ -15,4 +15,6 @@ font-family: 'Archivo', sans-serif;
 }
 body {
     margin: 0;
+    height: auto;
+
 }
