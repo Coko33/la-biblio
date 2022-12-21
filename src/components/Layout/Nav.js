@@ -1,6 +1,14 @@
 import "./Nav.css";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "./../../assets/logo biblioteca café-11.svg";
+import { useState, useEffect } from "react";
 export default function Nav() {
+  const location = useLocation().pathname;
+  const [ruta, setRuta] = useState();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setRuta(location);
+  }, [location]);
   return (
     <>
       <div className="nav-container">
@@ -9,7 +17,10 @@ export default function Nav() {
         </div>
         <div className="navButtons-container">
           <div className="navButton showsButton">
-            <a href="_blank" className="nav-link active">
+            <a
+              onClick={() => navigate("")}
+              className={`nav-link ${ruta === "/" && "active"}`}
+            >
               <div className="nav-icon">
                 {/*                 <i class="material-icons">star</i>
                  */}{" "}
@@ -19,7 +30,10 @@ export default function Nav() {
             </a>
           </div>
           <div className="navButton cartaButton">
-            <a href="_blank" className="nav-link">
+            <a
+              onClick={() => navigate("carta")}
+              className={`nav-link ${ruta === "/carta" && "active"}`}
+            >
               <div className="nav-icon">
                 {/*                 <i class="material-icons">restaurant</i>
                  */}{" "}
@@ -28,8 +42,11 @@ export default function Nav() {
               <div className="nav-notch"></div>
             </a>
           </div>
-          <div className="navButton nosotrosButton">
-            <a href="_blank" className="nav-link">
+          <div className="navButton FAQsButton">
+            <a
+              onClick={() => navigate("FAQs")}
+              className={`nav-link ${ruta === "/FAQs" && "active"}`}
+            >
               <div className="nav-icon">
                 {/*                 <i class="material-icons">favorite</i>
                  */}{" "}

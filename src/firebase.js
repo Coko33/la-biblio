@@ -21,14 +21,13 @@ const firebaseConfig = {
   measurementId: "G-767BW1QGYK",
 };
 
-// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+// Initialize Firebase
 export const db = getFirestore(app);
+//Auth
 export const auth = getAuth(app);
-
 //referencia a la base de datos
 export const showsCollectionRef = collection(db, "shows");
-
 //Storage
 export const storage = getStorage();
 

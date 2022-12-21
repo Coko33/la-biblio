@@ -2,6 +2,7 @@
     position: relative;
     width: 100%;
     min-height: 281px;
+    padding-bottom: 1px;
 }
 .elShow-imagen-container {
     position: relative;

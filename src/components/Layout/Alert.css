@@ -1,0 +1,32 @@
+.alert-container {
+    position: absolute;
+    height: 200px;
+    top: calc(50vh - 100px);
+    width: calc(100% - 40px);
+    left: 20px;
+    background-color: var(--gris-nav);
+    border: solid 2px var(--marron-logo);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+.alert-span {
+    color: var(--marron-logo);
+    font-family: Archivo, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.alert-button { 
+    margin: 0;
+    height: 37px;
+    width: 100px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--icon-enabled);
+    color:#fff;
+    font-family: Archivo, sans-serif;
+    font-size: 16px;
+    margin-top: 10px;
+}

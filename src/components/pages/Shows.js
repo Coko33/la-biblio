@@ -8,10 +8,16 @@ import Show from "./Show";
 const Shows = () => {
   const [losShows, setLosShows] = useState([]);
   const [isOpenSingle, openSingle, closeSingle] = useModal(false);
+  const [elId, setElId] = useState(null);
 
   useEffect(() => {
     getShows();
   }, []);
+
+  function openUnShow(id) {
+    setElId(id);
+    openSingle();
+  }
 
   function getShows() {
     getDocs(showsCollectionRef)
@@ -29,7 +35,7 @@ const Shows = () => {
   }
   return (
     <>
-      {isOpenSingle && <Show closeSingle={closeSingle}></Show>}
+      {isOpenSingle && <Show closeSingle={closeSingle} elId={elId}></Show>}
       {!isOpenSingle && (
         <div className="shows-container">
           {losShows ? (
@@ -51,7 +57,10 @@ const Shows = () => {
                     <i className="material-icons">schedule</i>
                   </div>
                   <p className="fecha-texto">{show.fechaYHora}</p>
-                  <button onClick={openSingle} className="fecha-button">
+                  <button
+                    onClick={() => openUnShow(show.id)}
+                    className="fecha-button"
+                  >
                     Información
                   </button>
                 </div>

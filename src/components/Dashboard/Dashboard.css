@@ -9,3 +9,27 @@
     height: 100px;
     width: 100%;
 }
+.headerDashboard-container {
+    position: relative;
+    width: calc(100% - 30px);
+    padding: 25px 0;
+    left: 15px;
+}
+.titulo-dashboard {
+    font-family: Archivo, sans-serif;
+    display: inline;
+    font-weight: 700;
+    font-size: 26px;
+}
+.buttonLogout-dashboard {
+    display: inline;
+    height: 37px;
+    width: 120px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--icon-enabled);
+    color:#fff;
+    font-family: Archivo, sans-serif;
+    font-size: 16px;
+    float:right;
+}
