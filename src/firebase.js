@@ -28,6 +28,7 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 //referencia a la base de datos
 export const showsCollectionRef = collection(db, "shows");
+export const cartaCollectionRef = collection(db, "carta");
 //Storage
 export const storage = getStorage();
 

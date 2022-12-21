@@ -1,5 +1,6 @@
 import "./Dashboard.css";
 import ShowForm from "./ShowForm";
+import PlatosForm from "./PlatosForm";
 import { useAuth } from "../../context/authContext";
 
 export default function Dashboard() {
@@ -14,6 +15,7 @@ export default function Dashboard() {
         </button>
       </div>
       <ShowForm />
+      <PlatosForm />
     </>
   );
 }

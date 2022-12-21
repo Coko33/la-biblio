@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./CRUDshows.css";
+import "./../CRUDshows/CRUDshows.css";
 
-export default function Imagen({ cambiaFile }) {
+export default function ImagenPlato({ cambiaFile }) {
   const [preview, setPreview] = useState();
   const handlePreview = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));
@@ -11,13 +11,14 @@ export default function Imagen({ cambiaFile }) {
   return (
     <>
       <label className="input-labelDescripcion" htmlFor="descripcion">
-        Imagen
+        Imagen del plato o bebida
       </label>
       <div className="input-imagen">
         <form>
           <input type="file" onChange={handlePreview}></input>
-          {/* <button type="submit">subir</button> */}
+          {/*<button type="submit">subir</button>*/}
         </form>
+
         {<img className="imagenPreview" width="320" src={preview} alt=""></img>}
       </div>
     </>

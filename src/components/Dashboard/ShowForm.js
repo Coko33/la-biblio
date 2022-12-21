@@ -9,7 +9,6 @@ import Imagen from "../CRUDshows/Imagen";
 //firestore
 import { addDoc } from "firebase/firestore";
 import { showsCollectionRef } from "../../firebase";
-import { imagenesRef } from "../../firebase";
 
 //Storage
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
@@ -66,6 +65,7 @@ export default function ShowForm() {
   return (
     <>
       <div className="formShow-container">
+        <h2 className="titulo-form">Agregar un show</h2>
         <Titulo cambiaTitulo={cambiaTitulo} />
         <Subtitulo cambiaSubtitulo={cambiaSubtitulo} />
         <Descripcion cambiaDescripcion={cambiaDescripcion} />

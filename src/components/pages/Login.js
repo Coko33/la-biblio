@@ -24,7 +24,7 @@ export function Login() {
     setError("");
     try {
       await login(user.email, user.password);
-      navigate("/dashboard");
+      navigate("/admin");
     } catch (err) {
       if (err.code === "auth/user-not-found")
         setError("No se encuentra el usuario o mail");

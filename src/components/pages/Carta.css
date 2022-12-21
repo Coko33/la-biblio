@@ -1,0 +1,24 @@
+.carta-separadorHorizontal {
+    position: relative;
+    width: calc(100% - 30px);
+    height: 1px;
+    margin: 15px;
+    background-color: var(--icon-enabled);
+}
+.carta-salados-titulo {
+    margin-left: 15px;
+}
+.carta-salados-tabla {
+    background-color: deepskyblue;
+    position: relative;
+    width: calc(100% - 30px);
+    left: 15px;
+}
+.carta-itemNombre {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.carta-itemPrecio {
+    background-color: aquamarine;
+}

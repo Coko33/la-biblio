@@ -3,6 +3,8 @@
     width: auto;
     height: auto;
     margin: 15px;
+    padding: 10px;
+    border: solid 2px rgb(80, 80, 80);
 }
 .formShow-button-container {
     position: relative;
@@ -32,4 +34,9 @@
     font-family: Archivo, sans-serif;
     font-size: 16px;
     float:right;
+}
+.titulo-form {
+    font-family: Archivo, sans-serif;
+    font-weight: 700;
+    margin-top: 10px;
 }
