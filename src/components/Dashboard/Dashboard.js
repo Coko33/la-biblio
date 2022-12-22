@@ -2,6 +2,7 @@ import "./Dashboard.css";
 import ShowForm from "./ShowForm";
 import PlatosForm from "./PlatosForm";
 import { useAuth } from "../../context/authContext";
+import DownloadHTML from "./DownloadHTML";
 
 export default function Dashboard() {
   const { logout } = useAuth();
@@ -14,6 +15,7 @@ export default function Dashboard() {
           Cerrar sesion
         </button>
       </div>
+      <DownloadHTML />
       <ShowForm />
       <PlatosForm />
     </>

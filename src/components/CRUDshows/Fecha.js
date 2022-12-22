@@ -4,13 +4,13 @@ import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
 import "./CRUDshows.css";
 
-export default function Fecha({ cambiaFechaYHora, fechaYHora }) {
+export default function Fecha({ cambiaFechaYHora, fechaYHora, labelFecha }) {
   //const [fechaYHora, setFechaYHora] = useState();
 
   return (
     <>
       <label className="input-labelDescripcion" htmlFor="descripcion">
-        Fecha
+        {labelFecha || "Fecha"}
       </label>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
@@ -18,7 +18,7 @@ export default function Fecha({ cambiaFechaYHora, fechaYHora }) {
           value={fechaYHora}
           onChange={(newValue) => {
             cambiaFechaYHora(newValue);
-            console.log(fechaYHora);
+            //  console.log(new Date(newValue.$d).getTime() / 1000);
           }}
           renderInput={(params) => <TextField {...params} />}
         />

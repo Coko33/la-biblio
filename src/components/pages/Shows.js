@@ -21,7 +21,6 @@ const Shows = () => {
   }
 
   function getShows() {
-    //db.collection("citas_registradas").orderBy("fecha", "desc")
     getDocs(showsCollectionRef)
       .then((res) => {
         const showsData = res.docs.map((show) => ({
