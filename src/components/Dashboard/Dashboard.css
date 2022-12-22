@@ -1,45 +1,83 @@
 .formShow-container {
-    position: relative;
-    width: auto;
-    height: auto;
-    margin: 15px;
-    padding: 10px;
-    border: solid 2px rgb(80, 80, 80);
+  position: relative;
+  width: auto;
+  height: auto;
+  margin: 15px;
+  padding: 10px;
+  border: solid 2px rgb(80, 80, 80);
 }
 .formShow-button-container {
-    position: relative;
-    height: 100px;
-    width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
 }
 .headerDashboard-container {
-    position: relative;
-    width: calc(100% - 30px);
-    padding: 25px 0;
-    left: 15px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 30px);
+  left: 15px;
+  margin: 20px 0;
 }
-.titulo-dashboard {
-    font-family: Archivo, sans-serif;
-    display: inline;
-    font-weight: 700;
-    font-size: 26px;
+.titulo-dashboard,
+.dwHTML-titulo {
+  font-family: Archivo, sans-serif;
+  display: inline;
+  font-weight: 700;
+  font-size: 22px;
 }
-.buttonLogout-dashboard {
-    display: inline;
-    height: 37px;
-    width: 120px;
-    border: none;
-    border-radius: 6px;
-    background-color: var(--icon-enabled);
-    color:#fff;
-    font-family: Archivo, sans-serif;
-    font-size: 16px;
-    float:right;
+.buttonsLogoutEdit-Container {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: space-around;
+}
+.buttonLogout-dashboard,
+.formShow-button,
+.buttonEdit-dashboard {
+  display: inline;
+  height: 37px;
+  width: 120px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--icon-enabled);
+  color: #fff;
+  font-family: Archivo, sans-serif;
+  font-size: 16px;
+  float: right;
+}
+.buttonEdit-dashboard {
+  background-color: dodgerblue;
 }
 .titulo-form {
-    font-family: Archivo, sans-serif;
-    font-weight: 700;
-    margin-top: 10px;
+  font-family: Archivo, sans-serif;
+  font-weight: 700;
+  margin-top: 10px;
 }
-.buttonDownload {
-    background-color: dodgerblue;
+.dwHTMLtable {
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+.dwHTMLrow-show {
+  font-family: Archivo, sans-serif;
+  border-bottom: 1px solid black;
+  line-height: 30px;
+}
+.dwHTMLbutton-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.buttonDownload,
+.buttonMostrarShows,
+.formShow-button {
+  position: relative;
+  display: inline;
+  background-color: dodgerblue;
+  margin: 0;
+  font-size: 14px;
 }

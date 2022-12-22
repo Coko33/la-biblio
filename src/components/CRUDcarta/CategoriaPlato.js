@@ -8,7 +8,8 @@ export default function CategoriaPlato({ cambiaCategoria }) {
         Elegir una Categoria
       </label>
       <select
-        name="input-selectCategoria"
+        name=""
+        className="input-selectCategoria"
         id="categoria"
         onChange={cambiaCategoria}
       >

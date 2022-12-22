@@ -14,11 +14,13 @@ export default function Imagen({ cambiaFile }) {
         Imagen
       </label>
       <div className="input-imagen">
-        <form>
-          <input type="file" onChange={handlePreview}></input>
-          {/* <button type="submit">subir</button> */}
-        </form>
+        <form>{/* <button type="submit">subir</button> */}</form>
         {<img className="imagenPreview" width="320" src={preview} alt=""></img>}
+        <input
+          className="input-imagen-input"
+          type="file"
+          onChange={handlePreview}
+        ></input>
       </div>
     </>
   );

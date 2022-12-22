@@ -4,7 +4,6 @@ import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
 import "./Shows.css";
 import Show from "./Show";
-import { useFecha } from "../../Hooks/useFecha";
 
 const Shows = () => {
   const [losShows, setLosShows] = useState([]);

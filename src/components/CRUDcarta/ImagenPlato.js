@@ -14,12 +14,15 @@ export default function ImagenPlato({ cambiaFile }) {
         Imagen del plato o bebida
       </label>
       <div className="input-imagen">
+        {<img className="imagenPreview" width="320" src={preview} alt=""></img>}
         <form>
-          <input type="file" onChange={handlePreview}></input>
+          <input
+            className="input-imagen-input"
+            type="file"
+            onChange={handlePreview}
+          ></input>
           {/*<button type="submit">subir</button>*/}
         </form>
-
-        {<img className="imagenPreview" width="320" src={preview} alt=""></img>}
       </div>
     </>
   );

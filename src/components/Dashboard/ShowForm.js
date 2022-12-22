@@ -5,6 +5,7 @@ import Subtitulo from "../CRUDshows/Subtitulo";
 import Descripcion from "../CRUDshows/Descripcion";
 import Fecha from "../CRUDshows/Fecha";
 import Imagen from "../CRUDshows/Imagen";
+import { Alert } from "../Layout/Alert";
 
 //firestore
 import { addDoc } from "firebase/firestore";
@@ -26,6 +27,11 @@ export default function ShowForm() {
 
   const [file, setFile] = useState(null);
 
+  const [error, setError] = useState(null);
+  const resetError = () => setError(null);
+  const [ok, setOk] = useState(null);
+  const resetOk = () => setOk(null);
+
   const cambiaTitulo = (e) => setTitulo(e.target.value);
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
@@ -33,6 +39,7 @@ export default function ShowForm() {
   const cambiaFile = (file) => setFile(file);
 
   const enviar = () => {
+    !file && setError("No se puede subir un show sin una imagen");
     const storageRef = ref(storage, `imagenes-shows/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
@@ -54,9 +61,13 @@ export default function ShowForm() {
             fechaYHora: fechaYHora.$d,
             imagenURL: downloadURL,
           })
-            .then((res) => console.log(res))
+            .then((res) => {
+              console.log(res);
+              setOk(`Se subio correctamente el show \n"${titulo}"`);
+              setTitulo("");
+            })
             .catch((err) => {
-              console.log(err.message);
+              setError(err.message);
             });
         });
       }
@@ -65,6 +76,8 @@ export default function ShowForm() {
 
   return (
     <>
+      {error && <Alert message={error} resetError={resetError} />}
+      {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
         <h2 className="titulo-form">Agregar un show</h2>
         <Titulo cambiaTitulo={cambiaTitulo} />

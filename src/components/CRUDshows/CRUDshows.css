@@ -3,7 +3,8 @@
   max-width: 100%;
 }
 
-.input-titulo {
+.input-titulo,
+.input-selectCategoria {
   border: 1px solid #ccc;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -21,22 +22,44 @@
   word-wrap: break-word;
   min-width: 50%;
   max-width: 100%;
+  font-style: italic;
 }
 .input-titulo::placeholder {
   font-style: italic;
 }
 .input-labelTitulo,
-.input-labelDescripcion, .input-labelPrecio, .input-labelCategoria {
+.input-labelDescripcion,
+.input-labelPrecio,
+.input-labelCategoria {
   display: block;
   font-size: 20px;
   margin-bottom: 4px;
   margin-top: 15px;
   font-family: Archivo, sans-serif;
 }
-.input-imagen{
+.input-imagen {
   position: relative;
   height: auto;
 }
-.imagenPreview{
+.input-imagen-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.input-imagen-input::before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-imagen-input::after {
+  content: "";
+}
+.input-imagen-input::before {
+  content: "";
+}
+.imagenPreview {
+  max-width: 100%;
   position: relative;
 }

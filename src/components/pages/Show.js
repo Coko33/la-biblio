@@ -3,7 +3,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { showsCollectionRef } from "../../firebase";
 import "./Show.css";
 import Reservas from "./../Layout/Reservas";
-import img1 from "./../../assets/show1.jpg";
 
 const Show = ({ closeSingle, elId }) => {
   const [elShow, setElShow] = useState();
