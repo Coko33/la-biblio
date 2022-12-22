@@ -3,11 +3,11 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./Helpers/ProtectedRoute";
 import Nav from "./components/Layout/Nav";
-import { Login } from "./components/Pages/Login";
+import { Login } from "./components/pages/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Shows from "./components/Pages/Shows";
-import Carta from "./components/Pages/Carta";
-import FAQs from "./components/Pages/FAQs";
+import Shows from "./components/pages/Shows";
+import Carta from "./components/pages/Carta";
+import FAQs from "./components/pages/FAQs";
 
 function App() {
   return (

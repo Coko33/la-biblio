@@ -1,24 +1,23 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=DM+Serif+Display&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=DM+Serif+Display&display=swap");
 /*
 font-family: 'DM Serif Display', serif;
 font-family: 'Archivo', sans-serif;
 */
 :root {
- --gris-nav: #d8d3d2;
- --marron-logo: #201916;
- --icon-enabled: #7d4336;
- --icon-disabled: #b6b6b6;
- --background: #e7e1df;
- --blanco: #fff;
- font-family: 'DM Serif Display', serif;
- min-height: 100vh;
- position: relative;
- margin-bottom: 20px;
+  --gris-nav: #d8d5d4;
+  --marron-logo: #231b18;
+  --icon-enabled: #7f4437;
+  --icon-disabled: #b7b7b7;
+  --background: #e8e3df;
+  --blanco: #fff;
+  font-family: "DM Serif Display", serif;
+  min-height: 100vh;
+  position: relative;
+  margin-bottom: 20px;
 }
 
-  body {
-    margin: 0;
-    min-height: 100%;
-    margin-bottom: 80px;
-  }
+body {
+  margin: 0;
+  min-height: 100%;
+  margin-bottom: 80px;
+}

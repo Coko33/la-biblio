@@ -1,24 +1,36 @@
+.carta-salados-container {
+  position: relative;
+  padding: 15px 0;
+  background-color: var(--background);
+}
 .carta-separadorHorizontal {
-    position: relative;
-    width: calc(100% - 30px);
-    height: 1px;
-    margin: 15px;
-    background-color: var(--icon-enabled);
+  position: relative;
+  width: calc(100% - 30px);
+  height: 1px;
+  margin: 0 15px;
+  background-color: var(--icon-enabled);
 }
 .carta-salados-titulo {
-    margin-left: 15px;
+  margin-left: 15px;
+  font-weight: 400 !important;
 }
 .carta-salados-tabla {
-    background-color: deepskyblue;
-    position: relative;
-    width: calc(100% - 30px);
-    left: 15px;
+  position: relative;
+  width: calc(100% - 30px);
+  left: 15px;
+  table-layout: fixed;
 }
 .carta-itemNombre {
-    max-width: 300px;
-    overflow: hidden;
-    white-space: nowrap;
+  font-size: 14px;
+  font-family: Archivo, sans-serif;
+  font-weight: 500;
+  width: 84%;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .carta-itemPrecio {
-    background-color: aquamarine;
+  font-family: Archivo, sans-serif;
+  font-weight: 500;
+  text-align: end;
+  color: var(--icon-enabled);
 }

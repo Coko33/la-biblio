@@ -10,6 +10,10 @@ export default function Carta() {
     getItems();
   }, []);
 
+  function ordenarPorPrecio(cartaData) {
+    console.log(cartaData);
+  }
+
   function getItems() {
     getDocs(cartaCollectionRef)
       .then((res) => {
@@ -20,7 +24,9 @@ export default function Carta() {
           imagenURL: item.data().imagenURL,
           precio: item.data().precio,
         }));
-        setLaCarta(cartaData);
+        const cartaOrdenada = ordenarPorPrecio(cartaData);
+        console.log(cartaOrdenada);
+        setLaCarta(cartaOrdenada);
       })
       .catch((err) => console.log(err.message));
   }
@@ -32,24 +38,28 @@ export default function Carta() {
   }
 
   const separador =
-    " ..............................................................................................";
+    " ...........................................................";
 
   return (
     <>
-      <div className="carta-separadorHorizontal"></div>
       <div className="carta-salados-container">
+        <div className="carta-separadorHorizontal"></div>
         <h2 className="carta-salados-titulo">Salados</h2>
         <table className="carta-salados-tabla">
-          {laCarta ? (
-            laCarta.map((item, i) => (
-              <tr key={i}>
-                <td className="carta-itemNombre">{item.titulo + separador}</td>
-                <td className="carta-itemPrecio">${item.precio}</td>
-              </tr>
-            ))
-          ) : (
-            <h3>Sin Shows</h3>
-          )}
+          <tbody>
+            {laCarta ? (
+              laCarta.map((item, i) => (
+                <tr key={i}>
+                  <td className="carta-itemNombre">
+                    {item.titulo + separador}
+                  </td>
+                  <td className="carta-itemPrecio">${item.precio}</td>
+                </tr>
+              ))
+            ) : (
+              <h3>Sin Shows</h3>
+            )}
+          </tbody>
         </table>
       </div>
       <div className="laCarta-container">
