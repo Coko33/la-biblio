@@ -10,10 +10,6 @@ export default function Carta() {
     getItems();
   }, []);
 
-  function ordenarPorPrecio(cartaData) {
-    console.log(cartaData);
-  }
-
   function getItems() {
     getDocs(cartaCollectionRef)
       .then((res) => {
@@ -24,9 +20,24 @@ export default function Carta() {
           imagenURL: item.data().imagenURL,
           precio: item.data().precio,
         }));
-        const cartaOrdenada = ordenarPorPrecio(cartaData);
-        console.log(cartaOrdenada);
-        setLaCarta(cartaOrdenada);
+        //ordenar por precio
+        setLaCarta(cartaData.sort((a, b) => a.precio - b.precio));
+        //ordenar alfabeticamente
+        /* 
+        setLaCarta(
+          cartaData.sort((a, b) => {
+            if (a.titulo > b.titulo) {
+              return 1;
+            }
+            if (a.titulo < b.titulo) {
+              return -1;
+            }
+            return 0;
+          })
+        ); */
+        //ordenar personalizado
+        /* ordenamiento = {azul: 1, verde: 2, gris: 3, amarillo: 4, rojo: 5};
+        cartaData.sort((a, b) => this.ordenamiento[a.color] - this.ordenamiento[b.color]) */
       })
       .catch((err) => console.log(err.message));
   }

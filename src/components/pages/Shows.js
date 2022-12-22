@@ -4,6 +4,7 @@ import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
 import "./Shows.css";
 import Show from "./Show";
+import { useFecha } from "../../Hooks/useFecha";
 
 const Shows = () => {
   const [losShows, setLosShows] = useState([]);
@@ -20,6 +21,7 @@ const Shows = () => {
   }
 
   function getShows() {
+    //db.collection("citas_registradas").orderBy("fecha", "desc")
     getDocs(showsCollectionRef)
       .then((res) => {
         const showsData = res.docs.map((show) => ({
@@ -27,9 +29,21 @@ const Shows = () => {
           titulo: show.data().titulo,
           subtitulo: show.data().subtitulo,
           descripcion: show.data().descripcion,
+          fecha: new Date(
+            show.data().fechaYHora.seconds * 1000
+          ).toLocaleDateString("es-ES", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+          hora: new Date(show.data().fechaYHora.seconds * 1000)
+            .toLocaleTimeString()
+            .slice(0, -3),
           imagenURL: show.data().imagenURL,
+          fechaYHora: show.data().fechaYHora.seconds,
         }));
-        setLosShows(showsData);
+        setLosShows(showsData.sort((a, b) => a.fechaYHora - b.fechaYHora));
       })
       .catch((err) => console.log(err.message));
   }
@@ -56,7 +70,9 @@ const Shows = () => {
                   <div className="fecha-iconoSchedule">
                     <i className="material-icons">schedule</i>
                   </div>
-                  <p className="fecha-texto">{show.fechaYHora}</p>
+                  <p className="fecha-texto">
+                    {show.hora + " hs. - " + show.fecha}
+                  </p>
                   <button
                     onClick={() => openUnShow(show.id)}
                     className="fecha-button"

@@ -51,6 +51,7 @@ export default function ShowForm() {
             titulo,
             subtitulo,
             descripcion,
+            fechaYHora: fechaYHora.$d,
             imagenURL: downloadURL,
           })
             .then((res) => console.log(res))
@@ -69,7 +70,7 @@ export default function ShowForm() {
         <Titulo cambiaTitulo={cambiaTitulo} />
         <Subtitulo cambiaSubtitulo={cambiaSubtitulo} />
         <Descripcion cambiaDescripcion={cambiaDescripcion} />
-        <Fecha cambiaFechaYHora={cambiaFechaYHora} />
+        <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
         <Imagen cambiaFile={cambiaFile} />
         <div className="formShow-button-container">
           <button className="formShow-button" onClick={enviar}>

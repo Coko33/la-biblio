@@ -1,10 +1,10 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
 import "./CRUDshows.css";
 
-export default function Fecha({ cambiaFechaYHora }) {
+export default function Fecha({ cambiaFechaYHora, fechaYHora }) {
   //const [fechaYHora, setFechaYHora] = useState();
 
   return (
@@ -15,9 +15,10 @@ export default function Fecha({ cambiaFechaYHora }) {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
           //label="Basic example"
-          //value={fechaYHora}
+          value={fechaYHora}
           onChange={(newValue) => {
             cambiaFechaYHora(newValue);
+            console.log(fechaYHora);
           }}
           renderInput={(params) => <TextField {...params} />}
         />
