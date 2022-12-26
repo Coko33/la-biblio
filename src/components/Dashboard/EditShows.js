@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore";
 import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
+import ShowFormEdit from "./ShowFormEdit";
 
 export default function EditShows() {
   const [losShows, setLosShows] = useState([]);
@@ -36,8 +37,16 @@ export default function EditShows() {
       .catch((err) => console.log(err.message));
   }
 
+  function editarUnShow(id) {
+    openSingle();
+    setElId(id);
+  }
+
   return (
     <>
+      {isOpenSingle && (
+        <ShowFormEdit elId={elId} closeSingle={closeSingle}></ShowFormEdit>
+      )}
       <table className="dwHTMLtable">
         <tbody>
           {losShows ? (
@@ -45,6 +54,9 @@ export default function EditShows() {
               <tr className="dwHTMLrow-show" key={i}>
                 <td className="dwHTMLcell-showFecha">{show.fecha + " - "}</td>
                 <td className="dwHTMLcell-showTitulo">{show.titulo}</td>
+                <td>
+                  <button onClick={() => editarUnShow(show.id)}>editar</button>
+                </td>
               </tr>
             ))
           ) : (

@@ -1,5 +1,6 @@
 import "./Dashboard.css";
 import { useState } from "react";
+import fileDownload from "js-file-download";
 import Fecha from "../CRUDshows/Fecha";
 import { showsCollectionRef } from "../../firebase";
 import { getDocs, query, where, orderBy, limit } from "firebase/firestore";
@@ -13,6 +14,42 @@ export default function DownloadHTML() {
   const cambiaFechaInicio = (e) => setFechaInicio(e);
   const cambiaFechaFin = (e) => setFechaFin(e);
 
+  const encabezadoNews = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>`;
+
+  const cuerpoNews = newsletterData.map(
+    (show) => `<div style="position: relative; width: 100%">
+  <div style="position: relative; width: 100%; max-height: 281px;">
+    <img style="width: 100%" alt="" src=${show.imagenURL}></img>
+    <div style="position: absolute; background-color: rgba(0, 0, 0, 0.412); width: 100%; height: 100px; bottom: 0; margin: auto;">
+      <h2 style="font-size: 32px; font-weight: 200; margin: 20px 0 0 25px; color: var(--blanco); line-height: 36px;">${show.titulo}</h2>
+      <h3 style="font-family: 'Archivo', sans-serif; margin: 5px 0 30px 29px; font-size: 14px; color: var(--blanco)">${show.subtitulo}</h3>
+    </div>
+  </div>
+  <div style="position: relative; top:0; background-color: var(--gris-nav); width: 100%; height: 60px; display: flex; align-items: center; box-sizing: border-box;">
+    <p style="font-family: 'Archivo', sans-serif; color: var(--icon-enabled); font-size: 14px; font-weight: bold; position: relative; display: inline; margin-left: 8px;">
+      ${show.fecha} - ${show.hora}
+    </p>
+  </div>
+  <div style="margin:20px;">
+    <p style="margin:0; font-family: 'Archivo', sans-serif; color: var(--marron-logo); font-size: 14px;">${show.fechaYHora}</p>
+  </div>
+  <div style="margin:20px;">
+      <p style="margin:0; font-family: 'Archivo', sans-serif; color: var(--marron-logo); font-size: 14px;">${show.fechaYHora}</p>
+  </div>
+</div>`
+  );
+
+  const footerNews = `</body></html>`;
+  const elNewsletter = encabezadoNews + cuerpoNews + footerNews;
+  let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
   function mostrarShows() {
     const q = query(
       showsCollectionRef,
@@ -52,6 +89,15 @@ export default function DownloadHTML() {
   fechaFin != null &&
     console.log("Fecha de Fin: " + new Date(fechaFin.$d).getTime() / 1000); */
 
+  const descargarNews = () => {
+    let nombre = "archivo.html";
+    /*     if (window.webkitURL != null) {
+      elLink = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+      elLink = window.URL.createObjectURL(textFileAsBlob);
+    } */
+    fileDownload(textFileAsBlob, nombre);
+  };
   return (
     <>
       <div className="formShow-container">
@@ -90,7 +136,11 @@ export default function DownloadHTML() {
           >
             mostrar shows
           </button>
-          <button className="buttonLogout-dashboard buttonDownload">
+
+          <button
+            onClick={() => descargarNews()}
+            className="buttonLogout-dashboard buttonDownload"
+          >
             descargar newsletter
           </button>
         </div>

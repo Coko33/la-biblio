@@ -1,0 +1,114 @@
+import { useEffect, useState } from "react";
+import "./Dashboard.css";
+import Titulo from "../CRUDshows/Titulo";
+import Subtitulo from "../CRUDshows/Subtitulo";
+import Descripcion from "../CRUDshows/Descripcion";
+import Fecha from "../CRUDshows/Fecha";
+import Imagen from "../CRUDshows/Imagen";
+import { Alert } from "../Layout/Alert";
+
+//firestore
+import { addDoc, query, where, getDocs } from "firebase/firestore";
+import { showsCollectionRef } from "../../firebase";
+
+//Storage
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../firebase";
+
+export default function ShowFormEdit({ elId, closeSingle }) {
+  const [titulo, setTitulo] = useState("");
+  const [subtitulo, setSubtitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [fechaYHora, setFechaYHora] = useState("");
+  const [habilitado, setHabilitado] = useState(true);
+  const [eliminado, setEliminado] = useState(false);
+  const [destacado, setDestacado] = useState(false);
+  const [suspendido, setSuspendido] = useState(false);
+
+  useEffect(() => {
+    getSingle(elId);
+  }, []);
+
+  function getSingle(id) {
+    const q = query(showsCollectionRef, where("id", "===", id));
+    getDocs(q)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  const [file, setFile] = useState(null);
+
+  const [error, setError] = useState(null);
+  const resetError = () => setError(null);
+  const [ok, setOk] = useState(null);
+  const resetOk = () => setOk(null);
+
+  const cambiaTitulo = (e) => setTitulo(e.target.value);
+  const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
+  const cambiaDescripcion = (e) => setDescripcion(e);
+  const cambiaFechaYHora = (e) => setFechaYHora(e);
+  const cambiaFile = (file) => setFile(file);
+
+  const enviar = () => {
+    !file && setError("No se puede subir un show sin una imagen");
+    const storageRef = ref(storage, `imagenes-shows/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(progress);
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          addDoc(showsCollectionRef, {
+            titulo,
+            subtitulo,
+            descripcion,
+            fechaYHora: fechaYHora.$d,
+            imagenURL: downloadURL,
+          })
+            .then((res) => {
+              console.log(res);
+              setOk(`Se subio correctamente el show \n"${titulo}"`);
+              setTitulo("");
+            })
+            .catch((err) => {
+              setError(err.message);
+            });
+        });
+      }
+    );
+  };
+
+  return (
+    <>
+      {error && <Alert message={error} resetError={resetError} />}
+      {ok && <Alert message={ok} resetError={resetOk} />}
+      <div className="formShow-container">
+        <h2 className="titulo-form">Agregar un show</h2>
+        <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
+        <Subtitulo cambiaSubtitulo={cambiaSubtitulo} subtitulo={subtitulo} />
+        <Descripcion
+          cambiaDescripcion={cambiaDescripcion}
+          descripcion={descripcion}
+        />
+        <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
+        <Imagen cambiaFile={cambiaFile} />
+        <div className="formShow-button-container">
+          <button className="formShow-button" onClick={enviar}>
+            Enviar
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// 31:41 https://www.youtube.com/watch?v=Y9-UkL6ent4&t=1593s
