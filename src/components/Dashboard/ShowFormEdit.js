@@ -22,6 +22,7 @@ import { showsCollectionRef } from "../../firebase";
 //Storage
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
+import Precios from "../CRUDshows/Precios";
 
 export default function ShowFormEdit({ elId, closeSingle }) {
   const [titulo, setTitulo] = useState("");
@@ -29,6 +30,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   const [descripcion, setDescripcion] = useState("");
   const [fechaYHora, setFechaYHora] = useState("");
   const [imagenURL, setImagenURL] = useState("");
+  const [precios, setPrecios] = useState("");
   const [habilitado, setHabilitado] = useState(true);
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
@@ -45,6 +47,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
       setTitulo(elDoc.data().titulo);
       setSubtitulo(elDoc.data().subtitulo);
       setDescripcion(elDoc.data().descripcion);
+      setPrecios(elDoc.data().precios);
       setFechaYHora(new Date(elDoc.data().fechaYHora.seconds * 1000));
       setImagenURL(elDoc.data().imagenURL);
     } else {
@@ -63,6 +66,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   const cambiaTitulo = (e) => setTitulo(e.target.value);
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
+  const cambiaPrecios = (e) => setPrecios(e);
   const cambiaFechaYHora = (e) => {
     setFechaYHora(e.$d);
   };
@@ -91,6 +95,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
               titulo,
               subtitulo,
               descripcion,
+              precios,
               fechaYHora: fechaYHora,
               imagenURL: downloadURL,
             })
@@ -110,6 +115,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
         titulo,
         subtitulo,
         descripcion,
+        precios,
         fechaYHora: fechaYHora,
         imagenURL: imagenURL,
       })
@@ -136,6 +142,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
           cambiaDescripcion={cambiaDescripcion}
           descripcion={descripcion}
         />
+        <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
         <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
         <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
         <div className="formShow-button-container">

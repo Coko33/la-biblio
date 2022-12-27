@@ -58,25 +58,29 @@ const Shows = () => {
                   alt="imagen show"
                   src={show.imagenURL}
                 ></img>
-                <h2 className="show-titulo">{show.titulo}</h2>
-                <h3 className="show-subtitulo">{show.subtitulo}</h3>
-                <div
-                  className="descripcion-container"
-                  dangerouslySetInnerHTML={{ __html: show.descripcion }}
-                ></div>
-                <div className="fecha-container">
-                  <div className="fecha-iconoSchedule">
-                    <i className="material-icons">schedule</i>
+                <div className="show-dataContainer">
+                  <div className="show-descripcionContainer">
+                    <h2 className="show-titulo">{show.titulo}</h2>
+                    <h3 className="show-subtitulo">{show.subtitulo}</h3>
+                    <div
+                      className="descripcion-container"
+                      dangerouslySetInnerHTML={{ __html: show.descripcion }}
+                    ></div>
                   </div>
-                  <p className="fecha-texto">
-                    {show.fecha} {<br></br>} {show.hora + "hs."}
-                  </p>
-                  <button
-                    onClick={() => openUnShow(show.id)}
-                    className="fecha-button"
-                  >
-                    Información
-                  </button>
+                  <div className="fecha-container">
+                    <div className="fecha-iconoSchedule">
+                      <i className="material-icons">schedule</i>
+                    </div>
+                    <p className="fecha-texto">
+                      {show.fecha} {<br></br>} {show.hora + "hs."}
+                    </p>
+                    <button
+                      onClick={() => openUnShow(show.id)}
+                      className="fecha-button"
+                    >
+                      Información
+                    </button>
+                  </div>
                 </div>
               </div>
             ))

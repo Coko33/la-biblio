@@ -21,14 +21,6 @@
               font-display: swap;
               src: url(https://fonts.gstatic.com/s/archivo/v18/k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTNDNp8w.woff) format('woff');
             }
-            @media only screen and (max-device-width: 480px) {
-                body[yahoo] #smallScreen {display:block !important}
-                body[yahoo] #desktop {display:none !important}
-            }	
-            @media only screen and (min-device-width: 768px) and (max-device-width: 1024px)  {
-                body[yahoo] #largeScreen {display:block !important}
-                body[yahoo] #desktop {display:none !important}
-            }	
             h1 {font-family:"DM Serif Display" !important;}
             p {font-family:'Archivo' !important;} 
           </style>
@@ -38,12 +30,12 @@
       <body style="margin: 0px; width: 100%; background-color: #e8e3df;">
         <table style="width: 100%; height: 200px; margin-left: 0px; border-collapse:collapse;border-spacing: 0px;" id="banner">
           <tr style="background-size: cover;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Fbiblioteca-baner1.jpg?alt=media&token=77e64746-f70d-4a2e-8bb3-36b0f37cce60">
-            <td>
-              <img style="display: inline; width: 100px; margin-left: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Flogo-blanco.png?alt=media&token=5a4139a7-9623-4a26-bf4a-f10bf7d8066b" alt="">
+            <td style="width: 140px;">
+              <img style="display: inline; width: 80px; margin-left: 30px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Flogo-blanco.png?alt=media&token=5a4139a7-9623-4a26-bf4a-f10bf7d8066b" alt="">
             </td>
-            <td>
-              <h1 style="font-family: 'DM Serif Display', Helvetica; font-weight: 400; font-size: 36px; color: #ffffff; margin: 0px; margin-left: 20px;">La Biblioteca Café</h1>
-              <p style="font-family: 'Archivo', Helvetica; font-size: 18px; color: #ffffff; margin: 0px; margin-left: 20px;">Un espacio para la música en vivo</p>
+            <td >
+              <h1 style="font-family: 'DM Serif Display', Helvetica; font-weight: 400; font-size: 36px; color: #ffffff; margin: 0px; line-height: 36px;">La Biblioteca Café</h1>
+              <p style="font-family: 'Archivo', Helvetica; font-size: 18px; color: #ffffff; margin: 0px; margin: 0px;">Un espacio para la música en vivo</p>
             </td>
           </tr>
         </table>
@@ -53,10 +45,10 @@
                 <td align="center">
                   <table style="width:80%;border-collapse:collapse;border-bottom: 3px solid #7f4437;border-spacing: 0px;">
                     <tr >
-                      <td style="width: 10%;"><img style="width: 200px;margin-top: 50px; margin-bottom: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-shows%2Fshow1.jpg?alt=media&token=e4f8ce6a-82c9-404f-8e6a-42f13e0cab62"></td>
+                      <td style="width: 10%;"><img class="imagen-show" style="width: 200px;margin-top: 50px; margin-bottom: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-shows%2Fshow1.jpg?alt=media&token=e4f8ce6a-82c9-404f-8e6a-42f13e0cab62"></td>
                       <td style="width: 90%;">
                         <div style="padding: 20px;">
-                          <h2 style="font-family: 'DM Serif Display', Helvetica;font-size: 28px;margin:0;">Sil Wassington</h2>
+                          <h2 style="font-family: 'DM Serif Display', Helvetica;font-size: 28px;margin:0;line-height: 28px;">Sil Wassington</h2>
                           <h6 style="font-family: 'Archivo', Helvetica; font-size: 16px;margin:0;">Jazz & Movies</h6>
                           <p style="font-family: 'Archivo', Helvetica;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
                             sed diam nonummy nibh euismod tincidunt ut laoreet
@@ -122,14 +114,23 @@
                   
                 </td>
               </tr>
+
+              <tr>
+                <td class="footer" align="center">
+                  <table style="width: 80%;border-collapse:collapse;border-spacing: 0px;">
+                    <tr >
+                      <td ><p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 30px;margin-bottom:20px;line-height: 16px; font-size:14px;">La Biblioteca Café  esta abierta desde las 12 horas y de lunes a viernes para almorzar (plato, bebida y postre o cafe x  $1900) y también para  tomar algo, leer un libro de sus estantes, o simplemente sentarse a descansar del ruido de Buenos Aires!</p></td>
+                    </tr>
+                    <tr>
+                      <td style="background-size: cover; width:80%; height: 100px;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ffooter-news.png?alt=media&token=0ad8f609-eb9c-4ec3-807f-d9de3dce5082">
+                        
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
           </table>
-          <table style="border-collapse:collapse;border-spacing: 0px;width:100%; height: 100px;">
-            <tr>
-              <td style="background-size: cover; width:100%; height: 100px;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ffooter-news.png?alt=media&token=0ad8f609-eb9c-4ec3-807f-d9de3dce5082">
-                
-              </td>
-            </tr>
-          </table>
+
         </table>
       </body>
     </html>

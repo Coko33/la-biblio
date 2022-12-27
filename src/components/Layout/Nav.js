@@ -12,8 +12,11 @@ export default function Nav() {
   return (
     <>
       <div className="nav-container">
-        <div className="logo-container">
-          <img src={logo}></img>
+        <div className="titulo-container">
+          <div className="logo-container">
+            <img src={logo} alt=""></img>
+          </div>
+          <h1 className="navTitulo">La Biblioteca Café</h1>
         </div>
         <div className="navButtons-container">
           <div className="navButton showsButton">

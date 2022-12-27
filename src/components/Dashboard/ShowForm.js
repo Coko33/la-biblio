@@ -14,12 +14,14 @@ import { showsCollectionRef } from "../../firebase";
 //Storage
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
+import Precios from "../CRUDshows/Precios";
 
 export default function ShowForm() {
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaYHora, setFechaYHora] = useState(Date.now);
+  const [precios, setPrecios] = useState("");
   const [habilitado, setHabilitado] = useState(true);
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
@@ -36,6 +38,7 @@ export default function ShowForm() {
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
   const cambiaFechaYHora = (e) => setFechaYHora(e);
+  const cambiaPrecios = (e) => setPrecios(e);
   const cambiaFile = (file) => setFile(file);
 
   const enviar = () => {
@@ -60,6 +63,7 @@ export default function ShowForm() {
             descripcion,
             fechaYHora: fechaYHora.$d,
             imagenURL: downloadURL,
+            precios: precios,
           })
             .then((res) => {
               console.log(res);
@@ -86,6 +90,7 @@ export default function ShowForm() {
           cambiaDescripcion={cambiaDescripcion}
           descripcion={descripcion}
         />
+        <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
         <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
         <Imagen cambiaFile={cambiaFile} />
         <div className="formShow-button-container">

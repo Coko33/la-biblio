@@ -8,12 +8,14 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Shows from "./components/pages/Shows";
 import Carta from "./components/pages/Carta";
 import FAQs from "./components/pages/FAQs";
+import WinSize from "./Helpers/WinSize";
 
 function App() {
   return (
     <>
       <AuthProvider>
         <BrowserRouter>
+          <WinSize></WinSize>
           <Nav />
           <Routes>
             <Route path="/login" element={<Login />} />
