@@ -2,7 +2,7 @@ import ReactQuill from "react-quill";
 import "../../../node_modules/react-quill/dist/quill.snow.css";
 import "./CRUDshows.css";
 
-export default function Descripcion({ cambiaDescripcion }) {
+export default function Descripcion({ cambiaDescripcion, descripcion }) {
   const modules = {
     toolbar: [
       [{ header: [false, 3, 2, 1] }],
@@ -44,7 +44,7 @@ export default function Descripcion({ cambiaDescripcion }) {
         placeholder="Escribir la descripcion del show"
         modules={modules}
         formats={formats}
-        //value={descripcion}
+        value={descripcion}
         onChange={cambiaDescripcion}
       />
     </>

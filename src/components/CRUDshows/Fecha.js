@@ -15,6 +15,7 @@ export default function Fecha({ cambiaFechaYHora, fechaYHora, labelFecha }) {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
           //label="Basic example"
+          inputFormat="DD/MM/YYYY hh:mm"
           value={fechaYHora}
           onChange={(newValue) => {
             cambiaFechaYHora(newValue);

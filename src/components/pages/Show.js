@@ -40,19 +40,19 @@ const Show = ({ closeSingle, elId }) => {
               <i className="material-icons">schedule</i>
             </div>
             <p className="elShow-fecha-texto">
+              {new Date(elShow.fechaYHora.seconds * 1000).toLocaleDateString(
+                "es-ES",
+                {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              )}{" "}
+              {<br></br>}{" "}
               {new Date(elShow.fechaYHora.seconds * 1000)
                 .toLocaleTimeString()
-                .slice(0, -3) +
-                "hs. - " +
-                new Date(elShow.fechaYHora.seconds * 1000).toLocaleDateString(
-                  "es-ES",
-                  {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }
-                )}
+                .slice(0, -3) + " hs."}
             </p>
           </div>
           <div

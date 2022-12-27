@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CRUDshows.css";
 
-export default function Imagen({ cambiaFile }) {
+export default function Imagen({ cambiaFile, imagenURL }) {
   const [preview, setPreview] = useState();
+  useEffect(() => {
+    setPreview(imagenURL);
+  }, []);
   const handlePreview = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));
     cambiaFile(e.target.files[0]);

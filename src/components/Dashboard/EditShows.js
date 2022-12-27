@@ -4,11 +4,14 @@ import { getDocs } from "firebase/firestore";
 import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
 import ShowFormEdit from "./ShowFormEdit";
+import { AlertEliminar } from "../Layout/AlertElimnar";
 
 export default function EditShows() {
   const [losShows, setLosShows] = useState([]);
   const [isOpenSingle, openSingle, closeSingle] = useModal(false);
+  const [isOpenEliminar, openEliminar, closeEliminar] = useModal(false);
   const [elId, setElId] = useState(null);
+  const [elTitulo, setElTitulo] = useState("");
 
   useEffect(() => {
     getShows();
@@ -32,7 +35,7 @@ export default function EditShows() {
           imagenURL: show.data().imagenURL,
           fechaYHora: show.data().fechaYHora.seconds,
         }));
-        setLosShows(showsData.sort((a, b) => a.fechaYHora - b.fechaYHora));
+        setLosShows(showsData.sort((a, b) => b.fechaYHora - a.fechaYHora));
       })
       .catch((err) => console.log(err.message));
   }
@@ -42,8 +45,22 @@ export default function EditShows() {
     setElId(id);
   }
 
+  function eliminarUnShow(id, titulo) {
+    openEliminar();
+    setElId(id);
+    setElTitulo(titulo);
+  }
+
   return (
     <>
+      {isOpenEliminar && (
+        <AlertEliminar
+          elId={elId}
+          elTitulo={elTitulo}
+          closeEliminar={closeEliminar}
+          getShows={getShows}
+        ></AlertEliminar>
+      )}
       {isOpenSingle && (
         <ShowFormEdit elId={elId} closeSingle={closeSingle}></ShowFormEdit>
       )}
@@ -56,6 +73,11 @@ export default function EditShows() {
                 <td className="dwHTMLcell-showTitulo">{show.titulo}</td>
                 <td>
                   <button onClick={() => editarUnShow(show.id)}>editar</button>
+                </td>
+                <td>
+                  <button onClick={() => eliminarUnShow(show.id, show.titulo)}>
+                    borrar
+                  </button>
                 </td>
               </tr>
             ))

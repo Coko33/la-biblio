@@ -69,7 +69,7 @@ const Shows = () => {
                     <i className="material-icons">schedule</i>
                   </div>
                   <p className="fecha-texto">
-                    {show.hora + " hs. - " + show.fecha}
+                    {show.fecha} {<br></br>} {show.hora + "hs."}
                   </p>
                   <button
                     onClick={() => openUnShow(show.id)}

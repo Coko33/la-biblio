@@ -6,55 +6,114 @@ import { showsCollectionRef } from "../../firebase";
 import { getDocs, query, where, orderBy, limit } from "firebase/firestore";
 
 export default function DownloadHTML() {
-  const [fechaInicio, setFechaInicio] = useState();
-  const [fechaFin, setFechaFin] = useState();
+  const [fechaInicio, setFechaInicio] = useState(
+    new Date(Date.now()).toString()
+  );
+  const [fechaFin, setFechaFin] = useState(new Date(Date.now()).toString());
   const [newsletterData, setNewsletterData] = useState([]);
-
   /* useEffect(() => {}, [newsletterData]); */
-  const cambiaFechaInicio = (e) => setFechaInicio(e);
-  const cambiaFechaFin = (e) => setFechaFin(e);
+  const cambiaFechaInicio = (e) => setFechaInicio(e.$d);
+  const cambiaFechaFin = (e) => setFechaFin(e.$d);
 
   const encabezadoNews = `<!DOCTYPE html>
-    <html lang="en">
+  <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>La Biblioteca Café newsletter </title>
+        <style type = “text/css”>
+          @font-face {
+            font-family: 'DM Serif Display';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/dmserifdisplay/v10/-nFnOHM81r4j6k0gjAW3mujVU2B2K_Q.woff) format('woff');
+          }
+          @font-face {
+            font-family: 'Archivo';
+            font-style: normal;
+            font-weight: 400;
+            font-stretch: normal;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/archivo/v18/k3k6o8UDI-1M0wlSV9XAw6lQkqWY8Q82sJaRE-NWIDdgffTTNDNp8w.woff) format('woff');
+          }
+          @media only screen and (max-device-width: 480px) {
+              body[yahoo] #smallScreen {display:block !important}
+              body[yahoo] #desktop {display:none !important}
+          }	
+          @media only screen and (min-device-width: 768px) and (max-device-width: 1024px)  {
+              body[yahoo] #largeScreen {display:block !important}
+              body[yahoo] #desktop {display:none !important}
+          }	
+          h1 {font-family:"DM Serif Display" !important;}
+          p {font-family:'Archivo' !important;} 
+        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo&family=DM+Serif+Display&display=swap" rel="stylesheet">
+          
     </head>
-    <body>`;
+    <body style="margin: 0px; width: 100%; background-color: #e8e3df;">
+      <table style="width: 100%; height: 200px; margin-left: 0px; border-collapse:collapse;border-spacing: 0px;" id="banner">
+        <tr style="background-size: cover;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Fbiblioteca-baner1.jpg?alt=media&token=77e64746-f70d-4a2e-8bb3-36b0f37cce60">
+          <td>
+            <img style="display: inline; width: 100px; margin-left: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Flogo-blanco.png?alt=media&token=5a4139a7-9623-4a26-bf4a-f10bf7d8066b" alt="">
+          </td>
+          <td>
+            <h1 style="font-family: 'DM Serif Display', Helvetica; font-weight: 400; font-size: 36px; color: #ffffff; margin: 0px; margin-left: 20px;">La Biblioteca Café</h1>
+            <p style="font-family: 'Archivo', Helvetica; font-size: 18px; color: #ffffff; margin: 0px; margin-left: 20px;">Un espacio para la música en vivo</p>
+          </td>
+        </tr>
+      </table>
+      <table style="background-color: #e8e3df; border-collapse:collapse;border-spacing: 0px;" id="show">
+          <tbody style="border-collapse:collapse">
+            <tr>
+              <td align="center">`;
 
   const cuerpoNews = newsletterData.map(
-    (show) => `<div style="position: relative; width: 100%">
-  <div style="position: relative; width: 100%; max-height: 281px;">
-    <img style="width: 100%" alt="" src=${show.imagenURL}></img>
-    <div style="position: absolute; background-color: rgba(0, 0, 0, 0.412); width: 100%; height: 100px; bottom: 0; margin: auto;">
-      <h2 style="font-size: 32px; font-weight: 200; margin: 20px 0 0 25px; color: var(--blanco); line-height: 36px;">${show.titulo}</h2>
-      <h3 style="font-family: 'Archivo', sans-serif; margin: 5px 0 30px 29px; font-size: 14px; color: var(--blanco)">${show.subtitulo}</h3>
-    </div>
-  </div>
-  <div style="position: relative; top:0; background-color: var(--gris-nav); width: 100%; height: 60px; display: flex; align-items: center; box-sizing: border-box;">
-    <p style="font-family: 'Archivo', sans-serif; color: var(--icon-enabled); font-size: 14px; font-weight: bold; position: relative; display: inline; margin-left: 8px;">
-      ${show.fecha} - ${show.hora}
-    </p>
-  </div>
-  <div style="margin:20px;">
-    <p style="margin:0; font-family: 'Archivo', sans-serif; color: var(--marron-logo); font-size: 14px;">${show.fechaYHora}</p>
-  </div>
-  <div style="margin:20px;">
-      <p style="margin:0; font-family: 'Archivo', sans-serif; color: var(--marron-logo); font-size: 14px;">${show.fechaYHora}</p>
-  </div>
-</div>`
+    (show) =>
+      `<table style="width:80%;border-collapse:collapse;border-bottom: 3px solid #7f4437;border-spacing: 0px;">
+    <tr >
+      <td style="width: 10%;"><img style="width: 200px;margin-top: 50px; margin-bottom: 50px;" src="${
+        show.imagenURL
+      }"></td>
+      <td style="width: 90%;">
+        <div style="padding: 20px;">
+          <h2 style="font-family: 'DM Serif Display', Helvetica;font-size: 28px;margin:0;">${
+            show.titulo
+          }</h2>
+          <h6 style="font-family: 'Archivo', Helvetica; font-size: 16px;margin:0;">${
+            show.subititulo ? show.subititulo : ""
+          }</h6>
+          <p style="font-family: 'Archivo', Helvetica;">${show.descripcion}
+            </p>
+            <div style="width: 100%">
+              <img style="width:17px; display:inline;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ficono-relojito.png?alt=media&token=e4490e9e-12ea-4d4f-8c8c-b189c29b8540" alt="">
+              <div style="display:inline;height: 17px;width:100%;">
+                <p style="display:inline;font-family: 'Archivo', Helvetica;font-weight: 700;">${
+                  show.fecha
+                } - ${show.hora}</p>
+              </div>
+              <p style="margin: 0px;font-family: 'Archivo', Helvetica;line-height: 20px;margin-top: 10px;">Precio: 200</p>
+              <p style="margin: 0px;font-family: 'Archivo', Helvetica;line-height: 20px;">Precio: 4000</p>
+            </div>
+        </div>
+      </td>
+    </tr>
+  </table>`
   );
 
-  const footerNews = `</body></html>`;
+  const footerNews = `</td></tr></table><table style="border-collapse:collapse;border-spacing: 0px;width:100%; height: 100px;"><tr><td style="background-size: cover; width:100%; height: 100px;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ffooter-news.png?alt=media&token=0ad8f609-eb9c-4ec3-807f-d9de3dce5082"></td></tr></table></table></body></html>`;
+
   const elNewsletter = encabezadoNews + cuerpoNews + footerNews;
+  console.log(cuerpoNews[0]);
   let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
   function mostrarShows() {
+    fechaInicio.$d && setFechaInicio(fechaInicio.$d);
+    fechaFin.$d && setFechaInicio(fechaFin.$d);
     const q = query(
       showsCollectionRef,
-      where("fechaYHora", ">=", fechaInicio.$d),
-      where("fechaYHora", "<=", fechaFin.$d)
+      where("fechaYHora", ">=", fechaInicio),
+      where("fechaYHora", "<=", fechaFin)
     );
     getDocs(q)
       .then((res) => {

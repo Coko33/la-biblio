@@ -8,7 +8,15 @@ import Imagen from "../CRUDshows/Imagen";
 import { Alert } from "../Layout/Alert";
 
 //firestore
-import { addDoc, query, where, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 import { showsCollectionRef } from "../../firebase";
 
 //Storage
@@ -20,6 +28,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fechaYHora, setFechaYHora] = useState("");
+  const [imagenURL, setImagenURL] = useState("");
   const [habilitado, setHabilitado] = useState(true);
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
@@ -29,13 +38,19 @@ export default function ShowFormEdit({ elId, closeSingle }) {
     getSingle(elId);
   }, []);
 
-  function getSingle(id) {
-    const q = query(showsCollectionRef, where("id", "===", id));
-    getDocs(q)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err.message));
+  async function getSingle(elId) {
+    const docRef = doc(showsCollectionRef, elId);
+    const elDoc = await getDoc(docRef);
+    if (elDoc.exists()) {
+      setTitulo(elDoc.data().titulo);
+      setSubtitulo(elDoc.data().subtitulo);
+      setDescripcion(elDoc.data().descripcion);
+      setFechaYHora(new Date(elDoc.data().fechaYHora.seconds * 1000));
+      setImagenURL(elDoc.data().imagenURL);
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
   }
 
   const [file, setFile] = useState(null);
@@ -48,43 +63,65 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   const cambiaTitulo = (e) => setTitulo(e.target.value);
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
-  const cambiaFechaYHora = (e) => setFechaYHora(e);
+  const cambiaFechaYHora = (e) => {
+    setFechaYHora(e.$d);
+  };
+  console.log(fechaYHora);
   const cambiaFile = (file) => setFile(file);
 
-  const enviar = () => {
-    !file && setError("No se puede subir un show sin una imagen");
-    const storageRef = ref(storage, `imagenes-shows/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
-      },
-      (error) => {
-        console.log(error.message);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          addDoc(showsCollectionRef, {
-            titulo,
-            subtitulo,
-            descripcion,
-            fechaYHora: fechaYHora.$d,
-            imagenURL: downloadURL,
-          })
-            .then((res) => {
-              console.log(res);
-              setOk(`Se subio correctamente el show \n"${titulo}"`);
-              setTitulo("");
+  const enviarEditado = () => {
+    !file & !imagenURL && setError("No se puede subir un show sin una imagen");
+    fechaYHora.$d && setFechaYHora(fechaYHora.$d);
+    if (file) {
+      const storageRef = ref(storage, `imagenes-shows/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(progress);
+        },
+        (error) => {
+          console.log(error.message);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            addDoc(showsCollectionRef, {
+              titulo,
+              subtitulo,
+              descripcion,
+              fechaYHora: fechaYHora,
+              imagenURL: downloadURL,
             })
-            .catch((err) => {
-              setError(err.message);
-            });
+              .then((res) => {
+                console.log(res);
+                setOk(`Se subio correctamente el show \n"${titulo}"`);
+                setTitulo("");
+              })
+              .catch((err) => {
+                setError(err.message);
+              });
+          });
+        }
+      );
+    } else {
+      setDoc(doc(showsCollectionRef, elId), {
+        titulo,
+        subtitulo,
+        descripcion,
+        fechaYHora: fechaYHora,
+        imagenURL: imagenURL,
+      })
+        .then((res) => {
+          console.log(res);
+          setOk(`Se subio correctamente el show \n"${titulo}"`);
+          setTitulo("");
+        })
+        .catch((err) => {
+          setError(err.message);
         });
-      }
-    );
+    }
   };
 
   return (
@@ -92,7 +129,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
       {error && <Alert message={error} resetError={resetError} />}
       {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
-        <h2 className="titulo-form">Agregar un show</h2>
+        <h2 className="titulo-form">Modificar un show</h2>
         <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
         <Subtitulo cambiaSubtitulo={cambiaSubtitulo} subtitulo={subtitulo} />
         <Descripcion
@@ -100,9 +137,9 @@ export default function ShowFormEdit({ elId, closeSingle }) {
           descripcion={descripcion}
         />
         <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
-        <Imagen cambiaFile={cambiaFile} />
+        <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
         <div className="formShow-button-container">
-          <button className="formShow-button" onClick={enviar}>
+          <button className="formShow-button" onClick={enviarEditado}>
             Enviar
           </button>
         </div>

@@ -19,7 +19,7 @@ export default function ShowForm() {
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [fechaYHora, setFechaYHora] = useState("");
+  const [fechaYHora, setFechaYHora] = useState(Date.now);
   const [habilitado, setHabilitado] = useState(true);
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
@@ -82,7 +82,10 @@ export default function ShowForm() {
         <h2 className="titulo-form">Agregar un show</h2>
         <Titulo cambiaTitulo={cambiaTitulo} />
         <Subtitulo cambiaSubtitulo={cambiaSubtitulo} />
-        <Descripcion cambiaDescripcion={cambiaDescripcion} />
+        <Descripcion
+          cambiaDescripcion={cambiaDescripcion}
+          descripcion={descripcion}
+        />
         <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
         <Imagen cambiaFile={cambiaFile} />
         <div className="formShow-button-container">
