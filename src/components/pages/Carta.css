@@ -1,4 +1,4 @@
-.carta-salados-container {
+.carta-categoria-container {
   position: relative;
   padding: 15px 0;
   background-color: var(--background);
@@ -10,11 +10,11 @@
   margin: 0 15px;
   background-color: var(--icon-enabled);
 }
-.carta-salados-titulo {
+.carta-categoria-titulo {
   margin-left: 15px;
   font-weight: 400 !important;
 }
-.carta-salados-tabla {
+.carta-categoria-tabla {
   position: relative;
   width: calc(100% - 30px);
   left: 15px;

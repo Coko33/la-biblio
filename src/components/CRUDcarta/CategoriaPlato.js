@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./../CRUDshows/CRUDshows.css";
 
-export default function CategoriaPlato({ cambiaCategoria }) {
+export default function CategoriaPlato({ cambiaCategoria, categoria }) {
   return (
     <>
       <label className="input-labelCategoria" htmlFor="categoria">
@@ -11,6 +11,7 @@ export default function CategoriaPlato({ cambiaCategoria }) {
         name=""
         className="input-selectCategoria"
         id="categoria"
+        value={categoria}
         onChange={cambiaCategoria}
       >
         <option value="">elegir una categoria</option>

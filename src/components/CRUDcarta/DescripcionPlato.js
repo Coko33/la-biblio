@@ -2,7 +2,7 @@ import ReactQuill from "react-quill";
 import "../../../node_modules/react-quill/dist/quill.snow.css";
 import "./../CRUDshows/CRUDshows.css";
 
-export default function DescripcionPlato({ cambiaDescripcion }) {
+export default function DescripcionPlato({ cambiaDescripcion, descripcion }) {
   const modules = {
     toolbar: [
       [{ header: [false, 3, 2, 1] }],
@@ -44,7 +44,7 @@ export default function DescripcionPlato({ cambiaDescripcion }) {
         placeholder="opcionalmente escribir la descripcion del plato"
         modules={modules}
         formats={formats}
-        //value={descripcion}
+        value={descripcion}
         onChange={cambiaDescripcion}
       />
     </>

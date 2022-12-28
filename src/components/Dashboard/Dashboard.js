@@ -5,12 +5,14 @@ import DownloadHTML from "./DownloadHTML";
 import EditShows from "./EditShows";
 import { useAuth } from "../../context/authContext";
 import { useState } from "react";
+import EditPlatos from "./EditPlatos";
 
 export default function Dashboard() {
   const { logout } = useAuth();
-  const [editando, setEditando] = useState(false);
-
-  const editar = () => setEditando(true);
+  const [editandoShows, setEditandoShows] = useState(false);
+  const [editandoCarta, setEditandoCarta] = useState(false);
+  const editarShows = () => setEditandoShows(true);
+  const editarCarta = () => setEditandoCarta(true);
   return (
     <>
       <div className="headerDashboard-container">
@@ -19,12 +21,22 @@ export default function Dashboard() {
           <button onClick={() => logout()} className="buttonLogout-dashboard">
             Cerrar sesion
           </button>
-          <button onClick={() => editar()} className="buttonEdit-dashboard">
+          <button
+            onClick={() => editarShows()}
+            className="buttonEdit-dashboard"
+          >
             Editar shows
+          </button>
+          <button
+            onClick={() => editarCarta()}
+            className="buttonEdit-dashboard"
+          >
+            Editar carta
           </button>
         </div>
       </div>
-      {editando && <EditShows />}
+      {editandoShows && <EditShows />}
+      {editandoCarta && <EditPlatos />}
       <DownloadHTML />
       <ShowForm />
       <PlatosForm />

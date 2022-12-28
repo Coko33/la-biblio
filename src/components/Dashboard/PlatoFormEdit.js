@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
-import Titulo from "../CRUDshows/Titulo";
-import Subtitulo from "../CRUDshows/Subtitulo";
-import Descripcion from "../CRUDshows/Descripcion";
-import Fecha from "../CRUDshows/Fecha";
-import Imagen from "../CRUDshows/Imagen";
+import Titulo from "../CRUDcarta/TituloPlato";
+import Descripcion from "../CRUDcarta/DescripcionPlato";
+import Categoria from "../CRUDcarta/CategoriaPlato";
+import Imagen from "../CRUDcarta/ImagenPlato";
+import Precio from "../CRUDcarta/PrecioPlato";
 import { Alert } from "../Layout/Alert";
 
 //firestore
@@ -17,20 +17,18 @@ import {
   getDoc,
   setDoc,
 } from "firebase/firestore";
-import { showsCollectionRef } from "../../firebase";
+import { cartaCollectionRef } from "../../firebase";
 
 //Storage
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
-import Precios from "../CRUDshows/Precios";
 
 export default function ShowFormEdit({ elId, closeSingle }) {
   const [titulo, setTitulo] = useState("");
-  const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [fechaYHora, setFechaYHora] = useState("");
+  const [categoria, setCategoria] = useState("");
   const [imagenURL, setImagenURL] = useState("");
-  const [precios, setPrecios] = useState("");
+  const [precio, setPrecio] = useState("");
   const [habilitado, setHabilitado] = useState(true);
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
@@ -41,14 +39,13 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   }, []);
 
   async function getSingle(elId) {
-    const docRef = doc(showsCollectionRef, elId);
+    const docRef = doc(cartaCollectionRef, elId);
     const elDoc = await getDoc(docRef);
     if (elDoc.exists()) {
       setTitulo(elDoc.data().titulo);
-      setSubtitulo(elDoc.data().subtitulo);
       setDescripcion(elDoc.data().descripcion);
-      setPrecios(elDoc.data().precios);
-      setFechaYHora(new Date(elDoc.data().fechaYHora.seconds * 1000));
+      setCategoria(elDoc.data().categoria);
+      setPrecio(elDoc.data().precio);
       setImagenURL(elDoc.data().imagenURL);
     } else {
       // doc.data() will be undefined in this case
@@ -57,24 +54,18 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   }
 
   const [file, setFile] = useState(null);
-
   const [error, setError] = useState(null);
   const resetError = () => setError(null);
   const [ok, setOk] = useState(null);
   const resetOk = () => setOk(null);
 
   const cambiaTitulo = (e) => setTitulo(e.target.value);
-  const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
-  const cambiaPrecios = (e) => setPrecios(e);
-  const cambiaFechaYHora = (e) => {
-    setFechaYHora(e.$d);
-  };
+  const cambiaCategoria = (e) => setCategoria(e.target.value);
+  const cambiaPrecio = (e) => setPrecio(e.target.value);
   const cambiaFile = (file) => setFile(file);
 
   const enviarEditado = () => {
-    !file & !imagenURL && setError("No se puede subir un show sin una imagen");
-    fechaYHora.$d && setFechaYHora(fechaYHora.$d);
     if (file) {
       const storageRef = ref(storage, `imagenes-shows/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -90,17 +81,17 @@ export default function ShowFormEdit({ elId, closeSingle }) {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            addDoc(showsCollectionRef, {
+            setDoc(doc(cartaCollectionRef, elId), {
               titulo,
-              subtitulo,
-              descripcion,
-              precios,
-              fechaYHora: fechaYHora,
+              subtitulo: categoria || "",
+              categoria: categoria,
+              descripcion: descripcion || "",
+              precio: precio || "",
               imagenURL: downloadURL,
             })
               .then((res) => {
                 console.log(res);
-                setOk(`Se subio correctamente el show \n"${titulo}"`);
+                setOk(`Se editó correctamente el item \n"${titulo}"`);
                 setTitulo("");
               })
               .catch((err) => {
@@ -110,17 +101,16 @@ export default function ShowFormEdit({ elId, closeSingle }) {
         }
       );
     } else {
-      setDoc(doc(showsCollectionRef, elId), {
-        titulo,
-        subtitulo: subtitulo || "",
+      setDoc(doc(cartaCollectionRef, elId), {
+        titulo: titulo,
+        categoria: categoria,
         descripcion: descripcion || "",
-        precios: precios || "",
-        fechaYHora: fechaYHora,
+        precio: precio || "",
         imagenURL: imagenURL,
       })
         .then((res) => {
           console.log(res);
-          setOk(`Se subio correctamente el show \n"${titulo}"`);
+          setOk(`Se editó correctamente el item\n"${titulo}"`);
           setTitulo("");
         })
         .catch((err) => {
@@ -139,13 +129,12 @@ export default function ShowFormEdit({ elId, closeSingle }) {
         </button>
         <h2 className="titulo-form">Modificar "{titulo}"</h2>
         <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
-        <Subtitulo cambiaSubtitulo={cambiaSubtitulo} subtitulo={subtitulo} />
+        <Categoria cambiaCategoria={cambiaCategoria} categoria={categoria} />
         <Descripcion
           cambiaDescripcion={cambiaDescripcion}
           descripcion={descripcion}
         />
-        <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
-        <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
+        <Precio cambiaPrecio={cambiaPrecio} precio={precio}></Precio>
         <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
         <div className="formShow-button-container">
           <button className="formShow-button" onClick={enviarEditado}>

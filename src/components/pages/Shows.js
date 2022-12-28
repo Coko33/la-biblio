@@ -27,7 +27,6 @@ const Shows = () => {
     );
     getDocs(q)
       .then((res) => {
-        console.log(res);
         const showsData = res.docs.map((show) => ({
           id: show.id,
           titulo: show.data().titulo,

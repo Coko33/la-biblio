@@ -5,75 +5,302 @@ import "./Carta.css";
 
 export default function Carta() {
   const [laCarta, setLaCarta] = useState([]);
+  const [salados, setSalados] = useState([]);
+  const [dulces, setDulces] = useState([]);
+  const [entradas, setEntradas] = useState([]);
+  const [principales, setPrincipales] = useState([]);
+  const [vinosTintos, setVinosTintos] = useState([]);
+  const [vinosBlancos, setVinosBlancos] = useState([]);
+  const [champagnes, setChampagnes] = useState([]);
+  const [cafeteria, setCafeteria] = useState([]);
+  const [bebidas, setBebidas] = useState([]);
+  const [cervezas, setCervezas] = useState([]);
+  const [tragos, setTragos] = useState([]);
 
   useEffect(() => {
-    getItems();
+    obtenerCarta();
   }, []);
 
-  function getItems() {
-    getDocs(cartaCollectionRef)
-      .then((res) => {
-        const cartaData = res.docs.map((item) => ({
-          id: item.id,
-          titulo: item.data().titulo,
-          descripcion: item.data().descripcion,
-          imagenURL: item.data().imagenURL,
-          precio: item.data().precio,
-        }));
-        //ordenar por precio
-        setLaCarta(cartaData.sort((a, b) => a.precio - b.precio));
-        //ordenar alfabeticamente
-        /* 
-        setLaCarta(
-          cartaData.sort((a, b) => {
-            if (a.titulo > b.titulo) {
-              return 1;
-            }
-            if (a.titulo < b.titulo) {
-              return -1;
-            }
-            return 0;
-          })
-        ); */
-        //ordenar personalizado
-        /* ordenamiento = {azul: 1, verde: 2, gris: 3, amarillo: 4, rojo: 5};
-        cartaData.sort((a, b) => this.ordenamiento[a.color] - this.ordenamiento[b.color]) */
-      })
-      .catch((err) => console.log(err.message));
+  function ordenarCategorias(cartaItems) {
+    cartaItems.forEach((item) => {
+      item.categoria === "Cafeteria" && setCafeteria([...cafeteria, item]);
+      item.categoria === "Cafeteria" && setCervezas([...cervezas, item]);
+    });
+    console.log(cafeteria + cervezas);
   }
 
-  function openUnShow(id) {
-    console.log(id);
-    /* setElId(id);
-    openSingle(); */
-  }
+  const ordenarLaCarta = (cartaData) => {
+    const cartaItems = cartaData.docs.map((item) => ({
+      id: item.id,
+      titulo: item.data().titulo,
+      descripcion: item.data().descripcion,
+      imagenURL: item.data().imagenURL,
+      precio: item.data().precio,
+      categoria: item.data().categoria || null,
+    }));
+    setLaCarta(cartaItems.sort((a, b) => a.precio - b.precio));
+    return cartaItems;
+  };
+
+  const obtenerCarta = async () => {
+    try {
+      const cartaData = await getDocs(cartaCollectionRef);
+      const cartaItemsOrdenados = await ordenarLaCarta(cartaData);
+      ordenarCategorias(cartaItemsOrdenados);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const separador =
     " ...........................................................";
 
   return (
     <>
-      <div className="carta-salados-container">
-        <div className="carta-separadorHorizontal"></div>
-        <h2 className="carta-salados-titulo">Salados</h2>
-        <table className="carta-salados-tabla">
-          <tbody>
-            {laCarta ? (
-              laCarta.map((item, i) => (
-                <tr key={i}>
-                  <td className="carta-itemNombre">
-                    {item.titulo + separador}
-                  </td>
-                  <td className="carta-itemPrecio">${item.precio}</td>
-                </tr>
-              ))
-            ) : (
-              <h3>Sin Shows</h3>
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="laCarta-container">
+      {!salados.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Salados</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {salados ? (
+                salados.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!dulces.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Dulces</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {dulces ? (
+                dulces.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!entradas.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Entradas</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {entradas ? (
+                entradas.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!principales.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Principales</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {principales ? (
+                principales.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!vinosTintos.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Vinos Tintos</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {vinosTintos ? (
+                vinosTintos.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!vinosBlancos.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Vinos Blancos</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {vinosBlancos ? (
+                vinosBlancos.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!champagnes.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Espumantes</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {champagnes ? (
+                champagnes.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!cafeteria.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Cafeteria</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {cafeteria ? (
+                cafeteria.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!bebidas.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Bebidas</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {bebidas ? (
+                bebidas.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!cervezas.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Cervezas</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {cervezas ? (
+                cervezas.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {!tragos.length === 0 && (
+        <div className="carta-categoria-container">
+          <div className="carta-separadorHorizontal"></div>
+          <h2 className="carta-categoria-titulo">Tragos</h2>
+          <table className="carta-categoria-tabla">
+            <tbody>
+              {tragos ? (
+                tragos.map((item, i) => (
+                  <tr key={i}>
+                    <td className="carta-itemNombre">
+                      {item.titulo + separador}
+                    </td>
+                    <td className="carta-itemPrecio">${item.precio}</td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* <div className="laCarta-container">
         {laCarta ? (
           laCarta.map((item, i) => (
             <div className="show-container" key={i}>
@@ -105,7 +332,7 @@ export default function Carta() {
         ) : (
           <h3>Sin Shows</h3>
         )}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./../CRUDshows/CRUDshows.css";
 
-export default function ImagenPlato({ cambiaFile }) {
-  const [preview, setPreview] = useState();
+export default function ImagenPlato({ cambiaFile, imagenURL }) {
+  const [preview, setPreview] = useState(imagenURL);
   const handlePreview = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));
     cambiaFile(e.target.files[0]);

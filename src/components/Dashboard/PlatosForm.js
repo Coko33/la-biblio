@@ -5,6 +5,7 @@ import CategoriaPlato from "../CRUDcarta/CategoriaPlato";
 import DescripcionPlato from "../CRUDcarta/DescripcionPlato";
 import PrecioPlato from "../CRUDcarta/PrecioPlato";
 import ImagenPlato from "../CRUDcarta/ImagenPlato";
+import { Alert } from "../Layout/Alert";
 
 //firestore
 import { addDoc } from "firebase/firestore";
@@ -24,6 +25,11 @@ export default function ShowForm() {
   const [destacado, setDestacado] = useState(false);
   const [suspendido, setSuspendido] = useState(false);
 
+  const [error, setError] = useState(null);
+  const resetError = () => setError(null);
+  const [ok, setOk] = useState(null);
+  const resetOk = () => setOk(null);
+
   const [file, setFile] = useState(null);
 
   const cambiaTitulo = (e) => setTitulo(e.target.value);
@@ -40,9 +46,16 @@ export default function ShowForm() {
       precio: parseInt(precio, 10),
       imagenURL: downloadURL || null,
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        setOk(`Se subio correctamente el ítem \n"${titulo}"`);
+        setTitulo("");
+        setCategoria("");
+        setDescripcion("");
+        setPrecio("");
+        setFile(null);
+      })
       .catch((err) => {
-        console.log(err.message);
+        setError(err.message);
       });
   };
 
@@ -73,6 +86,8 @@ export default function ShowForm() {
 
   return (
     <>
+      {error && <Alert message={error} resetError={resetError} />}
+      {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
         <h2 className="titulo-form">Agregar un plato o bebida</h2>
         <TituloPlato cambiaTitulo={cambiaTitulo} />

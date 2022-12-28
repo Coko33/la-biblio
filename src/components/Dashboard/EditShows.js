@@ -4,7 +4,7 @@ import { getDocs } from "firebase/firestore";
 import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
 import ShowFormEdit from "./ShowFormEdit";
-import { AlertEliminar } from "../Layout/AlertElimnar";
+import { AlertEliminar } from "../Layout/AlertEliminar";
 
 export default function EditShows() {
   const [losShows, setLosShows] = useState([]);
