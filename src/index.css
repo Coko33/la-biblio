@@ -26,3 +26,8 @@ body {
 .ql-container {
   min-height: 80px;
 }
+
+a:hover,
+button:hover {
+  cursor: pointer;
+}

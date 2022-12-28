@@ -70,7 +70,6 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   const cambiaFechaYHora = (e) => {
     setFechaYHora(e.$d);
   };
-  console.log(fechaYHora);
   const cambiaFile = (file) => setFile(file);
 
   const enviarEditado = () => {
@@ -113,9 +112,9 @@ export default function ShowFormEdit({ elId, closeSingle }) {
     } else {
       setDoc(doc(showsCollectionRef, elId), {
         titulo,
-        subtitulo,
-        descripcion,
-        precios,
+        subtitulo: subtitulo || "",
+        descripcion: descripcion || "",
+        precios: precios || "",
         fechaYHora: fechaYHora,
         imagenURL: imagenURL,
       })
@@ -135,7 +134,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
       {error && <Alert message={error} resetError={resetError} />}
       {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
-        <h2 className="titulo-form">Modificar un show</h2>
+        <h2 className="titulo-form">Modificar "{titulo}"</h2>
         <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
         <Subtitulo cambiaSubtitulo={cambiaSubtitulo} subtitulo={subtitulo} />
         <Descripcion

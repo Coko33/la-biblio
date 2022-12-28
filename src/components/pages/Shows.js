@@ -2,6 +2,7 @@ import { getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
+import { query, where } from "firebase/firestore";
 import "./Shows.css";
 import Show from "./Show";
 
@@ -20,8 +21,13 @@ const Shows = () => {
   }
 
   function getShows() {
-    getDocs(showsCollectionRef)
+    const q = query(
+      showsCollectionRef,
+      where("fechaYHora", ">=", new Date(Date.now()))
+    );
+    getDocs(q)
       .then((res) => {
+        console.log(res);
         const showsData = res.docs.map((show) => ({
           id: show.id,
           titulo: show.data().titulo,
@@ -42,6 +48,8 @@ const Shows = () => {
           fechaYHora: show.data().fechaYHora.seconds,
         }));
         setLosShows(showsData.sort((a, b) => a.fechaYHora - b.fechaYHora));
+        /* console.log(showsData[0].fechaYHora);
+        console.log(Date.now() / 1000); */
       })
       .catch((err) => console.log(err.message));
   }
@@ -78,7 +86,7 @@ const Shows = () => {
                       onClick={() => openUnShow(show.id)}
                       className="fecha-button"
                     >
-                      Información
+                      + Información
                     </button>
                   </div>
                 </div>

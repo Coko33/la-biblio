@@ -1,13 +1,22 @@
 .elShow-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 281px;
   padding-bottom: 1px;
+  width: calc(100% - 30px);
+  left: 15px;
+  top: 20px;
+  box-shadow: 0px 3px 11px 5px rgba(153, 153, 153, 1);
+  -webkit-box-shadow: 0px 3px 11px 5px rgba(153, 153, 153, 1);
+  -moz-box-shadow: 0px 3px 11px 5px rgba(153, 153, 153, 1);
 }
 .elShow-imagen-container {
   position: relative;
-  width: 100%;
-  max-height: 281px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 .volver {
   position: absolute;
@@ -27,6 +36,24 @@
 .elShow-imagen {
   width: 100%;
 }
+.elShow-dataContainer {
+  position: relative;
+  top: 0px;
+  width: 100%;
+}
+.elShow-descripcion-container {
+  padding: 15px;
+}
+.elShow-precios-container {
+  padding: 15px;
+}
+.elShow-descripcion-container p,
+.elShow-precios-container p {
+  margin: 0;
+  font-family: "Archivo", sans-serif;
+  color: var(--marron-logo);
+  font-size: 14px;
+}
 .elShow-text-container {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.412);
@@ -34,6 +61,16 @@
   height: 100px;
   bottom: 0;
   margin: auto;
+}
+.elShow-text-container h2 {
+  line-height: 30px;
+  margin-top: 10px;
+}
+.elShow-text-container.mobile {
+  display: block;
+}
+.elShow-text-container.desk {
+  display: none;
 }
 .elShow-titulo {
   font-size: 32px;
@@ -75,19 +112,42 @@
   display: inline;
   margin-left: 8px;
 }
-.elShow-descripcion-container {
-  margin: 20px;
-}
-.elShow-precios-container {
-  margin: 20px;
-}
-.elShow-descripcion-container p,
-.elShow-precios-container p {
-  margin: 0;
-  font-family: "Archivo", sans-serif;
-  color: var(--marron-logo);
-  font-size: 14px;
-}
 
 @media screen and (min-width: 600px) {
+  .elShow-container {
+    width: 60%;
+    left: 20%;
+    top: 80px;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .elShow-container {
+    width: 80%;
+    left: 10%;
+    flex-direction: row;
+    margin: 100px 0;
+    padding: 0;
+  }
+  .elShow-imagen-container {
+    min-width: 50%;
+  }
+  .elShow-imagen {
+    min-height: 280px;
+  }
+  .elShow-text-container.mobile {
+    display: none;
+  }
+  .elShow-text-container.desk {
+    display: block;
+    top: 0;
+    margin: 0;
+    background-color: none;
+  }
+  .elShow-text-container h2 {
+    color: var(--marron-logo);
+  }
+  .elShow-text-container h3 {
+    color: var(--marron-logo);
+  }
 }
