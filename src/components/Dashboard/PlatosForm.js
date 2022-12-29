@@ -48,10 +48,10 @@ export default function ShowForm() {
     })
       .then((res) => {
         setOk(`Se subio correctamente el ítem \n"${titulo}"`);
-        setTitulo("");
-        setCategoria("");
-        setDescripcion("");
-        setPrecio("");
+        setTitulo(null);
+        setCategoria(null);
+        setDescripcion(null);
+        setPrecio(null);
         setFile(null);
       })
       .catch((err) => {
@@ -90,10 +90,16 @@ export default function ShowForm() {
       {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
         <h2 className="titulo-form">Agregar un plato o bebida</h2>
-        <TituloPlato cambiaTitulo={cambiaTitulo} />
-        <CategoriaPlato cambiaCategoria={cambiaCategoria}></CategoriaPlato>
-        <DescripcionPlato cambiaDescripcion={cambiaDescripcion} />
-        <PrecioPlato cambiaPrecio={cambiaPrecio} />
+        <TituloPlato cambiaTitulo={cambiaTitulo} titulo={titulo} />
+        <CategoriaPlato
+          cambiaCategoria={cambiaCategoria}
+          categoria={categoria}
+        ></CategoriaPlato>
+        <DescripcionPlato
+          cambiaDescripcion={cambiaDescripcion}
+          descripcion={descripcion}
+        />
+        <PrecioPlato cambiaPrecio={cambiaPrecio} precio={precio} />
         <ImagenPlato cambiaFile={cambiaFile} />
         <div className="formShow-button-container">
           <button className="formShow-button" onClick={enviar}>

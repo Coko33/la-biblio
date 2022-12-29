@@ -1,3 +1,4 @@
+import { FormControlUnstyledContext } from "@mui/base";
 import { getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { cartaCollectionRef } from "../../firebase";
@@ -21,43 +22,69 @@ export default function Carta() {
     obtenerCarta();
   }, []);
 
-  function ordenarCategorias(cartaItems) {
-    cartaItems.forEach((item) => {
-      item.categoria === "Cafeteria" && setCafeteria([...cafeteria, item]);
-      item.categoria === "Cafeteria" && setCervezas([...cervezas, item]);
-    });
-    console.log(cafeteria + cervezas);
-  }
-
-  const ordenarLaCarta = (cartaData) => {
-    const cartaItems = cartaData.docs.map((item) => ({
-      id: item.id,
-      titulo: item.data().titulo,
-      descripcion: item.data().descripcion,
-      imagenURL: item.data().imagenURL,
-      precio: item.data().precio,
-      categoria: item.data().categoria || null,
-    }));
-    setLaCarta(cartaItems.sort((a, b) => a.precio - b.precio));
-    return cartaItems;
-  };
-
   const obtenerCarta = async () => {
     try {
       const cartaData = await getDocs(cartaCollectionRef);
-      const cartaItemsOrdenados = await ordenarLaCarta(cartaData);
-      ordenarCategorias(cartaItemsOrdenados);
+      const p = new Promise((resolve, reject) => {
+        const cartaItems = cartaData.docs.map((item) => ({
+          id: item.id,
+          titulo: item.data().titulo,
+          descripcion: item.data().descripcion,
+          imagenURL: item.data().imagenURL,
+          precio: item.data().precio,
+          categoria: item.data().categoria || null,
+        }));
+        setLaCarta(cartaItems.sort((a, b) => a.precio - b.precio));
+        resolve(cartaItems);
+      });
+      p.then((res) => {
+        let sala = [];
+        let dulc = [];
+        let entr = [];
+        let prin = [];
+        let vnTn = [];
+        let vnBl = [];
+        let cham = [];
+        let cafe = [];
+        let bebi = [];
+        let cerv = [];
+        let trag = [];
+        res.forEach((item) => {
+          item.categoria === "Salados" && sala.push(item);
+          item.categoria === "Dulces" && dulc.push(item);
+          item.categoria === "Entradas" && entr.push(item);
+          item.categoria === "Princiales" && prin.push(item);
+          item.categoria === "Vinos tintos" && vnTn.push(item);
+          item.categoria === "Vinos blancos" && vnBl.push(item);
+          item.categoria === "Champagnes" && cham.push(item);
+          item.categoria === "Cafeteria" && cafe.push(item);
+          item.categoria === "Bebidas" && bebi.push(item);
+          item.categoria === "Cervezas" && cerv.push(item);
+          item.categoria === "Tragos" && trag.push(item);
+        });
+        setSalados(sala);
+        setDulces(dulc);
+        setEntradas(entr);
+        setPrincipales(prin);
+        setVinosTintos(vnTn);
+        setVinosBlancos(vnBl);
+        setChampagnes(cham);
+        setCafeteria(cafe);
+        setBebidas(bebi);
+        setCervezas(cerv);
+        setTragos(trag);
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
   const separador =
-    " ...........................................................";
+    " ......................................................................................................................................................";
 
   return (
     <>
-      {!salados.length === 0 && (
+      {salados.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Salados</h2>
@@ -79,7 +106,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!dulces.length === 0 && (
+      {dulces.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Dulces</h2>
@@ -101,7 +128,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!entradas.length === 0 && (
+      {entradas.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Entradas</h2>
@@ -123,7 +150,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!principales.length === 0 && (
+      {principales.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Principales</h2>
@@ -145,7 +172,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!vinosTintos.length === 0 && (
+      {vinosTintos.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Vinos Tintos</h2>
@@ -167,7 +194,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!vinosBlancos.length === 0 && (
+      {vinosBlancos.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Vinos Blancos</h2>
@@ -189,7 +216,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!champagnes.length === 0 && (
+      {champagnes.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Espumantes</h2>
@@ -211,7 +238,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!cafeteria.length === 0 && (
+      {cafeteria.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Cafeteria</h2>
@@ -233,7 +260,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!bebidas.length === 0 && (
+      {bebidas.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Bebidas</h2>
@@ -255,7 +282,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!cervezas.length === 0 && (
+      {cervezas.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Cervezas</h2>
@@ -277,7 +304,7 @@ export default function Carta() {
           </table>
         </div>
       )}
-      {!tragos.length === 0 && (
+      {tragos.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
           <h2 className="carta-categoria-titulo">Tragos</h2>
