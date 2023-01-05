@@ -1,12 +1,10 @@
 .reservas-container {
-    position: relative;
+    position: fixed;
     width: 100%;
     height: 80px;
     background-color: var(--gris-nav);
-    padding: 25px 22px 25px 13px;
+    padding: 14px 0;
     box-sizing: border-box;
-  
-    position: absolute;
     bottom: 0;
 }
 
@@ -19,7 +17,7 @@
 .reservasText-reservas-container {
     text-align: center;
     line-height: 30px;
-    width: 25%;
+    width: 120px;
 }
 .reservasText-reservas-container p, .text-telefono, .text-email {
     margin: 0;
@@ -49,4 +47,10 @@
     align-items: center;
 }
 
+
+@media screen and (min-width: 600px) {
+    .reservas-container {
+        padding: 25px 22px 25px 13px;
+    }
+}
 

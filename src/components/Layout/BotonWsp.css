@@ -1,0 +1,24 @@
+.botonWsp {
+    position: fixed;
+    bottom: 60px;
+    right: 6%;
+    width: 50px;
+    height: 50px;
+    z-index: 1500;
+  }
+  .botonWsp svg {
+    filter: drop-shadow(2px 2px 4px #7b7b7b);
+  }
+  
+  /*Notebooks*/
+  @media screen and (min-width: 900px) {
+  }
+  
+  /*Desk medianos*/
+  @media screen and (min-width: 1200px) {
+  }
+  
+  /*Desk grandes*/
+  @media screen and (min-width: 1400px) {
+  }
+  

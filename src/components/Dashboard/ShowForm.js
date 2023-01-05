@@ -69,6 +69,9 @@ export default function ShowForm() {
               console.log(res);
               setOk(`Se subio correctamente el show \n"${titulo}"`);
               setTitulo("");
+              setTimeout(() => {
+                window.location.replace("");
+              }, 3000);
             })
             .catch((err) => {
               setError(err.message);

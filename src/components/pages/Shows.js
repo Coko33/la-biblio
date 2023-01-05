@@ -18,6 +18,7 @@ const Shows = () => {
   function openUnShow(id) {
     setElId(id);
     openSingle();
+    window.scrollTo(0, 0);
   }
 
   function getShows() {
@@ -25,7 +26,8 @@ const Shows = () => {
       showsCollectionRef,
       where("fechaYHora", ">=", new Date(Date.now()))
     );
-    getDocs(q)
+    const r = query(showsCollectionRef, where("titulo", "!=", null));
+    getDocs(r)
       .then((res) => {
         const showsData = res.docs.map((show) => ({
           id: show.id,
@@ -36,7 +38,6 @@ const Shows = () => {
             show.data().fechaYHora.seconds * 1000
           ).toLocaleDateString("es-ES", {
             weekday: "long",
-            year: "numeric",
             month: "long",
             day: "numeric",
           }),
@@ -70,7 +71,7 @@ const Shows = () => {
                     <h2 className="show-titulo">{show.titulo}</h2>
                     <h3 className="show-subtitulo">{show.subtitulo}</h3>
                     <div
-                      className="descripcion-container"
+                      className="descripcion-container line-clamp"
                       dangerouslySetInnerHTML={{ __html: show.descripcion }}
                     ></div>
                   </div>

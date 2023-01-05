@@ -1,5 +1,9 @@
 import "./Footer.css";
 
 export default function Footer() {
-  return null;
+  return (
+    <>
+      <h1>hola</h1>
+    </>
+  );
 }

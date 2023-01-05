@@ -11,9 +11,13 @@ font-family: 'Archivo', sans-serif;
   --background: #e8e3df;
   --blanco: #fff;
   font-family: "DM Serif Display", serif;
-  min-height: 100vh;
+  min-height: 150vh;
   position: relative;
   margin-bottom: 20px;
+}
+
+#root {
+  min-height: 150%;
 }
 
 body {

@@ -13,9 +13,11 @@ export default function Nav() {
     <>
       <div className="nav-container">
         <div className="titulo-container">
-          <div className="logo-container">
-            <img src={logo} alt=""></img>
-          </div>
+          <a onClick={() => navigate("")}>
+            <div className="logo-container">
+              <img src={logo} alt=""></img>
+            </div>
+          </a>
           <h1 className="navTitulo">La Biblioteca Café</h1>
         </div>
         <div className="navButtons-container">

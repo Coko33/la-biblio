@@ -75,7 +75,6 @@ const Show = ({ closeSingle, elId }) => {
       ) : (
         <p></p>
       )}
-      <Reservas></Reservas>
     </>
   );
 };

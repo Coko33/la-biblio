@@ -8,7 +8,10 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Shows from "./components/pages/Shows";
 import Carta from "./components/pages/Carta";
 import FAQs from "./components/pages/FAQs";
+import Footer from "./components/Layout/Footer";
 import WinSize from "./Helpers/WinSize";
+import Reservas from "./components/Layout/Reservas";
+import BotonWsp from "./components/Layout/BotonWsp";
 
 function App() {
   return (
@@ -31,8 +34,10 @@ function App() {
             <Route path="/carta" element={<Carta />} />
             <Route path="/FAQs" element={<FAQs />} />
           </Routes>
+          <Reservas></Reservas>
         </BrowserRouter>
       </AuthProvider>
+      <BotonWsp></BotonWsp>
     </>
   );
 }
