@@ -14,7 +14,7 @@ export default function Dashboard() {
   const editarShows = () => setEditandoShows(true);
   const editarCarta = () => setEditandoCarta(true);
   return (
-    <>
+    <div>
       <div className="headerDashboard-container">
         <h2 className="titulo-dashboard">Hola Edith!</h2>
         <div className="buttonsLogoutEdit-Container">
@@ -40,6 +40,6 @@ export default function Dashboard() {
       <DownloadHTML />
       <ShowForm />
       <PlatosForm />
-    </>
+    </div>
   );
 }

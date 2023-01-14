@@ -27,7 +27,7 @@ const Shows = () => {
       where("fechaYHora", ">=", new Date(Date.now()))
     );
     const r = query(showsCollectionRef, where("titulo", "!=", null));
-    getDocs(r)
+    getDocs(q)
       .then((res) => {
         const showsData = res.docs.map((show) => ({
           id: show.id,
@@ -54,7 +54,7 @@ const Shows = () => {
       .catch((err) => console.log(err.message));
   }
   return (
-    <>
+    <div>
       {isOpenSingle && <Show closeSingle={closeSingle} elId={elId}></Show>}
       {!isOpenSingle && (
         <div className="shows-container">
@@ -97,7 +97,7 @@ const Shows = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

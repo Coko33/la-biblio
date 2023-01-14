@@ -109,7 +109,7 @@ export default function DownloadHTML() {
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom:20px; margin-left:20px; margin-right:20px;line-height: 14px; font-size:16px;font-weight: 700;">Marcelo T. de Alvear 1155 - CABA</p>
           </td>
         </tr>
-        <tr style="background-size: contain;background-repeat: no-repeat;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ffooter-news.png?alt=media&token=0ad8f609-eb9c-4ec3-807f-d9de3dce5082">
+        <tr style="background-size: contain;background-repeat: no-repeat;" background="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ffooter-newsletter2.jpg?alt=media&token=e2e359e7-5c09-4fc9-929b-021b074458a6">
           <td style="width: 100%; height: 150px;">
             
           </td>

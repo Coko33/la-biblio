@@ -100,7 +100,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -122,7 +122,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -144,7 +144,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -166,7 +166,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -188,7 +188,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -210,7 +210,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -232,7 +232,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -254,7 +254,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -276,7 +276,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -298,7 +298,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
@@ -320,7 +320,7 @@ export default function Carta() {
                   </tr>
                 ))
               ) : (
-                <></>
+                <div></div>
               )}
             </tbody>
           </table>
