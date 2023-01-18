@@ -9,6 +9,7 @@ const Show = ({ closeSingle, elId }) => {
 
   useEffect(() => {
     getShow();
+    return getShow();
   }, []);
 
   async function getShow() {

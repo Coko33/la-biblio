@@ -15,6 +15,7 @@ export default function EditShows() {
 
   useEffect(() => {
     getShows();
+    return getShows();
   }, []);
 
   function getShows() {

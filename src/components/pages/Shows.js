@@ -5,14 +5,17 @@ import { showsCollectionRef } from "../../firebase";
 import { query, where } from "firebase/firestore";
 import "./Shows.css";
 import Show from "./Show";
+import Spinner from "../Spinner/Spinner";
 
 const Shows = () => {
   const [losShows, setLosShows] = useState([]);
   const [isOpenSingle, openSingle, closeSingle] = useModal(false);
   const [elId, setElId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getShows();
+    return getShows();
   }, []);
 
   function openUnShow(id) {
@@ -22,6 +25,7 @@ const Shows = () => {
   }
 
   function getShows() {
+    setIsLoading(true);
     const q = query(
       showsCollectionRef,
       where("fechaYHora", ">=", new Date(Date.now()))
@@ -48,13 +52,13 @@ const Shows = () => {
           fechaYHora: show.data().fechaYHora.seconds,
         }));
         setLosShows(showsData.sort((a, b) => a.fechaYHora - b.fechaYHora));
-        /* console.log(showsData[0].fechaYHora);
-        console.log(Date.now() / 1000); */
+        setIsLoading(false);
       })
       .catch((err) => console.log(err.message));
   }
   return (
     <div>
+      {isLoading && <Spinner></Spinner>}
       {isOpenSingle && <Show closeSingle={closeSingle} elId={elId}></Show>}
       {!isOpenSingle && (
         <div className="shows-container">

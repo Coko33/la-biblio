@@ -126,6 +126,7 @@ export default function DownloadHTML() {
 
   const elNewsletter = encabezadoNews + cuerpoNews.join("") + footerNews;
   let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
+
   function mostrarShows() {
     fechaInicio.$d && setFechaInicio(fechaInicio.$d);
     fechaFin.$d && setFechaInicio(fechaFin.$d);
@@ -134,6 +135,7 @@ export default function DownloadHTML() {
       where("fechaYHora", ">=", fechaInicio),
       where("fechaYHora", "<=", fechaFin)
     );
+    const r = query(showsCollectionRef, where("titulo", "!=", null));
     getDocs(q)
       .then((res) => {
         const showsData = res.docs.map((show) => ({

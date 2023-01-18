@@ -8,6 +8,7 @@ export default function Nav() {
   const navigate = useNavigate();
   useEffect(() => {
     setRuta(location);
+    return setRuta();
   }, [location]);
   return (
     <>

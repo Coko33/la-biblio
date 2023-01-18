@@ -5,6 +5,7 @@ export default function Imagen({ cambiaFile, imagenURL }) {
   const [preview, setPreview] = useState(imagenURL);
   useEffect(() => {
     setPreview(imagenURL);
+    return setPreview();
   }, []);
   const handlePreview = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));

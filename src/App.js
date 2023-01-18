@@ -1,6 +1,6 @@
 import "./App.css";
-import { Suspense } from "react";
-import { Routes, Route, HashRouter } from "react-router-dom";
+//import { Suspense } from "react";
+import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./Helpers/ProtectedRoute";
 import Nav from "./components/Layout/Nav";
@@ -11,16 +11,15 @@ import Carta from "./components/pages/Carta";
 import FAQs from "./components/pages/FAQs";
 //import Footer from "./components/Layout/Footer";
 //import WinSize from "./Helpers/WinSize";
-import Spinner from "./components/Spinner/Spinner";
+//import Spinner from "./components/Spinner/Spinner";
 import Reservas from "./components/Layout/Reservas";
 import BotonWsp from "./components/Layout/BotonWsp";
 
 function App() {
   return (
     <HashRouter>
-      <Nav />
-      <Suspense fallback={<Spinner></Spinner>}></Suspense>
       <AuthProvider>
+        <Nav />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route

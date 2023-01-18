@@ -20,9 +20,10 @@ export default function Carta() {
 
   useEffect(() => {
     obtenerCarta();
+    /*     return obtenerCarta(); */
   }, []);
 
-  const obtenerCarta = async () => {
+  async function obtenerCarta() {
     try {
       const cartaData = await getDocs(cartaCollectionRef);
       const p = new Promise((resolve, reject) => {
@@ -77,7 +78,7 @@ export default function Carta() {
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 
   const separador =
     " ......................................................................................................................................................";

@@ -36,6 +36,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
 
   useEffect(() => {
     getSingle(elId);
+    return getSingle();
   }, []);
 
   async function getSingle(elId) {

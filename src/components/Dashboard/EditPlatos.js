@@ -15,6 +15,7 @@ export default function EditPlatos() {
 
   useEffect(() => {
     obtenerPlatos();
+    return obtenerPlatos();
   }, []);
 
   function obtenerPlatos() {
