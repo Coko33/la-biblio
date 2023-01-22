@@ -1,7 +1,7 @@
 import "./../CRUDshows/CRUDshows.css";
 export default function TituloPlato({ cambiaTitulo, titulo }) {
   return (
-    <>
+    <div>
       <label className="input-labelTitulo" htmlFor="titulo">
         Nombre del plato o bebida
       </label>
@@ -12,6 +12,6 @@ export default function TituloPlato({ cambiaTitulo, titulo }) {
         value={titulo}
         onChange={cambiaTitulo}
       />
-    </>
+    </div>
   );
 }

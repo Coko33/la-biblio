@@ -35,7 +35,7 @@ export default function Precios({ cambiaPrecios, precios }) {
   ];
 
   return (
-    <>
+    <div>
       <label className="input-labelDescripcion" htmlFor="descripcion">
         Precios
       </label>
@@ -47,6 +47,6 @@ export default function Precios({ cambiaPrecios, precios }) {
         value={precios}
         onChange={cambiaPrecios}
       />
-    </>
+    </div>
   );
 }

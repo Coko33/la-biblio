@@ -45,10 +45,13 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <authContext.Provider
-      value={{ signup, login, user, logout, loading, loginWithGoogle }}
-    >
-      {children}
-    </authContext.Provider>
+    <div>
+      {" "}
+      <authContext.Provider
+        value={{ signup, login, user, logout, loading, loginWithGoogle }}
+      >
+        {children}
+      </authContext.Provider>
+    </div>
   );
 }

@@ -85,7 +85,7 @@ export default function ShowForm() {
   };
 
   return (
-    <>
+    <div>
       {error && <Alert message={error} resetError={resetError} />}
       {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
@@ -107,6 +107,6 @@ export default function ShowForm() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

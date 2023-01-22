@@ -35,7 +35,7 @@ export default function Descripcion({ cambiaDescripcion, descripcion }) {
   ];
 
   return (
-    <>
+    <div>
       <label className="input-labelDescripcion" htmlFor="descripcion">
         Descripción
       </label>
@@ -47,6 +47,6 @@ export default function Descripcion({ cambiaDescripcion, descripcion }) {
         value={descripcion}
         onChange={cambiaDescripcion}
       />
-    </>
+    </div>
   );
 }

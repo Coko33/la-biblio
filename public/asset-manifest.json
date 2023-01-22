@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.4e67bfe3.css",
-    "main.js": "/static/js/main.4a98a958.js",
+    "main.css": "/static/css/main.362519d4.css",
+    "main.js": "/static/js/main.1ac92d64.js",
     "static/js/787.d3ed484c.chunk.js": "/static/js/787.d3ed484c.chunk.js",
     "static/media/logo biblioteca café-11.svg": "/static/media/logo biblioteca café-11.8b41c43b52cb0ed4a9f7c783f3dab3e3.svg",
     "static/media/btnWsp.svg": "/static/media/btnWsp.4e952b57165bfc73aa21fc569070f8f1.svg",
     "index.html": "/index.html",
-    "main.4e67bfe3.css.map": "/static/css/main.4e67bfe3.css.map",
-    "main.4a98a958.js.map": "/static/js/main.4a98a958.js.map",
+    "main.362519d4.css.map": "/static/css/main.362519d4.css.map",
+    "main.1ac92d64.js.map": "/static/js/main.1ac92d64.js.map",
     "787.d3ed484c.chunk.js.map": "/static/js/787.d3ed484c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4e67bfe3.css",
-    "static/js/main.4a98a958.js"
+    "static/css/main.362519d4.css",
+    "static/js/main.1ac92d64.js"
   ]
 }

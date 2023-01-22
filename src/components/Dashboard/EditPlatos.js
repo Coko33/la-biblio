@@ -45,7 +45,7 @@ export default function EditPlatos() {
   }
 
   return (
-    <>
+    <div>
       {isOpenEliminar && (
         <AlertEliminarPlato
           elId={elId}
@@ -80,6 +80,6 @@ export default function EditPlatos() {
           )}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }

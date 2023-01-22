@@ -4,8 +4,8 @@ import Spinner from "../components/Spinner/Spinner";
 
 export function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
-  if (loading) return <Spinner></Spinner>;
+  /* if (loading) return <Spinner></Spinner>; */
   if (!user) return <Navigate to="/login" />;
 
-  return <>{children}</>;
+  return children;
 }

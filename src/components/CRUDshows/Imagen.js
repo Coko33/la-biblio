@@ -13,7 +13,7 @@ export default function Imagen({ cambiaFile, imagenURL }) {
   };
 
   return (
-    <>
+    <div>
       <label className="input-labelDescripcion" htmlFor="descripcion">
         Imagen
       </label>
@@ -26,6 +26,6 @@ export default function Imagen({ cambiaFile, imagenURL }) {
           onChange={handlePreview}
         ></input>
       </div>
-    </>
+    </div>
   );
 }

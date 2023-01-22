@@ -53,7 +53,7 @@ export default function EditShows() {
   }
 
   return (
-    <>
+    <div>
       {isOpenEliminar && (
         <AlertEliminar
           elId={elId}
@@ -87,6 +87,6 @@ export default function EditShows() {
           )}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }

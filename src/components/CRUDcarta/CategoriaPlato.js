@@ -3,7 +3,7 @@ import "./../CRUDshows/CRUDshows.css";
 
 export default function CategoriaPlato({ cambiaCategoria, categoria }) {
   return (
-    <>
+    <div>
       <label className="input-labelCategoria" htmlFor="categoria">
         Elegir una Categoria
       </label>
@@ -27,6 +27,6 @@ export default function CategoriaPlato({ cambiaCategoria, categoria }) {
         <option value="Cervezas">Cervezas</option>
         <option value="Tragos">Tragos</option>
       </select>
-    </>
+    </div>
   );
 }

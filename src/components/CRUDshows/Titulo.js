@@ -1,7 +1,7 @@
 import "./CRUDshows.css";
 export default function Titulo({ cambiaTitulo, titulo }) {
   return (
-    <>
+    <div>
       <label className="input-labelTitulo" htmlFor="titulo">
         Título
       </label>
@@ -12,6 +12,6 @@ export default function Titulo({ cambiaTitulo, titulo }) {
         value={titulo}
         onChange={cambiaTitulo}
       />
-    </>
+    </div>
   );
 }

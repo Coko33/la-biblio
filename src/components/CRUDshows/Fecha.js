@@ -8,7 +8,7 @@ export default function Fecha({ cambiaFechaYHora, fechaYHora, labelFecha }) {
   //const [fechaYHora, setFechaYHora] = useState();
 
   return (
-    <>
+    <div>
       <label className="input-labelDescripcion" htmlFor="descripcion">
         {labelFecha || "Fecha"}
       </label>
@@ -24,6 +24,6 @@ export default function Fecha({ cambiaFechaYHora, fechaYHora, labelFecha }) {
           renderInput={(params) => <TextField {...params} />}
         />
       </LocalizationProvider>
-    </>
+    </div>
   );
 }

@@ -182,7 +182,7 @@ export default function DownloadHTML() {
     fileDownload(textFileAsBlob, nombre);
   };
   return (
-    <>
+    <div>
       <div className="formShow-container">
         <h2 className="dwHTML-titulo">
           Desacrgar Newsletter<br></br>en HTML
@@ -228,6 +228,6 @@ export default function DownloadHTML() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

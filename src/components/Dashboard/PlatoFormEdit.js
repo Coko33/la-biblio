@@ -121,7 +121,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   };
 
   return (
-    <>
+    <div>
       {error && <Alert message={error} resetError={resetError} />}
       {ok && <Alert message={ok} resetError={resetOk} />}
       <div className="formShow-container">
@@ -143,6 +143,6 @@ export default function ShowFormEdit({ elId, closeSingle }) {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

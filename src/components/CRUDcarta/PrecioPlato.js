@@ -1,7 +1,7 @@
 import "./../CRUDshows/CRUDshows.css";
 export default function PrecioPlato({ cambiaPrecio, precio }) {
   return (
-    <>
+    <div>
       <label className="input-labelPrecio" htmlFor="precio">
         Precio
       </label>
@@ -12,6 +12,6 @@ export default function PrecioPlato({ cambiaPrecio, precio }) {
         value={precio}
         onChange={cambiaPrecio}
       />
-    </>
+    </div>
   );
 }

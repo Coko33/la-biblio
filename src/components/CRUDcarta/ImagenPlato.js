@@ -9,7 +9,7 @@ export default function ImagenPlato({ cambiaFile, imagenURL }) {
   };
 
   return (
-    <>
+    <div>
       <label className="input-labelDescripcion" htmlFor="descripcion">
         Imagen del plato o bebida
       </label>
@@ -24,6 +24,6 @@ export default function ImagenPlato({ cambiaFile, imagenURL }) {
           {/*<button type="submit">subir</button>*/}
         </form>
       </div>
-    </>
+    </div>
   );
 }
