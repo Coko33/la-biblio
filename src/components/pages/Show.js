@@ -9,7 +9,6 @@ const Show = ({ closeSingle, elId }) => {
 
   useEffect(() => {
     getShow();
-    return getShow();
   }, []);
 
   async function getShow() {
@@ -76,6 +75,9 @@ const Show = ({ closeSingle, elId }) => {
       ) : (
         <p></p>
       )}
+      <button className="elShow-fecha-button" onClick={closeSingle}>
+        Volver
+      </button>
     </div>
   );
 };

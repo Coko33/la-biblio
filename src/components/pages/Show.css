@@ -11,6 +11,7 @@
   box-shadow: 0px 3px 11px 5px rgba(153, 153, 153, 1);
   -webkit-box-shadow: 0px 3px 11px 5px rgba(153, 153, 153, 1);
   -moz-box-shadow: 0px 3px 11px 5px rgba(153, 153, 153, 1);
+  height: auto;
 }
 .elShow-imagen-container {
   position: relative;
@@ -27,6 +28,9 @@
   border-radius: 20px;
   background-color: var(--blanco);
   border: none;
+  box-shadow: 0px 3px 11px 5px rgba(26, 26, 26, 0.6);
+  -webkit-box-shadow: 0px 3px 11px 5px rgb(26, 26, 26, 0.6);
+  -moz-box-shadow: 0px 3px 11px 5px rgb(26, 26, 26, 0.6);
 }
 .volver-icon {
   margin-left: -4px;
@@ -112,12 +116,29 @@
   display: inline;
   margin-left: 8px;
 }
-
+.elShow-fecha-button {
+  position: relative;
+  height: 32px;
+  padding: 0 20px;
+  color: var(--background);
+  font-weight: 700;
+  background-color: var(--marron-logo);
+  border-radius: 16px;
+  border: none;
+  float: right;
+  right: 30px;
+  top: 40px;
+}
 @media screen and (min-width: 600px) {
   .elShow-container {
     width: 60%;
     left: 20%;
     top: 80px;
+  }
+  .elShow-fecha-button {
+    position: relative;
+    right: calc(20% + 20px);
+    top: 140px;
   }
 }
 
@@ -165,5 +186,10 @@
   .elShow-descripcion-container {
     padding-top: 0;
     padding-bottom: 0;
+  }
+  .elShow-fecha-button {
+    position: relative;
+    right: calc(10% + 20px);
+    top: 140px;
   }
 }

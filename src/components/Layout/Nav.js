@@ -1,17 +1,16 @@
 import "./Nav.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "./../../assets/logo biblioteca café-11.svg";
 export default function Nav() {
-  //console.log(ruta);
   return (
     <div>
       <div className="nav-container">
         <div className="titulo-container">
-          <NavLink to="/">
+          <a href="/">
             <div className="logo-container">
               <img src={logo} alt=""></img>
             </div>
-          </NavLink>
+          </a>
           <h1 className="navTitulo">La Biblioteca Café</h1>
         </div>
         <div className="navButtons-container">

@@ -16,9 +16,7 @@ font-family: 'Archivo', sans-serif;
   margin-bottom: 20px;
 }
 
-#root {
-  min-height: 150%;
-}
+/*#root */
 
 body {
   margin: 0;

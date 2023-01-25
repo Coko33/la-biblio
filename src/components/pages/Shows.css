@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   height: auto;
+  margin-bottom: 300px;
   background-color: var(--background);
 }
 .show-container {

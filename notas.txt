@@ -37,13 +37,15 @@
 
 
     Tareas realizadas:
-    Pantalla blanca y lag - ok
+    pantalla blanca y retardo - ok
     agregar subtitulos cuando corresponden en el newsletter - ok
     nombre dinamico con fecha del archivo html que se descarga - ok
     mail info@ para Marga - ok 
     instructivo para Marga para conectar con su outlook (si necesita mas ayuda estoy) - ok
     cambiar contraseña admin web - ok
+    boton para volver del show individual mas visible - ok
     checkbox (tildes) en los shows para completar el newsletter con shows salteados - ok
 
     Errores pendientes:
-    no navega al admin despues del login
+    no navega al admin despues del login - ok
+    no navega a carta desde el single de un show - ok
