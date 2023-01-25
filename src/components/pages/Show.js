@@ -23,7 +23,7 @@ const Show = ({ closeSingle, elId }) => {
   }
 
   return (
-    <>
+    <div>
       {elShow ? (
         <div className="elShow-container">
           <div className="elShow-imagen-container">
@@ -76,7 +76,7 @@ const Show = ({ closeSingle, elId }) => {
       ) : (
         <p></p>
       )}
-    </>
+    </div>
   );
 };
 

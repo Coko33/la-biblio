@@ -1,43 +1,73 @@
 import "./App.css";
-//import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./Helpers/ProtectedRoute";
 import Nav from "./components/Layout/Nav";
-import { Login } from "./components/pages/Login";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Shows from "./components/pages/Shows";
-import Carta from "./components/pages/Carta";
-import FAQs from "./components/pages/FAQs";
-//import Footer from "./components/Layout/Footer";
-//import WinSize from "./Helpers/WinSize";
-//import Spinner from "./components/Spinner/Spinner";
+import Spinner from "./components/Spinner/Spinner";
 import Reservas from "./components/Layout/Reservas";
 import BotonWsp from "./components/Layout/BotonWsp";
 
 function App() {
+  const Shows = lazy(() => import("./components/pages/Shows"));
+  const Carta = lazy(() => import("./components/pages/Carta"));
+  const FAQs = lazy(() => import("./components/pages/FAQs"));
+  const Login = lazy(() => import("./components/pages/Login"));
+  const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
   return (
-    <HashRouter>
+    <BrowserRouter>
+      <Nav></Nav>
       <AuthProvider>
-        <Nav />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<Spinner>loading</Spinner>}>
+                <Login />
+              </Suspense>
+            }
+          />
           <Route
             path="/admin"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Suspense fallback={<Spinner>loading</Spinner>}>
+                  <Dashboard />
+                </Suspense>
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Shows />} />
-          <Route path="/carta" element={<Carta />} />
-          <Route path="/FAQs" element={<FAQs />} />
+
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<Spinner>loading</Spinner>}>
+                <Shows />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/carta"
+            element={
+              <Suspense fallback={<Spinner>loading</Spinner>}>
+                <Carta />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/FAQs"
+            element={
+              <Suspense fallback={<Spinner>loading</Spinner>}>
+                <FAQs />
+              </Suspense>
+            }
+          />
+          <Route path="*" element={<h1>No se encuentra la url</h1>} />
         </Routes>
-        <Reservas></Reservas>
-        <BotonWsp></BotonWsp>
       </AuthProvider>
-    </HashRouter>
+      <Reservas></Reservas>
+      <BotonWsp></BotonWsp>
+    </BrowserRouter>
   );
 }
 

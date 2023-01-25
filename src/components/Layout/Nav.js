@@ -1,31 +1,26 @@
 import "./Nav.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "./../../assets/logo biblioteca café-11.svg";
-import { useState, useEffect } from "react";
 export default function Nav() {
-  const location = useLocation().pathname;
-  const [ruta, setRuta] = useState();
-  const navigate = useNavigate();
-  useEffect(() => {
-    setRuta(location);
-    return setRuta();
-  }, [location]);
+  //console.log(ruta);
   return (
-    <>
+    <div>
       <div className="nav-container">
         <div className="titulo-container">
-          <a onClick={() => navigate("")}>
+          <NavLink to="/">
             <div className="logo-container">
               <img src={logo} alt=""></img>
             </div>
-          </a>
+          </NavLink>
           <h1 className="navTitulo">La Biblioteca Café</h1>
         </div>
         <div className="navButtons-container">
           <div className="navButton showsButton">
-            <a
-              onClick={() => navigate("")}
-              className={`nav-link ${ruta === "/" && "active"}`}
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
             >
               <div className="nav-icon">
                 {/*                 <i class="material-icons">star</i>
@@ -33,12 +28,14 @@ export default function Nav() {
                 <p className="icon-text">Shows</p>
               </div>
               <div className="nav-notch"></div>
-            </a>
+            </NavLink>
           </div>
           <div className="navButton cartaButton">
-            <a
-              onClick={() => navigate("carta")}
-              className={`nav-link ${ruta === "/carta" && "active"}`}
+            <NavLink
+              to="/carta"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
             >
               <div className="nav-icon">
                 {/*                 <i class="material-icons">restaurant</i>
@@ -46,16 +43,18 @@ export default function Nav() {
                 <p className="icon-text">Carta</p>
               </div>
               <div className="nav-notch"></div>
-            </a>
+            </NavLink>
           </div>
           <div className="navButton FAQsButton">
-            <a
-              onClick={() => navigate("FAQs")}
-              className={`nav-link ${ruta === "/FAQs" && "active"}`}
+            <NavLink
+              to="/faqs"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
             >
               <div className="nav-icon">
                 {/*                 <i class="material-icons">favorite</i>
-                 */}{" "}
+                 */}
                 <p className="icon-text faq">
                   Preguntas
                   <br />
@@ -63,10 +62,10 @@ export default function Nav() {
                 </p>
               </div>
               <div className="nav-notch"></div>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

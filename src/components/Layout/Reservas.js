@@ -1,7 +1,7 @@
 import "./Reservas.css";
 export default function Reservas() {
   return (
-    <>
+    <div>
       <div className="reservas-container">
         <div className="reservasText-container">
           <div className="reservasText-reservas-container">
@@ -20,6 +20,6 @@ export default function Reservas() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,49 @@
+    
+    const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Shows />,
+  },
+  {
+    path: "/carta",
+    element: <Carta />,
+  },
+  {
+    path: "/faqs",
+    element: <FAQs />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+]); 
+    
+    <AuthProvider>
+      <Router>
+        <Nav></Nav>
+      </Router>
+      <RouterProvider router={router} />
+      <Reservas></Reservas>
+      <BotonWsp></BotonWsp>
+    </AuthProvider>
+
+
+    Tareas realizadas:
+    Pantalla blanca y lag - ok
+    agregar subtitulos cuando corresponden en el newsletter - ok
+    nombre dinamico con fecha del archivo html que se descarga - ok
+    mail info@ para Marga - ok 
+    instructivo para Marga para conectar con su outlook (si necesita mas ayuda estoy) - ok
+    cambiar contraseña admin web - ok
+    checkbox (tildes) en los shows para completar el newsletter con shows salteados - ok
+
+    Errores pendientes:
+    no navega al admin despues del login

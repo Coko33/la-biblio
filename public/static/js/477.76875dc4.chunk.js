@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkla_biblio=self.webpackChunkla_biblio||[]).push([[477],{4477:function(n,i,e){e.r(i),e.d(i,{default:function(){return l}});var u=e(184);function l(){return(0,u.jsx)("div",{children:(0,u.jsx)("h1",{children:"FAQs"})})}}}]);
+//# sourceMappingURL=477.76875dc4.chunk.js.map

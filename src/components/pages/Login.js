@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useAuth } from "./../../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { Alert } from "../Layout/Alert";
+import Spinner from "../Spinner/Spinner";
 import "./Login.css";
 
-export function Login() {
+export default function Login() {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -13,8 +14,8 @@ export function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState();
-
   const resetError = () => setError(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = ({ target: { name, value } }) =>
     setUser({ ...user, [name]: value });
@@ -22,6 +23,7 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       await login(user.email, user.password);
       navigate("/admin");
@@ -47,6 +49,7 @@ export function Login() {
   return (
     <div className="login-container">
       {error && <Alert message={error} resetError={resetError} />}
+      {loading && <Spinner></Spinner>}
       <form onSubmit={handleSubmit} className="form-container">
         <div className="emailInput-container">
           <label htmlFor="email" className="email-label">

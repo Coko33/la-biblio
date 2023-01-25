@@ -4,7 +4,7 @@ import { ReactComponent as BtnWsp } from "./../../assets/btnWsp.svg";
 
 export default function BotonWsp() {
   return (
-    <>
+    <div>
       <div className="botonWsp">
         {/* <a href="https://api.whatsapp.com/send?phone=0123456789&text=Hola, Nececito mas informacion!"
         >
@@ -20,6 +20,6 @@ export default function BotonWsp() {
           <BtnWsp></BtnWsp>
         </a>
       </div>
-    </>
+    </div>
   );
 }

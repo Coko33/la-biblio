@@ -6,10 +6,17 @@ import { showsCollectionRef } from "../../firebase";
 import { getDocs, query, where, orderBy, limit } from "firebase/firestore";
 
 export default function DownloadHTML() {
+  /* console.log(
+    fechaInicio.toLocaleDateString("es-ES", {
+      month: "long",
+      day: "numeric",
+    })
+  ); */
   const [fechaInicio, setFechaInicio] = useState(
     new Date(Date.now()).toString()
   );
   const [fechaFin, setFechaFin] = useState(new Date(Date.now()).toString());
+  const [seleccionados, setSeleccionados] = useState([]);
   const [newsletterData, setNewsletterData] = useState([]);
   /* useEffect(() => {}, [newsletterData]); */
   const cambiaFechaInicio = (e) => setFechaInicio(e.$d);
@@ -74,7 +81,7 @@ export default function DownloadHTML() {
             show.titulo
           }</h2>
           <h6 style="font-family: 'Archivo', Helvetica; font-size: 16px;margin:0;">${
-            show.subititulo ? show.subititulo : ""
+            show.subtitulo
           }</h6>
           <p style="font-family: 'Archivo', Helvetica;">${show.descripcion}
             </p>
@@ -127,6 +134,11 @@ export default function DownloadHTML() {
   const elNewsletter = encabezadoNews + cuerpoNews.join("") + footerNews;
   let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
 
+  function acumShows(e) {
+    /* setSeleccionados(...seleccionados, value); */
+    console.log(e.target.value);
+  }
+
   function mostrarShows() {
     fechaInicio.$d && setFechaInicio(fechaInicio.$d);
     fechaFin.$d && setFechaInicio(fechaFin.$d);
@@ -156,6 +168,7 @@ export default function DownloadHTML() {
             .slice(0, -3),
           imagenURL: show.data().imagenURL,
           fechaYHora: show.data().fechaYHora.seconds,
+          seleccionado: false,
         }));
         setNewsletterData(
           showsData.sort((a, b) => a.fechaYHora - b.fechaYHora)
@@ -173,7 +186,7 @@ export default function DownloadHTML() {
     console.log("Fecha de Fin: " + new Date(fechaFin.$d).getTime() / 1000); */
 
   const descargarNews = () => {
-    let nombre = "archivo.html";
+    let nombre = `newsletter desde ${fechaInicio.toLocaleDateString()} hasta ${fechaFin.toLocaleDateString()} .html`;
     /*     if (window.webkitURL != null) {
       elLink = window.webkitURL.createObjectURL(textFileAsBlob);
     } else {
@@ -204,7 +217,13 @@ export default function DownloadHTML() {
                 <tr className="dwHTMLrow-show" key={i}>
                   <td className="dwHTMLcell-showFecha">{show.fecha + " - "}</td>
                   <td className="dwHTMLcell-showTitulo">{show.titulo}</td>
-                  <td className="dwHTMLcell-showTitulo">Hola</td>
+                  <td className="dwHTMLcell-showTitulo">
+                    <input
+                      onChange={(e) => acumShows(e)}
+                      type="checkbox"
+                      value={i}
+                    ></input>
+                  </td>
                 </tr>
               ))
             ) : (

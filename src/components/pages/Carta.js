@@ -84,7 +84,7 @@ export default function Carta() {
     " ......................................................................................................................................................";
 
   return (
-    <>
+    <div>
       {salados.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>
@@ -361,6 +361,6 @@ export default function Carta() {
           <h3>Sin Shows</h3>
         )}
       </div> */}
-    </>
+    </div>
   );
 }
