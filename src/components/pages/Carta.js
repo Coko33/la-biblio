@@ -30,12 +30,14 @@ export default function Carta() {
         const cartaItems = cartaData.docs.map((item) => ({
           id: item.id,
           titulo: item.data().titulo,
+          orden: item.data().orden,
           descripcion: item.data().descripcion,
           imagenURL: item.data().imagenURL,
           precio: item.data().precio,
           categoria: item.data().categoria || null,
         }));
-        setLaCarta(cartaItems.sort((a, b) => a.precio - b.precio));
+        setLaCarta(cartaItems);
+        //setLaCarta(cartaItems.sort((a, b) => a.precio - b.precio));
         resolve(cartaItems);
       });
       p.then((res) => {
@@ -54,7 +56,7 @@ export default function Carta() {
           item.categoria === "Salados" && sala.push(item);
           item.categoria === "Dulces" && dulc.push(item);
           item.categoria === "Entradas" && entr.push(item);
-          item.categoria === "Princiales" && prin.push(item);
+          item.categoria === "Principales" && prin.push(item);
           item.categoria === "Vinos tintos" && vnTn.push(item);
           item.categoria === "Vinos blancos" && vnBl.push(item);
           item.categoria === "Champagnes" && cham.push(item);
@@ -63,17 +65,17 @@ export default function Carta() {
           item.categoria === "Cervezas" && cerv.push(item);
           item.categoria === "Tragos" && trag.push(item);
         });
-        setSalados(sala);
-        setDulces(dulc);
-        setEntradas(entr);
-        setPrincipales(prin);
-        setVinosTintos(vnTn);
-        setVinosBlancos(vnBl);
-        setChampagnes(cham);
-        setCafeteria(cafe);
-        setBebidas(bebi);
-        setCervezas(cerv);
-        setTragos(trag);
+        setSalados(sala.sort((a, b) => a.orden - b.orden));
+        setDulces(dulc.sort((a, b) => a.orden - b.orden));
+        setEntradas(entr.sort((a, b) => a.orden - b.orden));
+        setPrincipales(prin.sort((a, b) => a.orden - b.orden));
+        setVinosTintos(vnTn.sort((a, b) => a.orden - b.orden));
+        setVinosBlancos(vnBl.sort((a, b) => a.orden - b.orden));
+        setChampagnes(cham.sort((a, b) => a.orden - b.orden));
+        setCafeteria(cafe.sort((a, b) => a.orden - b.orden));
+        setBebidas(bebi.sort((a, b) => a.orden - b.orden));
+        setCervezas(cerv.sort((a, b) => a.orden - b.orden));
+        setTragos(trag.sort((a, b) => a.orden - b.orden));
       });
     } catch (err) {
       console.log(err);
@@ -81,10 +83,10 @@ export default function Carta() {
   }
 
   const separador =
-    " ......................................................................................................................................................";
+    " ......................................................................................................................................................................................................................................................................................";
 
   return (
-    <div>
+    <div className="container-carta">
       {salados.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>

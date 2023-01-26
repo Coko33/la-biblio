@@ -35,8 +35,8 @@ export default function Dashboard() {
           </button>
         </div>
       </div>
-      {editandoShows && <EditShows />}
-      {editandoCarta && <EditPlatos />}
+      {editandoShows && <EditShows setEditandoShows={setEditandoShows} />}
+      {editandoCarta && <EditPlatos setEditandoCarta={setEditandoCarta} />}
       <DownloadHTML />
       <ShowForm />
       <PlatosForm />

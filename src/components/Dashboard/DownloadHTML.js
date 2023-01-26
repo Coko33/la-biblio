@@ -1,24 +1,17 @@
 import "./Dashboard.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import fileDownload from "js-file-download";
 import Fecha from "../CRUDshows/Fecha";
 import { showsCollectionRef } from "../../firebase";
 import { getDocs, query, where, orderBy, limit } from "firebase/firestore";
 
 export default function DownloadHTML() {
-  /* console.log(
-    fechaInicio.toLocaleDateString("es-ES", {
-      month: "long",
-      day: "numeric",
-    })
-  ); */
   const [fechaInicio, setFechaInicio] = useState(
     new Date(Date.now()).toString()
   );
   const [fechaFin, setFechaFin] = useState(new Date(Date.now()).toString());
   const [seleccionados, setSeleccionados] = useState([]);
   const [newsletterData, setNewsletterData] = useState([]);
-  /* useEffect(() => {}, [newsletterData]); */
   const cambiaFechaInicio = (e) => setFechaInicio(e.$d);
   const cambiaFechaFin = (e) => setFechaFin(e.$d);
 
@@ -68,7 +61,7 @@ export default function DownloadHTML() {
             <tr>
               <td align="center">`;
 
-  const cuerpoNews = newsletterData.map(
+  const cuerpoNews = filtrarSeleccionados().map(
     (show) =>
       `<table style="width:80%;border-collapse:collapse;border-bottom: 3px solid #7f4437;border-spacing: 0px;">
     <tr >
@@ -131,12 +124,13 @@ export default function DownloadHTML() {
 </body>
 </html>`;
 
-  const elNewsletter = encabezadoNews + cuerpoNews.join("") + footerNews;
-  let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
-
   function acumShows(e) {
-    /* setSeleccionados(...seleccionados, value); */
-    console.log(e.target.value);
+    const indexShow = parseInt(e, 10);
+    if (seleccionados.indexOf(indexShow) === -1) {
+      setSeleccionados([...seleccionados, indexShow]);
+    } else if (seleccionados.indexOf(indexShow) >= 0) {
+      setSeleccionados(seleccionados.filter((i) => i !== indexShow));
+    }
   }
 
   function mostrarShows() {
@@ -173,32 +167,31 @@ export default function DownloadHTML() {
         setNewsletterData(
           showsData.sort((a, b) => a.fechaYHora - b.fechaYHora)
         );
-        console.log(newsletterData);
       })
       .catch((err) => console.log(err.message));
   }
 
-  /*   fechaInicio != null &&
-    console.log(
-      "Fecha de Inicio: " + new Date(fechaInicio.$d).getTime() / 1000
-    );
-  fechaFin != null &&
-    console.log("Fecha de Fin: " + new Date(fechaFin.$d).getTime() / 1000); */
-
-  const descargarNews = () => {
+  function filtrarSeleccionados() {
+    const evFilt = [];
+    newsletterData.forEach((show, i) => {
+      if (seleccionados.indexOf(i) >= 0) {
+        evFilt.push(show);
+      }
+    });
+    return evFilt;
+  }
+  function descargarNews() {
     let nombre = `newsletter desde ${fechaInicio.toLocaleDateString()} hasta ${fechaFin.toLocaleDateString()} .html`;
-    /*     if (window.webkitURL != null) {
-      elLink = window.webkitURL.createObjectURL(textFileAsBlob);
-    } else {
-      elLink = window.URL.createObjectURL(textFileAsBlob);
-    } */
+    const elNewsletter = encabezadoNews + cuerpoNews.join("") + footerNews;
+    let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
     fileDownload(textFileAsBlob, nombre);
-  };
+  }
+
   return (
     <div>
       <div className="formShow-container">
         <h2 className="dwHTML-titulo">
-          Desacrgar Newsletter<br></br>en HTML
+          Descargar Newsletter<br></br>en HTML
         </h2>
         <Fecha
           cambiaFechaYHora={cambiaFechaInicio}
@@ -210,27 +203,44 @@ export default function DownloadHTML() {
           fechaYHora={fechaFin}
           labelFecha={"Hasta"}
         ></Fecha>
-        <table className="dwHTMLtable">
-          <tbody>
-            {newsletterData ? (
-              newsletterData.map((show, i) => (
-                <tr className="dwHTMLrow-show" key={i}>
-                  <td className="dwHTMLcell-showFecha">{show.fecha + " - "}</td>
-                  <td className="dwHTMLcell-showTitulo">{show.titulo}</td>
-                  <td className="dwHTMLcell-showTitulo">
-                    <input
-                      onChange={(e) => acumShows(e)}
-                      type="checkbox"
-                      value={i}
-                    ></input>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <h3>Sin Shows</h3>
-            )}
-          </tbody>
-        </table>
+
+        <div className="containter-tablaEditar">
+          <table className="dwHTMLtable">
+            <thead className="tablaHead">
+              <tr>
+                <th>Fecha</th>
+                <th>Título</th>
+                <th>Seleccionados</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {newsletterData ? (
+                newsletterData.map((show, i) => (
+                  <tr className="dwHTMLrow-show" key={i}>
+                    <td className="dwHTMLcell-showFecha">
+                      {show.fecha} &nbsp; &nbsp; &nbsp; &nbsp;
+                    </td>
+                    <td className="dwHTMLcell-showTitulo">
+                      {show.titulo} &nbsp; &nbsp; &nbsp; &nbsp;
+                    </td>
+                    <td className="dwHTMLcell-showTitulo">
+                      <input
+                        onChange={(e) => acumShows(e.target.value)}
+                        type="checkbox"
+                        value={i}
+                      ></input>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <h3>Sin Shows</h3>
+              )}
+            </tbody>
+          </table>
+        </div>
+
         <div className="dwHTMLbutton-container">
           <button
             onClick={() => mostrarShows()}

@@ -67,11 +67,11 @@ export default function ShowForm() {
           })
             .then((res) => {
               console.log(res);
-              setOk(`Se subio correctamente el show \n"${titulo}"`);
+              setOk(`Se subió correctamente el show \n"${titulo}"`);
               setTitulo("");
               setTimeout(() => {
                 window.location.replace("");
-              }, 3000);
+              }, 2000);
             })
             .catch((err) => {
               setError(err.message);

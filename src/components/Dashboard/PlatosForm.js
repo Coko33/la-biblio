@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Dashboard.css";
 import TituloPlato from "../CRUDcarta/TituloPlato";
 import CategoriaPlato from "../CRUDcarta/CategoriaPlato";
+import OrdenPlato from "../CRUDcarta/OrdenPlato";
 import DescripcionPlato from "../CRUDcarta/DescripcionPlato";
 import PrecioPlato from "../CRUDcarta/PrecioPlato";
 import ImagenPlato from "../CRUDcarta/ImagenPlato";
@@ -15,8 +16,9 @@ import { cartaCollectionRef } from "../../firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
 
-export default function ShowForm() {
+export default function PlatosForm() {
   const [titulo, setTitulo] = useState("");
+  const [orden, setOrden] = useState();
   const [categoria, setCategoria] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState();
@@ -33,6 +35,7 @@ export default function ShowForm() {
   const [file, setFile] = useState(null);
 
   const cambiaTitulo = (e) => setTitulo(e.target.value);
+  const cambiaOrden = (e) => setOrden(e.target.value);
   const cambiaCategoria = (e) => setCategoria(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e.target.value);
   const cambiaPrecio = (e) => setPrecio(e.target.value);
@@ -41,6 +44,7 @@ export default function ShowForm() {
   const subirDoc = (downloadURL) => {
     addDoc(cartaCollectionRef, {
       titulo,
+      orden: parseInt(orden, 10),
       categoria,
       descripcion,
       precio: parseInt(precio, 10),
@@ -48,11 +52,9 @@ export default function ShowForm() {
     })
       .then((res) => {
         setOk(`Se subio correctamente el ítem \n"${titulo}"`);
-        setTitulo(null);
-        setCategoria(null);
-        setDescripcion(null);
-        setPrecio(null);
-        setFile(null);
+        setTimeout(() => {
+          window.location.replace("");
+        }, 2000);
       })
       .catch((err) => {
         setError(err.message);
@@ -95,6 +97,7 @@ export default function ShowForm() {
           cambiaCategoria={cambiaCategoria}
           categoria={categoria}
         ></CategoriaPlato>
+        <OrdenPlato cambiaOrden={cambiaOrden} orden={orden}></OrdenPlato>
         <DescripcionPlato
           cambiaDescripcion={cambiaDescripcion}
           descripcion={descripcion}

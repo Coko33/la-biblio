@@ -24,7 +24,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
 import Precios from "../CRUDshows/Precios";
 
-export default function ShowFormEdit({ elId, closeSingle }) {
+export default function ShowFormEdit({ elId, closeSingle, getShows }) {
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -38,7 +38,6 @@ export default function ShowFormEdit({ elId, closeSingle }) {
 
   useEffect(() => {
     getSingle(elId);
-    return getSingle();
   }, []);
 
   async function getSingle(elId) {
@@ -101,8 +100,14 @@ export default function ShowFormEdit({ elId, closeSingle }) {
             })
               .then((res) => {
                 console.log(res);
-                setOk(`Se subio correctamente el show \n"${titulo}"`);
-                setTitulo("");
+                setOk(`Se editó correctamente el show \n"${titulo}"`);
+                getShows();
+                setTimeout(() => {
+                  resetOk();
+                  closeSingle();
+                  setTitulo("");
+                  /* window.location.replace(""); */
+                }, 2000);
               })
               .catch((err) => {
                 setError(err.message);
@@ -121,8 +126,14 @@ export default function ShowFormEdit({ elId, closeSingle }) {
       })
         .then((res) => {
           console.log(res);
-          setOk(`Se subio correctamente el show \n"${titulo}"`);
-          setTitulo("");
+          setOk(`Se editó correctamente el show \n"${titulo}"`);
+          getShows();
+          setTimeout(() => {
+            resetOk();
+            closeSingle();
+            setTitulo("");
+            /* window.location.replace(""); */
+          }, 2000);
         })
         .catch((err) => {
           setError(err.message);

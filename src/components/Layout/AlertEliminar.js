@@ -1,12 +1,19 @@
 import "./Alert.css";
 import { showsCollectionRef } from "../../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
-export function AlertEliminar({ elId, elTitulo, closeEliminar, getShows }) {
+export function AlertEliminar({
+  elId,
+  elTitulo,
+  closeEliminar,
+  getShows,
+  setOk,
+}) {
   const eliminarDoc = async () => {
     try {
       await deleteDoc(doc(showsCollectionRef, elId));
       getShows();
       closeEliminar();
+      setOk(`Se eliminó el show \n"${elTitulo}"`);
     } catch (err) {
       console.log(err);
     }

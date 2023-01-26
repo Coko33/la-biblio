@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
-import Titulo from "../CRUDcarta/TituloPlato";
-import Descripcion from "../CRUDcarta/DescripcionPlato";
-import Categoria from "../CRUDcarta/CategoriaPlato";
-import Imagen from "../CRUDcarta/ImagenPlato";
-import Precio from "../CRUDcarta/PrecioPlato";
+import TituloPlato from "../CRUDcarta/TituloPlato";
+import OrdenPlato from "./../CRUDcarta/OrdenPlato";
+import DescripcionPlato from "../CRUDcarta/DescripcionPlato";
+import CategoriaPlato from "../CRUDcarta/CategoriaPlato";
+import ImagenPlato from "../CRUDcarta/ImagenPlato";
+import PrecioPlato from "../CRUDcarta/PrecioPlato";
 import { Alert } from "../Layout/Alert";
 
 //firestore
@@ -23,8 +24,9 @@ import { cartaCollectionRef } from "../../firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
 
-export default function ShowFormEdit({ elId, closeSingle }) {
+export default function ShowFormEdit({ elId, closeSingle, obtenerPlatos }) {
   const [titulo, setTitulo] = useState("");
+  const [orden, setOrden] = useState();
   const [descripcion, setDescripcion] = useState("");
   const [categoria, setCategoria] = useState("");
   const [imagenURL, setImagenURL] = useState("");
@@ -36,7 +38,6 @@ export default function ShowFormEdit({ elId, closeSingle }) {
 
   useEffect(() => {
     getSingle(elId);
-    return getSingle();
   }, []);
 
   async function getSingle(elId) {
@@ -44,10 +45,12 @@ export default function ShowFormEdit({ elId, closeSingle }) {
     const elDoc = await getDoc(docRef);
     if (elDoc.exists()) {
       setTitulo(elDoc.data().titulo);
+      setOrden(elDoc.data().orden);
       setDescripcion(elDoc.data().descripcion);
       setCategoria(elDoc.data().categoria);
       setPrecio(elDoc.data().precio);
       setImagenURL(elDoc.data().imagenURL);
+      console.log(orden);
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
@@ -61,6 +64,7 @@ export default function ShowFormEdit({ elId, closeSingle }) {
   const resetOk = () => setOk(null);
 
   const cambiaTitulo = (e) => setTitulo(e.target.value);
+  const cambiaOrden = (e) => setOrden(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
   const cambiaCategoria = (e) => setCategoria(e.target.value);
   const cambiaPrecio = (e) => setPrecio(e.target.value);
@@ -84,16 +88,21 @@ export default function ShowFormEdit({ elId, closeSingle }) {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setDoc(doc(cartaCollectionRef, elId), {
               titulo,
-              subtitulo: categoria || "",
+              orden: parseInt(orden, 10) || 0,
               categoria: categoria,
               descripcion: descripcion || "",
-              precio: precio || "",
+              precio: parseInt(precio, 10) || "",
               imagenURL: downloadURL,
             })
               .then((res) => {
-                console.log(res);
                 setOk(`Se editó correctamente el item \n"${titulo}"`);
-                setTitulo("");
+                obtenerPlatos();
+                setTimeout(() => {
+                  resetOk();
+                  closeSingle();
+                  setTitulo("");
+                  /* window.location.replace(""); */
+                }, 2000);
               })
               .catch((err) => {
                 setError(err.message);
@@ -104,15 +113,20 @@ export default function ShowFormEdit({ elId, closeSingle }) {
     } else {
       setDoc(doc(cartaCollectionRef, elId), {
         titulo: titulo,
+        orden: parseInt(orden, 10) || 0,
         categoria: categoria,
         descripcion: descripcion || "",
-        precio: precio || "",
+        precio: parseInt(precio, 10) || "",
         imagenURL: imagenURL,
       })
         .then((res) => {
-          console.log(res);
           setOk(`Se editó correctamente el item\n"${titulo}"`);
-          setTitulo("");
+          obtenerPlatos();
+          setTimeout(() => {
+            resetOk();
+            closeSingle();
+            setTitulo("");
+          }, 2000);
         })
         .catch((err) => {
           setError(err.message);
@@ -129,14 +143,18 @@ export default function ShowFormEdit({ elId, closeSingle }) {
           Cerrar
         </button>
         <h2 className="titulo-form">Modificar "{titulo}"</h2>
-        <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
-        <Categoria cambiaCategoria={cambiaCategoria} categoria={categoria} />
-        <Descripcion
+        <TituloPlato cambiaTitulo={cambiaTitulo} titulo={titulo} />
+        <CategoriaPlato
+          cambiaCategoria={cambiaCategoria}
+          categoria={categoria}
+        />
+        <OrdenPlato cambiaOrden={cambiaOrden} orden={orden} />
+        <DescripcionPlato
           cambiaDescripcion={cambiaDescripcion}
           descripcion={descripcion}
         />
-        <Precio cambiaPrecio={cambiaPrecio} precio={precio}></Precio>
-        <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
+        <PrecioPlato cambiaPrecio={cambiaPrecio} precio={precio} />
+        <ImagenPlato cambiaFile={cambiaFile} imagenURL={imagenURL} />
         <div className="formShow-button-container">
           <button className="formShow-button" onClick={enviarEditado}>
             Enviar

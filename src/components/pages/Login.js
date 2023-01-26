@@ -25,8 +25,7 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      await login(user.email, user.password);
-      navigate("/admin");
+      await login(user.email, user.password).then(navigate("/admin"));
     } catch (err) {
       if (err.code === "auth/user-not-found")
         setError("No se encuentra el usuario o mail");

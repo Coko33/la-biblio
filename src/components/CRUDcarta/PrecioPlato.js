@@ -3,7 +3,7 @@ export default function PrecioPlato({ cambiaPrecio, precio }) {
   return (
     <div>
       <label className="input-labelPrecio" htmlFor="precio">
-        Precio
+        Precio (solo números!)
       </label>
       <input
         type="text"

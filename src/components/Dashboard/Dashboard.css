@@ -81,3 +81,9 @@
   margin: 0;
   font-size: 14px;
 }
+.tablaHead {
+  background-color: var(--icon-disabled);
+  height: 30px;
+}
+.containter-tablaEditar {
+}

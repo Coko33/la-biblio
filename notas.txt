@@ -45,6 +45,11 @@
     cambiar contraseña admin web - ok
     boton para volver del show individual mas visible - ok
     checkbox (tildes) en los shows para completar el newsletter con shows salteados - ok
+    duplicar un show (para luego editarlo) - ok (luego de duplicar aparece con fecha invalida en la lista. recien despues de editar la fecha aparece visible)
+    crear una feature ordenar los items de la carta con orden específico - ok
+    Agregar una foto de La Biblio en transparencia en el fondo 
+    
+
 
     Errores pendientes:
     no navega al admin despues del login - ok

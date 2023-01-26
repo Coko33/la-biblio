@@ -4,7 +4,8 @@
 }
 
 .input-titulo,
-.input-selectCategoria {
+.input-selectCategoria,
+.input-orden {
   border: 1px solid #ccc;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -24,10 +25,12 @@
   max-width: 100%;
   font-style: italic;
 }
+
 .input-titulo::placeholder {
   font-style: italic;
 }
 .input-labelTitulo,
+.input-labelOrden,
 .input-labelDescripcion,
 .input-labelPrecio,
 .input-labelCategoria {
