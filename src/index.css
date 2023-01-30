@@ -23,7 +23,7 @@ body {
   margin: 0;
   min-height: 100%;
   margin-bottom: 80px;
-  background-color: rgba(141, 22, 121, 0.829);
+  background-color: var(--background);
 }
 
 .backgroundImage {

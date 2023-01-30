@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.b843d6a6.css",
-    "main.js": "/static/js/main.1d3bf812.js",
+    "main.css": "/static/css/main.3d076390.css",
+    "main.js": "/static/js/main.81a1d0cd.js",
     "static/css/994.414761e2.chunk.css": "/static/css/994.414761e2.chunk.css",
     "static/js/994.21c61e1e.chunk.js": "/static/js/994.21c61e1e.chunk.js",
-    "static/css/995.85bad9e3.chunk.css": "/static/css/995.85bad9e3.chunk.css",
+    "static/css/995.27bead2c.chunk.css": "/static/css/995.27bead2c.chunk.css",
     "static/js/995.e59aaf57.chunk.js": "/static/js/995.e59aaf57.chunk.js",
     "static/css/477.31d6cfe0.chunk.css": "/static/css/477.31d6cfe0.chunk.css",
     "static/js/477.76875dc4.chunk.js": "/static/js/477.76875dc4.chunk.js",
@@ -17,11 +17,11 @@
     "static/media/logo biblioteca café-11.svg": "/static/media/logo biblioteca café-11.8b41c43b52cb0ed4a9f7c783f3dab3e3.svg",
     "static/media/btnWsp.svg": "/static/media/btnWsp.4e952b57165bfc73aa21fc569070f8f1.svg",
     "index.html": "/index.html",
-    "main.b843d6a6.css.map": "/static/css/main.b843d6a6.css.map",
-    "main.1d3bf812.js.map": "/static/js/main.1d3bf812.js.map",
+    "main.3d076390.css.map": "/static/css/main.3d076390.css.map",
+    "main.81a1d0cd.js.map": "/static/js/main.81a1d0cd.js.map",
     "994.414761e2.chunk.css.map": "/static/css/994.414761e2.chunk.css.map",
     "994.21c61e1e.chunk.js.map": "/static/js/994.21c61e1e.chunk.js.map",
-    "995.85bad9e3.chunk.css.map": "/static/css/995.85bad9e3.chunk.css.map",
+    "995.27bead2c.chunk.css.map": "/static/css/995.27bead2c.chunk.css.map",
     "995.e59aaf57.chunk.js.map": "/static/js/995.e59aaf57.chunk.js.map",
     "477.76875dc4.chunk.js.map": "/static/js/477.76875dc4.chunk.js.map",
     "654.32b05f58.chunk.css.map": "/static/css/654.32b05f58.chunk.css.map",
@@ -32,7 +32,7 @@
     "595.aa5ee04f.chunk.js.map": "/static/js/595.aa5ee04f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b843d6a6.css",
-    "static/js/main.1d3bf812.js"
+    "static/css/main.3d076390.css",
+    "static/js/main.81a1d0cd.js"
   ]
 }

@@ -16,12 +16,6 @@ function App() {
   const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
   return (
     <BrowserRouter>
-      <div className="backgroundImage">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Fbg-IMG_4538.jpg?alt=media&token=594699b1-394c-4649-a24e-89a169b4c08b"
-          alt=""
-        />
-      </div>
       <Nav></Nav>
       <AuthProvider>
         <Routes>
