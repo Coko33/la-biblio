@@ -8,6 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 export const authContext = createContext();
 
@@ -18,6 +19,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +29,10 @@ export function AuthProvider({ children }) {
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
 
-  const logout = () => signOut(auth);
+  const logout = () => {
+    signOut(auth);
+    navigate("/");
+  };
 
   const loginWithGoogle = () => {
     const googleProvider = new GoogleAuthProvider();

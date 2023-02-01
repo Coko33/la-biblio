@@ -74,7 +74,7 @@ export default function DownloadHTML() {
             show.titulo
           }</h2>
           <h6 style="font-family: 'Archivo', Helvetica; font-size: 16px;margin:0;">${
-            show.subtitulo
+            show.subtitulo ? show.subtitulo : ""
           }</h6>
           <p style="font-family: 'Archivo', Helvetica;">${show.descripcion}
             </p>
@@ -104,7 +104,7 @@ export default function DownloadHTML() {
         <tr style="width: 80%;">
           <td>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 30px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">La Biblioteca Café  esta abierta desde las 12 horas y de lunes a viernes para almorzar (plato, bebida y postre o cafe x  $1900) y también para  tomar algo, leer un libro de sus estantes, o simplemente sentarse a descansar del ruido de Buenos Aires!</p>
-            <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">tel: 4811-0673 ó 15 3515-9514</p>
+            <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">tel: 4811-0673 ó 15 6515-9514</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">email: edith@labibliotecacafe.com.ar</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom:20px; margin-left:20px; margin-right:20px;line-height: 14px; font-size:16px;font-weight: 700;">Marcelo T. de Alvear 1155 - CABA</p>
           </td>

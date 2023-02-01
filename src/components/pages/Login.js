@@ -25,7 +25,8 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      await login(user.email, user.password).then(navigate("/admin"));
+      await login(user.email, user.password);
+      navigate("/admin");
     } catch (err) {
       if (err.code === "auth/user-not-found")
         setError("No se encuentra el usuario o mail");
@@ -43,13 +44,18 @@ export default function Login() {
     } catch (err) {
       setError(err.message);
     }
-  }; */
+  }; 
+  
+  
+  
+  onSubmit={handleSubmit} 
+  */
 
   return (
     <div className="login-container">
       {error && <Alert message={error} resetError={resetError} />}
       {loading && <Spinner></Spinner>}
-      <form onSubmit={handleSubmit} className="form-container">
+      <form className="form-container">
         <div className="emailInput-container">
           <label htmlFor="email" className="email-label">
             Email
@@ -77,7 +83,9 @@ export default function Login() {
           ></input>
         </div>
 
-        <button className="button-login">Login</button>
+        <button className="button-login" onClick={(e) => handleSubmit(e)}>
+          Login
+        </button>
       </form>
       {/*<button onClick={handleGoogleSignIn}>Login with google</button>*/}
     </div>
