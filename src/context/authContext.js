@@ -26,9 +26,10 @@ export function AuthProvider({ children }) {
   const signup = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
-  const login = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password);
-    navigate("/admin");
+  const login = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password).then(
+      navigate("/admin")
+    );
   };
 
   const logout = () => {
