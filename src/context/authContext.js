@@ -26,8 +26,10 @@ export function AuthProvider({ children }) {
   const signup = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
-  const login = (email, password) =>
+  const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password);
+    navigate("/admin");
+  };
 
   const logout = () => {
     signOut(auth);

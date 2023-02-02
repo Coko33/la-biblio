@@ -38,7 +38,7 @@
 
     Tareas realizadas:
     pantalla blanca y retardo - ok
-    agregar subtitulos cuando corresponden en el newsletter - ok
+    agregar subtitulos cuando corresponden en el newsletter, (que no aparezca null) - ok
     nombre dinamico con fecha del archivo html que se descarga - ok
     mail info@ para Marga - ok 
     instructivo para Marga para conectar con su outlook (si necesita mas ayuda estoy) - ok
@@ -47,7 +47,8 @@
     checkbox (tildes) en los shows para completar el newsletter con shows salteados - ok
     duplicar un show (para luego editarlo) - ok (luego de duplicar aparece con fecha invalida en la lista. recien despues de editar la fecha aparece visible)
     crear una feature ordenar los items de la carta con orden específico - ok
-    Agregar una foto de La Biblio en transparencia en el fondo 
+    poner telefono correcto en el newsletter - ok
+
     
 
 

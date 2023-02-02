@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAuth } from "./../../context/authContext";
-import { useNavigate, Navigate } from "react-router-dom";
 import { Alert } from "../Layout/Alert";
 import Spinner from "../Spinner/Spinner";
 import "./Login.css";
@@ -12,7 +11,6 @@ export default function Login() {
   });
 
   const { login } = useAuth();
-  const navigate = useNavigate();
   const [error, setError] = useState();
   const resetError = () => setError(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +24,6 @@ export default function Login() {
     setLoading(true);
     try {
       await login(user.email, user.password);
-      navigate("/admin");
     } catch (err) {
       if (err.code === "auth/user-not-found")
         setError("No se encuentra el usuario o mail");
@@ -36,20 +33,6 @@ export default function Login() {
         setError("La contraseña no es correcta");
     }
   };
-
-  /* const handleGoogleSignIn = async () => {
-    try {
-      await loginWithGoogle();
-      navigate("/");
-    } catch (err) {
-      setError(err.message);
-    }
-  }; 
-  
-  
-  
-  onSubmit={handleSubmit} 
-  */
 
   return (
     <div className="login-container">
@@ -87,7 +70,6 @@ export default function Login() {
           Login
         </button>
       </form>
-      {/*<button onClick={handleGoogleSignIn}>Login with google</button>*/}
     </div>
   );
 }
