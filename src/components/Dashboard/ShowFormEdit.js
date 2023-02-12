@@ -90,11 +90,11 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            addDoc(showsCollectionRef, {
+            setDoc(doc(showsCollectionRef, elId), {
               titulo,
-              subtitulo,
-              descripcion,
-              precios,
+              subtitulo: subtitulo || "",
+              descripcion: descripcion || "",
+              precios: precios || "",
               fechaYHora: fechaYHora,
               imagenURL: downloadURL,
             })
@@ -145,26 +145,28 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
     <div>
       {error && <Alert message={error} resetError={resetError} />}
       {ok && <Alert message={ok} resetError={resetOk} />}
-      <div className="formShow-container">
-        <button className="formShow-button" onClick={() => closeSingle()}>
-          Cerrar
-        </button>
-        <h2 className="titulo-form">Modificar "{titulo}"</h2>
-        <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
-        <Subtitulo cambiaSubtitulo={cambiaSubtitulo} subtitulo={subtitulo} />
-        <Descripcion
-          cambiaDescripcion={cambiaDescripcion}
-          descripcion={descripcion}
-        />
-        <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
-        <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
-        <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
-        <div className="formShow-button-container">
-          <button className="formShow-button" onClick={enviarEditado}>
-            Enviar
+      {titulo && (
+        <div className="formShow-container">
+          <button className="formShow-button" onClick={() => closeSingle()}>
+            Cerrar
           </button>
+          <h2 className="titulo-form">Modificar "{titulo}"</h2>
+          <Titulo cambiaTitulo={cambiaTitulo} titulo={titulo} />
+          <Subtitulo cambiaSubtitulo={cambiaSubtitulo} subtitulo={subtitulo} />
+          <Descripcion
+            cambiaDescripcion={cambiaDescripcion}
+            descripcion={descripcion}
+          />
+          <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
+          <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
+          <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
+          <div className="formShow-button-container">
+            <button className="formShow-button" onClick={enviarEditado}>
+              Enviar
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

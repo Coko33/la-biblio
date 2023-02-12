@@ -133,6 +133,16 @@ export default function DownloadHTML() {
     }
   }
 
+  function seleccionarTodos(checked) {
+    if (checked) {
+      newsletterData.forEach((show, i) =>
+        setSeleccionados((seleccionados) => [...seleccionados, i])
+      );
+    } else {
+      setSeleccionados([]);
+    }
+  }
+
   function mostrarShows() {
     fechaInicio.$d && setFechaInicio(fechaInicio.$d);
     fechaFin.$d && setFechaInicio(fechaFin.$d);
@@ -216,6 +226,19 @@ export default function DownloadHTML() {
               </tr>
             </thead>
             <tbody>
+              <tr className="dwHTMLrow-show">
+                <td></td>
+                <td></td>
+                <td>
+                  <input
+                    onChange={(e) => seleccionarTodos(e.target.checked)}
+                    type="checkbox"
+                  ></input>
+                  Seleccionar todos
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
               {newsletterData ? (
                 newsletterData.map((show, i) => (
                   <tr className="dwHTMLrow-show" key={i}>
@@ -230,6 +253,7 @@ export default function DownloadHTML() {
                         onChange={(e) => acumShows(e.target.value)}
                         type="checkbox"
                         value={i}
+                        checked={seleccionados.includes(i)}
                       ></input>
                     </td>
                   </tr>

@@ -7,6 +7,7 @@ import Nav from "./components/Layout/Nav";
 import Spinner from "./components/Spinner/Spinner";
 import Reservas from "./components/Layout/Reservas";
 import BotonWsp from "./components/Layout/BotonWsp";
+import AcercaDe from "./components/pages/AcercaDe";
 
 function App() {
   const Shows = lazy(() => import("./components/pages/Shows"));
@@ -59,6 +60,14 @@ function App() {
             element={
               <Suspense fallback={<Spinner>loading</Spinner>}>
                 <FAQs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/acercaDe"
+            element={
+              <Suspense fallback={<Spinner>loading</Spinner>}>
+                <AcercaDe />
               </Suspense>
             }
           />

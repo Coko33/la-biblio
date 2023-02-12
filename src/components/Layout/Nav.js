@@ -44,6 +44,21 @@ export default function Nav() {
               <div className="nav-notch"></div>
             </NavLink>
           </div>
+          <div className="navButton acercaDeButton">
+            <NavLink
+              to="/acercaDe"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              <div className="nav-icon">
+                {/*                 <i class="material-icons">favorite</i>
+                 */}
+                <p className="icon-text">Acerca de</p>
+              </div>
+              <div className="nav-notch"></div>
+            </NavLink>
+          </div>
           <div className="navButton FAQsButton">
             <NavLink
               to="/faqs"
@@ -54,7 +69,7 @@ export default function Nav() {
               <div className="nav-icon">
                 {/*                 <i class="material-icons">favorite</i>
                  */}
-                <p className="icon-text faq">
+                <p className="icon-text">
                   Preguntas
                   <br />
                   frecuentes

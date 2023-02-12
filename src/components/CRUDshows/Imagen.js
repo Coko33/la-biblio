@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./CRUDshows.css";
 
 export default function Imagen({ cambiaFile, imagenURL }) {
   const [preview, setPreview] = useState(imagenURL);
-  useEffect(() => {
-    setPreview(imagenURL);
-    return setPreview();
-  }, []);
   const handlePreview = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));
     cambiaFile(e.target.files[0]);
@@ -18,7 +14,6 @@ export default function Imagen({ cambiaFile, imagenURL }) {
         Imagen
       </label>
       <div className="input-imagen">
-        <form>{/* <button type="submit">subir</button> */}</form>
         {<img className="imagenPreview" width="320" src={preview} alt=""></img>}
         <input
           className="input-imagen-input"
