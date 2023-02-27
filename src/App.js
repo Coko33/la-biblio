@@ -8,6 +8,7 @@ import Spinner from "./components/Spinner/Spinner";
 import Reservas from "./components/Layout/Reservas";
 import BotonWsp from "./components/Layout/BotonWsp";
 import AcercaDe from "./components/pages/AcercaDe";
+import MenuDelDia from "./components/Layout/MenuDelDia";
 
 function App() {
   const Shows = lazy(() => import("./components/pages/Shows"));
@@ -43,6 +44,7 @@ function App() {
             path="/"
             element={
               <Suspense fallback={<Spinner>loading</Spinner>}>
+                <MenuDelDia></MenuDelDia>
                 <Shows />
               </Suspense>
             }
