@@ -1,3 +1,56 @@
+.menuDelDia-carta-container{
+  position: relative;
+  width: calc(100% - 30px);
+  left: 15px;
+  top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.menuDelDia-carta-imgContainer {
+  position: relative;
+  width: 100%;
+}
+.menuDelDia-carta-almuerzoEjecutivo {
+  position: absolute;
+  height: 36px;
+  border-radius: 18px;
+  width: auto;
+  right: 20px;
+  top: 14px;
+  background-color: var(--icon-enabled);
+}
+.menuDelDia-carta-almuerzoEjecutivo h6 {
+  color: white;
+  padding: 0 14px;
+  margin: 0;
+  line-height: 36px;
+  text-align: center;
+  font-family: "Archivo", sans-serif;
+  font-size: 14px;
+}
+.menuDelDia-carta-almuerzoEjecutivo.precio{
+  position: relative;
+  background-color: #C8B3AC;
+  width: 110px;
+  left:calc(100% - 110px);
+}
+.menuDelDia-carta-almuerzoEjecutivo.precio h6{
+  font-size: 18px;
+  color:#7F4437;
+}
+.menuDelDia-carta-container img {
+  width: 100%;
+}
+.menuDelDia-carta-texto {
+  padding: 10px 10px;
+}
+.menuDelDia-carta-texto p {
+  margin: 0;
+  font-family: "Archivo", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--marron-logo);
+}
 .carta-categoria-container {
   position: relative;
   padding: 15px 0;
@@ -36,10 +89,28 @@
   color: var(--icon-enabled);
 }
 @media screen and (min-width: 600px) {
+  .menuDelDia-carta-imgContainer {
+    width: 60%;
+    left: 20%;
+  }
+  .menuDelDia-carta-texto {
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .menuDelDia-carta-texto p {
+    text-align: center;
+  }
+  .menuDelDia-carta-almuerzoEjecutivo.precio{
+    left: calc(50% - 55px);
+  }
   .container-carta {
     position: relative;
     width: 60%;
     left: 20%;
+    top:30px;
   }
 }
 @media screen and (min-width: 900px) {

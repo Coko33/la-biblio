@@ -87,6 +87,19 @@ export default function Carta() {
 
   return (
     <div className="container-carta">
+      <div className="menuDelDia-carta-container">
+        <div className="menuDelDia-carta-imgContainer">
+          <div className="menuDelDia-carta-almuerzoEjecutivo">
+            <h6>Almuerzo Ejecutivo</h6>
+          </div>
+          <img src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2FPlato2.jpeg?alt=media&token=5d0badaa-6889-43b6-b248-facd6e3a16b0"></img>
+        </div>
+        <div className="menuDelDia-carta-texto">
+          <p>Dias hábiles de 12:30 a 15hs. <br></br>
+            Incluye plato, bebida y postre o café.</p>
+            <div className="menuDelDia-carta-almuerzoEjecutivo precio"><h6>$2000</h6></div>
+        </div>
+      </div>
       {salados.length !== 0 && (
         <div className="carta-categoria-container">
           <div className="carta-separadorHorizontal"></div>

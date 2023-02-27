@@ -59,7 +59,21 @@ export default function DownloadHTML() {
       <table style="background-color: #e8e3df; border-collapse:collapse;border-spacing: 0px;" id="show">
           <tbody style="border-collapse:collapse">
             <tr>
-              <td align="center">`;
+              <td align="center">
+              <table style="width:80%;border-collapse:collapse;border-bottom: 3px solid #7f4437;border-spacing: 0px;">
+                <tr>
+                  <td style="width: 50%; text-align: center;"><img style="width: 300px; margin-bottom: 0px; margin-top: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2FPlato2.jpeg?alt=media&token=5d0badaa-6889-43b6-b248-facd6e3a16b0"></td>
+                  <tr style="width: 80%;">
+                    <td>
+                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 10px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700">Almuerzo Ejecutivo</p>
+                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">días hábiles de 12:30 a 15:00</p>
+                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">incluye plato, bebida y postre o café</p>
+                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 30px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">$2000</p>
+                    </td>
+                  </tr>
+                </tr>
+                </table><table style="width:80%;border-collapse:collapse;border-bottom: 3px solid #7f4437;border-spacing: 0px;">
+                </table>`;
 
   const cuerpoNews = filtrarSeleccionados().map(
     (show) =>

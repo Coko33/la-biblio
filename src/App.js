@@ -1,8 +1,10 @@
 import "./App.css";
 import { lazy, Suspense } from "react";
+import { useEffect } from "react";
 import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./Helpers/ProtectedRoute";
+import { useModal } from "./Hooks/useModal";
 import Nav from "./components/Layout/Nav";
 import Spinner from "./components/Spinner/Spinner";
 import Reservas from "./components/Layout/Reservas";
@@ -16,9 +18,14 @@ function App() {
   const FAQs = lazy(() => import("./components/pages/FAQs"));
   const Login = lazy(() => import("./components/pages/Login"));
   const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
+  const [isOpenMenuDelDia, openMenuDelDia, closeMenuDelDia] = useModal();
+  useEffect(()=>{
+    openMenuDelDia();
+  },[])
   return (
     <BrowserRouter>
       <Nav></Nav>
+      {isOpenMenuDelDia && <MenuDelDia closeMenuDelDia={closeMenuDelDia}></MenuDelDia>}
       <AuthProvider>
         <Routes>
           <Route
@@ -44,7 +51,6 @@ function App() {
             path="/"
             element={
               <Suspense fallback={<Spinner>loading</Spinner>}>
-                <MenuDelDia></MenuDelDia>
                 <Shows />
               </Suspense>
             }
