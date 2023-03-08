@@ -1,5 +1,5 @@
 import "./App.css";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useEffect } from "react";
 import { Routes, Route, HashRouter, BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
@@ -19,6 +19,7 @@ function App() {
   const Login = lazy(() => import("./components/pages/Login"));
   const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
   const [isOpenMenuDelDia, openMenuDelDia, closeMenuDelDia] = useModal();
+  const [lastVisible, setLastVisible] = useState(null);
   useEffect(()=>{
     openMenuDelDia();
   },[])
@@ -51,7 +52,7 @@ function App() {
             path="/"
             element={
               <Suspense fallback={<Spinner>loading</Spinner>}>
-                <Shows />
+                <Shows lastVisible={lastVisible} setLastVisible={setLastVisible}/>
               </Suspense>
             }
           />
