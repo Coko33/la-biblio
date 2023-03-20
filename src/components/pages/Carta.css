@@ -1,3 +1,6 @@
+.container-carta {
+  margin-bottom: 200px;
+}
 .menuDelDia-carta-container{
   position: relative;
   width: calc(100% - 30px);

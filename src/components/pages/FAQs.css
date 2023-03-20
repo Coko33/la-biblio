@@ -1,7 +1,27 @@
 .container-FAQs {
+  position: relative;
+  margin-bottom: 200px;
+}
+.lista-FAQs {
+  position: relative;
+  top: 20px;
+}
+.itemLista-FAQs {
+  font-family: 'Archivo', sans-serif;
+  width: 90%;
+  margin-bottom: 15px;
+}
+.pregunta-FAQs {
+  font-weight: 700;
 }
 
 @media screen and (min-width: 600px) {
+  .lista-FAQs {
+    top: 40px;
+  }
+  .itemLista-FAQs {
+    margin-bottom: 25px;
+  }
   .container-FAQs {
     position: relative;
     width: 60%;

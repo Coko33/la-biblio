@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/477.f1640bf3.chunk.js","mappings":"qKACe,SAASA,IACtB,OAAO,gBAAKC,UAAU,kBACxB,C","sources":["components/pages/FAQs.js"],"sourcesContent":["import \"./FAQs.css\";\r\nexport default function FAQs() {\r\n  return <div className=\"container-FAQs\"></div>;\r\n}\r\n"],"names":["FAQs","className"],"sourceRoot":""}
