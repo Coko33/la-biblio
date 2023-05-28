@@ -18,15 +18,17 @@ function App() {
   const FAQs = lazy(() => import("./components/pages/FAQs"));
   const Login = lazy(() => import("./components/pages/Login"));
   const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
-  const [isOpenMenuDelDia, openMenuDelDia, closeMenuDelDia] = useModal();
+  const [isOpenMenuDelDia, openMenuDelDia, closeMenuDelDia] = useModal(false);
   const [lastVisible, setLastVisible] = useState(null);
-  useEffect(()=>{
+  useEffect(() => {
     openMenuDelDia();
-  },[])
+  }, []);
   return (
     <BrowserRouter>
       <Nav></Nav>
-      {isOpenMenuDelDia && <MenuDelDia closeMenuDelDia={closeMenuDelDia}></MenuDelDia>}
+      {isOpenMenuDelDia && (
+        <MenuDelDia closeMenuDelDia={closeMenuDelDia}></MenuDelDia>
+      )}
       <AuthProvider>
         <Routes>
           <Route
@@ -52,7 +54,10 @@ function App() {
             path="/"
             element={
               <Suspense fallback={<Spinner>loading</Spinner>}>
-                <Shows lastVisible={lastVisible} setLastVisible={setLastVisible}/>
+                <Shows
+                  lastVisible={lastVisible}
+                  setLastVisible={setLastVisible}
+                />
               </Suspense>
             }
           />

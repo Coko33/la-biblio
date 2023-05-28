@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
-import { query, orderBy, startAfter, limit, where, getCountFromServer, getDocs } from "firebase/firestore";
+import {
+  query,
+  orderBy,
+  startAfter,
+  limit,
+  where,
+  getCountFromServer,
+  getDocs,
+} from "firebase/firestore";
 import "./Shows.css";
 import Show from "./Show";
 import Spinner from "../Spinner/Spinner";
 
-const Shows = ({lastVisible, setLastVisible}) => {
+const Shows = ({ lastVisible, setLastVisible }) => {
   const [losShows, setLosShows] = useState([]);
   const [isOpenSingle, openSingle, closeSingle] = useModal(false);
   const [elId, setElId] = useState(null);
@@ -19,12 +27,15 @@ const Shows = ({lastVisible, setLastVisible}) => {
     getShows();
   }, [pagina]);
 
-  useEffect(()=> {
+  useEffect(() => {
     contarPaginas();
-  }, [totalPaginas])
+  }, [totalPaginas]);
 
-  async function contarPaginas(){
-    const q = query(showsCollectionRef, where("fechaYHora", ">=", new Date(Date.now())));
+  async function contarPaginas() {
+    const q = query(
+      showsCollectionRef,
+      where("fechaYHora", ">=", new Date(Date.now()))
+    );
     const snapshot = await getCountFromServer(q);
     setTotalPaginas(Math.ceil(snapshot.data().count / showsPorPagina));
   }
@@ -37,13 +48,16 @@ const Shows = ({lastVisible, setLastVisible}) => {
 
   async function getShows() {
     setIsLoading(true);
- 
+
     const q = query(
       showsCollectionRef,
-      where("fechaYHora", ">=", new Date(Date.now())),
-      orderBy("fechaYHora"), startAfter(lastVisible),
+      where("fechaYHora", ">=", new Date(Date.now() - 3600 * 1000 * 12)),
+      orderBy("fechaYHora"),
+      startAfter(lastVisible),
       limit(showsPorPagina)
     );
+
+    //console.log(new Date(Date.now()) - 3600 * 1000 * 24);
 
     const documentSnapshots = await getDocs(q);
 
@@ -52,13 +66,14 @@ const Shows = ({lastVisible, setLastVisible}) => {
       titulo: show.data().titulo,
       subtitulo: show.data().subtitulo,
       descripcion: show.data().descripcion,
-      fecha: new Date(
-        show.data().fechaYHora.seconds * 1000
-      ).toLocaleDateString("es-ES", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-      }),
+      fecha: new Date(show.data().fechaYHora.seconds * 1000).toLocaleDateString(
+        "es-ES",
+        {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        }
+      ),
       hora: new Date(show.data().fechaYHora.seconds * 1000)
         .toLocaleTimeString()
         .slice(0, -3),
@@ -68,7 +83,7 @@ const Shows = ({lastVisible, setLastVisible}) => {
     //setLosShows(showsData.sort((a, b) => a.fechaYHora - b.fechaYHora));
     setLosShows(showsData);
     setIsLoading(false);
-    setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length-1]);
+    setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
   }
 
   return (
@@ -77,7 +92,19 @@ const Shows = ({lastVisible, setLastVisible}) => {
       {isOpenSingle && <Show closeSingle={closeSingle} elId={elId}></Show>}
       {!isOpenSingle && (
         <div className="shows-container">
-          {pagina > 1 && <div className="pagination-container"><p>página {pagina}</p><button onClick={()=>{setLastVisible(null); setPagina(1);}}>volver al inicio</button></div>}
+          {pagina > 1 && (
+            <div className="pagination-container">
+              <p>página {pagina}</p>
+              <button
+                onClick={() => {
+                  setLastVisible(null);
+                  setPagina(1);
+                }}
+              >
+                volver al inicio
+              </button>
+            </div>
+          )}
           {losShows ? (
             losShows.map((show, i) => (
               <div className="show-container" key={i}>
@@ -116,8 +143,15 @@ const Shows = ({lastVisible, setLastVisible}) => {
             <h3>Sin Shows</h3>
           )}
           <div className="pagination-container">
-          <p>página {pagina}</p>
-          <button onClick={()=>{setPagina(pagina + 1); window.scrollTo(0, 0);}}>Mostrar mas shows</button>
+            <p>página {pagina}</p>
+            <button
+              onClick={() => {
+                setPagina(pagina + 1);
+                window.scrollTo(0, 0);
+              }}
+            >
+              Mostrar mas shows
+            </button>
           </div>
         </div>
       )}
