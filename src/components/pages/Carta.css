@@ -1,11 +1,13 @@
 .container-carta {
   margin-bottom: 200px;
+  background-color: var(--background);
 }
-.menuDelDia-carta-container{
+.menuDelDia-carta-container {
   position: relative;
   width: calc(100% - 30px);
   left: 15px;
-  top: 15px;
+  top: 35px;
+  margin-bottom: 35px;
   display: flex;
   flex-direction: column;
 }
@@ -31,15 +33,15 @@
   font-family: "Archivo", sans-serif;
   font-size: 14px;
 }
-.menuDelDia-carta-almuerzoEjecutivo.precio{
+.menuDelDia-carta-almuerzoEjecutivo.precio {
   position: relative;
-  background-color: #C8B3AC;
+  background-color: #c8b3ac;
   width: 110px;
-  left:calc(100% - 110px);
+  left: calc(100% - 110px);
 }
-.menuDelDia-carta-almuerzoEjecutivo.precio h6{
+.menuDelDia-carta-almuerzoEjecutivo.precio h6 {
   font-size: 18px;
-  color:#7F4437;
+  color: #7f4437;
 }
 .menuDelDia-carta-container img {
   width: 100%;
@@ -106,14 +108,14 @@
   .menuDelDia-carta-texto p {
     text-align: center;
   }
-  .menuDelDia-carta-almuerzoEjecutivo.precio{
+  .menuDelDia-carta-almuerzoEjecutivo.precio {
     left: calc(50% - 55px);
   }
   .container-carta {
     position: relative;
     width: 60%;
     left: 20%;
-    top:30px;
+    top: 30px;
   }
 }
 @media screen and (min-width: 900px) {

@@ -11,7 +11,10 @@ export default function Nav() {
               <img src={logo} alt=""></img>
             </div>
           </a>
-          <h1 className="navTitulo">La Biblioteca Café</h1>
+          <div className="tituloYDirContainer">
+            <h1 className="navTitulo">La Biblioteca Café</h1>
+            <p className="navDir">Marcelo T. de Alvear 1155</p>
+          </div>
         </div>
         <div className="navButtons-container">
           <div className="navButton showsButton">

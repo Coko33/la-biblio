@@ -2,3 +2,20 @@
   display: grid;
   place-items: center;
 } */
+
+body {
+  background-color: var(--background);
+}
+
+@media screen and (min-width: 600px) {
+  body {
+    background-image: linear-gradient(
+        rgba(0, 0, 255, 0.5),
+        rgba(247, 0, 255, 0.5)
+      ),
+      url("https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Fbg-IMG_4538.jpg?alt=media&token=594699b1-394c-4649-a24e-89a169b4c08b&_gl=1*dwtw64*_ga*OTI3NTcwNzAwLjE2NzA5MzY5MTc.*_ga_CW55HF8NVT*MTY4NjIzNzE5Ny43LjEuMTY4NjIzNzIyMS4wLjAuMA..");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+  }
+}
