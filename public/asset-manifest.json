@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.f2971206.css",
+    "main.css": "/static/css/main.bcfa7c11.css",
     "main.js": "/static/js/main.cb0aaa30.js",
     "static/css/994.a0338acb.chunk.css": "/static/css/994.a0338acb.chunk.css",
     "static/js/994.6e353925.chunk.js": "/static/js/994.6e353925.chunk.js",
@@ -17,7 +17,7 @@
     "static/media/logo biblioteca café-11.svg": "/static/media/logo biblioteca café-11.8b41c43b52cb0ed4a9f7c783f3dab3e3.svg",
     "index.html": "/index.html",
     "static/media/btnWsp.svg": "/static/media/btnWsp.4e952b57165bfc73aa21fc569070f8f1.svg",
-    "main.f2971206.css.map": "/static/css/main.f2971206.css.map",
+    "main.bcfa7c11.css.map": "/static/css/main.bcfa7c11.css.map",
     "main.cb0aaa30.js.map": "/static/js/main.cb0aaa30.js.map",
     "994.a0338acb.chunk.css.map": "/static/css/994.a0338acb.chunk.css.map",
     "994.6e353925.chunk.js.map": "/static/js/994.6e353925.chunk.js.map",
@@ -33,7 +33,7 @@
     "595.aa5ee04f.chunk.js.map": "/static/js/595.aa5ee04f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f2971206.css",
+    "static/css/main.bcfa7c11.css",
     "static/js/main.cb0aaa30.js"
   ]
 }
