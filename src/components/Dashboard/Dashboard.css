@@ -29,6 +29,7 @@
   font-weight: 700;
   font-size: 22px;
 }
+
 .buttonsLogoutEdit-Container {
   display: flex;
   flex-direction: column;
@@ -87,3 +88,31 @@
 }
 .containter-tablaEditar {
 }
+/*Precios*/
+.precios-container {
+  position: relative;
+  display: block;
+  width: calc(100% - 30px);
+  left: 15px;
+  margin: 0;
+  margin-bottom: 60px;
+}
+.precios-container h3 {
+  font-family: Archivo, sans-serif;
+  display: block;
+  margin: 0;
+  font-weight: 700;
+  font-size: 18px;
+}
+.editarPrecios-container{
+  position: relative;
+  display: block;
+  width: calc(100% - 30px);
+  left: 15px;
+  margin: 0;
+  margin-bottom: 60px;
+}
+.confirmarPrecios{
+  float:left;
+}
+
