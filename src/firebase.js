@@ -29,6 +29,7 @@ export const auth = getAuth(app);
 //referencia a la base de datos
 export const showsCollectionRef = collection(db, "shows");
 export const cartaCollectionRef = collection(db, "carta");
+export const preciosCollectionRef = collection(db, "precios");
 //Storage
 export const storage = getStorage();
 

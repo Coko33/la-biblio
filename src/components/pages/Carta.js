@@ -1,7 +1,8 @@
 import { FormControlUnstyledContext } from "@mui/base";
-import { getDocs } from "firebase/firestore";
+import { getDocs, doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { cartaCollectionRef } from "../../firebase";
+import { preciosCollectionRef } from "../../firebase";
 import "./Carta.css";
 
 export default function Carta() {
@@ -17,6 +18,23 @@ export default function Carta() {
   const [bebidas, setBebidas] = useState([]);
   const [cervezas, setCervezas] = useState([]);
   const [tragos, setTragos] = useState([]);
+
+  const [precios, setPrecios] = useState(null); //PXVg7zkPfjA4k2QuSZu5
+  useEffect(()=>{
+    if (precios !== null) {
+      return;
+    }
+    async function getDocument (coll, id) {
+      const snap = await getDoc(doc(preciosCollectionRef, id))
+      if (snap.exists()) {
+        setPrecios(snap.data())
+        //console.log(snap.data());
+      }    
+      else
+        return Promise.reject(Error(`No such document: ${coll}.${id}`))
+    }
+    getDocument("precios", "PXVg7zkPfjA4k2QuSZu5");
+  },[precios])
 
   useEffect(() => {
     obtenerCarta();
@@ -100,7 +118,7 @@ export default function Carta() {
             Incluye plato, bebida y postre o café.
           </p>
           <div className="menuDelDia-carta-almuerzoEjecutivo precio">
-            <h6>$2700</h6>
+            <h6>${precios && precios.menuEjecutivo}</h6>
           </div>
         </div>
       </div>

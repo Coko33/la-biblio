@@ -3,9 +3,30 @@ import { useState, useEffect } from "react";
 import fileDownload from "js-file-download";
 import Fecha from "../CRUDshows/Fecha";
 import { showsCollectionRef } from "../../firebase";
-import { getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { preciosCollectionRef } from "../../firebase";
+
 
 export default function DownloadHTML() {
+  const [precios, setPrecios] = useState(null); //PXVg7zkPfjA4k2QuSZu5
+  useEffect(()=>{
+    if (precios !== null) {
+      return;
+    }
+    async function getDocument (coll, id) {
+      const snap = await getDoc(doc(preciosCollectionRef, id))
+      if (snap.exists()) {
+        setPrecios(snap.data())
+        //console.log(snap.data());
+      }    
+      else
+        return Promise.reject(Error(`No such document: ${coll}.${id}`))
+    }
+    getDocument("precios", "PXVg7zkPfjA4k2QuSZu5");
+  },[precios])
+
+
+  
   const [fechaInicio, setFechaInicio] = useState(
     new Date(Date.now()).toString()
   );
@@ -14,7 +35,7 @@ export default function DownloadHTML() {
   const [newsletterData, setNewsletterData] = useState([]);
   const cambiaFechaInicio = (e) => setFechaInicio(e.$d);
   const cambiaFechaFin = (e) => setFechaFin(e.$d);
-
+  
   const encabezadoNews = `<!DOCTYPE html>
   <html lang="es">
     <head>
@@ -68,7 +89,7 @@ export default function DownloadHTML() {
                       <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 10px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700">Almuerzo Ejecutivo</p>
                       <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">días hábiles de 12:30 a 15:00</p>
                       <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">incluye plato, bebida y postre o café</p>
-                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 30px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">$2700</p>
+                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 30px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">$${precios && precios.menuEjecutivo}</p>
                     </td>
                   </tr>
                 </tr>
@@ -117,7 +138,7 @@ export default function DownloadHTML() {
       <table style="width: 100%;border-collapse:collapse;border-spacing: 0px;">
         <tr style="width: 80%;">
           <td>
-            <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 30px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">La Biblioteca Café esta abierta desde las 9 horas y de lunes a viernes para almorzar (plato, bebida y postre o cafe x $2700) y también para desayunar, tomar algo, leer un libro de sus estantes, o simplemente sentarse a descansar del ruido de Buenos Aires!</p>
+            <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 30px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">La Biblioteca Café esta abierta desde las 9 horas y de lunes a viernes para almorzar (plato, bebida y postre o cafe x $${precios && precios.menuEjecutivo}) y también para desayunar, tomar algo, leer un libro de sus estantes, o simplemente sentarse a descansar del ruido de Buenos Aires!</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">tel: 4811-0673 ó 15 6515-9514</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">email: edith@labibliotecacafe.com.ar</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom:20px; margin-left:20px; margin-right:20px;line-height: 14px; font-size:16px;font-weight: 700;">Marcelo T. de Alvear 1155 - CABA</p>
@@ -204,6 +225,7 @@ export default function DownloadHTML() {
     });
     return evFilt;
   }
+
   function descargarNews() {
     let nombre = `newsletter desde ${fechaInicio.toLocaleDateString()} hasta ${fechaFin.toLocaleDateString()} .html`;
     const elNewsletter = encabezadoNews + cuerpoNews.join("") + footerNews;

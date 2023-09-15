@@ -1,6 +1,26 @@
 import { useNavigate } from "react-router-dom";
+import {useState, useEffect} from "react";
+import { preciosCollectionRef } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+
 import "./FAQs.css";
 export default function FAQs() {
+  const [precios, setPrecios] = useState(null); //PXVg7zkPfjA4k2QuSZu5
+  useEffect(()=>{
+    if (precios !== null) {
+      return;
+    }
+    async function getDocument (coll, id) {
+      const snap = await getDoc(doc(preciosCollectionRef, id))
+      if (snap.exists()) {
+        setPrecios(snap.data())
+        //console.log(snap.data());
+      }    
+      else
+        return Promise.reject(Error(`No such document: ${coll}.${id}`))
+    }
+    getDocument("precios", "PXVg7zkPfjA4k2QuSZu5");
+  },[precios])
   const navigate = useNavigate();
 
   return (
@@ -31,7 +51,7 @@ export default function FAQs() {
             ¿Se requiere un gasto mínimo por persona?
           </span>{" "}
           Sí. Además de la entrada al show, hay una consumición mínima por
-          persona, que en este momento es de $1500. Consultar{" "}
+          persona, que en este momento es de ${precios && precios.consumicionMinima}. Consultar{" "}
           <a href="/carta">CARTA</a>
         </li>
         <li className="itemLista-FAQs">
