@@ -76,6 +76,10 @@
   height: 24px;
 }
 
+.logoClubes-container img {
+  height: 36px;
+}
+
 @media screen and (min-width: 600px) {
   .reservasText-reservas-container p,
   .text-telefono,
@@ -97,4 +101,7 @@
   .reservasText-reservas-container {
     width: 120px;
   }
+}
+
+@media screen and (min-width: 600px) {
 }

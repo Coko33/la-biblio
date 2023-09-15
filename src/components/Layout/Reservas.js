@@ -20,6 +20,9 @@ export default function Reservas() {
           </div>
         </div>
         <div className="logosFooter-container">
+          <div className="logoFooter logoClubes-container">
+            <img src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Flogo%20clubes.jpeg?alt=media&token=0a8d469b-f893-4250-be7d-7127a7c135d3" />
+          </div>
           <div className="logoFooter logoBamusica-container">
             <img src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2FLogo%20BA%20Musica.png?alt=media&token=04408d3a-aa4d-4e17-9815-3aa1dad632bb"></img>
           </div>
