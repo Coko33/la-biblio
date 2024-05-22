@@ -4,16 +4,21 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "public",
+    "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "proxy": "http://localhost:3000" 
   },
   "storage": {
     "rules": "storage.rules"
   }
 }
+
+
+
+

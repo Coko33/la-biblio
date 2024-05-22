@@ -6,6 +6,7 @@ import Descripcion from "../CRUDshows/Descripcion";
 import Fecha from "../CRUDshows/Fecha";
 import Imagen from "../CRUDshows/Imagen";
 import { Alert } from "../Layout/Alert";
+import { obtenerProximo } from "../../Hooks/useProximo";
 
 //firestore
 import {
@@ -35,6 +36,13 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
   const [suspendido, setSuspendido] = useState(false);
+  const [esDiario, setEsDiario] = useState(false);
+  const [esSemanal, setEsSemanal] = useState(false);
+  const [fechaDesde, setFechaDesde] = useState(null);
+  const [fechaHasta, setFechaHasta] = useState(null);
+  const [diaSemana, setDiaSemana] = useState("");
+  const [fecha, setFecha] = useState(null)
+  const [hora, setHora] = useState(null)
 
   useEffect(() => {
     getSingle(elId);
@@ -48,33 +56,61 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
       setSubtitulo(elDoc.data().subtitulo);
       setDescripcion(elDoc.data().descripcion);
       setPrecios(elDoc.data().precios);
-      setFechaYHora(new Date(elDoc.data().fechaYHora.seconds * 1000));
+      setFechaYHora(elDoc.data().fechaYHora ? new Date(elDoc.data().fechaYHora.seconds * 1000) : obtenerProximo(elDoc.data().fechaDesde, elDoc.data().esDiario, elDoc.data().esSemanal));
+      setFechaDesde(elDoc.data().fechaDesde && new Date(elDoc.data().fechaDesde.seconds * 1000));
+      setFechaHasta(elDoc.data().fechaHasta && new Date(elDoc.data().fechaHasta.seconds * 1000));
+      setEsDiario(elDoc.data().esDiario || false);
+      setEsSemanal(elDoc.data().esSemanal || false);
       setImagenURL(elDoc.data().imagenURL);
+      setDiaSemana(elDoc.data().diaSemana || null);
+      console.log(elDoc.data().fechaYHora)
     } else {
-      // doc.data() will be undefined in this case
       console.log("No such document!");
     }
   }
-
   const [file, setFile] = useState(null);
-
   const [error, setError] = useState(null);
   const resetError = () => setError(null);
   const [ok, setOk] = useState(null);
   const resetOk = () => setOk(null);
-
   const cambiaTitulo = (e) => setTitulo(e.target.value);
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
   const cambiaPrecios = (e) => setPrecios(e);
   const cambiaFechaYHora = (e) => {
-    setFechaYHora(e.$d);
+    setFechaYHora(new Date(e.$d));
   };
+  const cambiaEsDiario = (e) => {
+    setEsDiario(e);
+    e && setFechaYHora(null);
+    if (esSemanal) {
+      setEsSemanal(false);
+    };
+    if (!e & !esSemanal) {
+      setFechaDesde(null);
+      setFechaHasta(null);
+    }
+  };
+  const cambiaEsSemanal = (e) => {
+    setEsSemanal(e);
+    e && setFechaYHora(null);
+    if (esDiario) {
+      setEsDiario(false);
+    };
+    if (!e & !esDiario) {
+      setFechaDesde(null);
+      setFechaHasta(null);
+    }
+  };
+  const cambiaFechaDesde = (e) => setFechaDesde(new Date(e.$d));
+  const cambiaFechaHasta = (e) => setFechaHasta(new Date(e.$d));
   const cambiaFile = (file) => setFile(file);
+  const cambiaDiaSemana = (e) => setDiaSemana(e.target.value);
 
   const enviarEditado = () => {
     !file & !imagenURL && setError("No se puede subir un show sin una imagen");
-    fechaYHora.$d && setFechaYHora(fechaYHora.$d);
+    //fechaYHora.$d && setFechaYHora(fechaYHora.$d);
+    //cambiando la imagen
     if (file) {
       const storageRef = ref(storage, `imagenes-shows/${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -90,13 +126,20 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log(fechaYHora)
             setDoc(doc(showsCollectionRef, elId), {
               titulo,
               subtitulo: subtitulo || "",
               descripcion: descripcion || "",
               precios: precios || "",
-              fechaYHora: fechaYHora,
+              fechaYHora: (esDiario || esSemanal) ? null : fechaYHora, //!isNaN(fechaYHora) ? fechaYHora : null,
+              fechaDesde: fechaDesde ? fechaDesde : null, 
+              fechaHasta: fechaHasta ? fechaHasta : null,
+              esDiario,
+              esSemanal,
               imagenURL: downloadURL,
+              diaSemana: diaSemana ? diaSemana : null,
+
             })
               .then((res) => {
                 console.log(res);
@@ -115,14 +158,20 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
           });
         }
       );
+    //dejando la misma imagen
     } else {
       setDoc(doc(showsCollectionRef, elId), {
         titulo,
         subtitulo: subtitulo || "",
         descripcion: descripcion || "",
         precios: precios || "",
-        fechaYHora: fechaYHora,
+        fechaYHora: (esDiario || esSemanal) ? null : fechaYHora,
+        fechaDesde: fechaDesde ? fechaDesde : null,
+        fechaHasta: fechaHasta ? fechaHasta : null,
+        esDiario,
+        esSemanal,
         imagenURL: imagenURL,
+        diaSemana: diaSemana ? diaSemana : null
       })
         .then((res) => {
           console.log(res);
@@ -158,7 +207,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
             descripcion={descripcion}
           />
           <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
-          <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
+          <Fecha mostrarChecks={true} cambiaFechaYHora={cambiaFechaYHora} cambiaEsDiario={cambiaEsDiario} cambiaEsSemanal={cambiaEsSemanal} cambiaFechaDesde={cambiaFechaDesde} cambiaFechaHasta={cambiaFechaHasta} cambiaDiaSemana={cambiaDiaSemana} fechaYHora={fechaYHora} esDiario={esDiario} esSemanal={esSemanal} fechaDesde={fechaDesde} fechaHasta={fechaHasta} diaSemana={diaSemana}/>
           <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
           <div className="formShow-button-container">
             <button className="formShow-button" onClick={enviarEditado}>

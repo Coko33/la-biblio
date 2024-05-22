@@ -40,7 +40,7 @@ const Show = ({ closeSingle, elId }) => {
               <h2 className="elShow-titulo">{elShow.titulo}</h2>
               <h3 className="elShow-subtitulo">{elShow.subtitulo}</h3>
             </div>
-            <div className="elShow-descripcion-container">
+            <div className="elShow-descripcionYPrecios-container">
               <div
                 className="elShow-descripcion-container"
                 dangerouslySetInnerHTML={{ __html: elShow.descripcion }}

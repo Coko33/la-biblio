@@ -11,6 +11,7 @@ import Reservas from "./components/Layout/Reservas";
 import BotonWsp from "./components/Layout/BotonWsp";
 import AcercaDe from "./components/pages/AcercaDe";
 import MenuDelDia from "./components/Layout/MenuDelDia";
+import Marquesina from "./components/pages/Marquesina";
 
 function App() {
   const Shows = lazy(() => import("./components/pages/Shows"));
@@ -19,13 +20,13 @@ function App() {
   const Login = lazy(() => import("./components/pages/Login"));
   const Dashboard = lazy(() => import("./components/Dashboard/Dashboard"));
   const [isOpenMenuDelDia, openMenuDelDia, closeMenuDelDia] = useModal(false);
-  const [lastVisible, setLastVisible] = useState(null);
   useEffect(() => {
     openMenuDelDia();
   }, []);
   return (
     <BrowserRouter>
       <Nav></Nav>
+      {/* <Marquesina></Marquesina> */}
       {isOpenMenuDelDia && (
         <MenuDelDia closeMenuDelDia={closeMenuDelDia}></MenuDelDia>
       )}
@@ -54,10 +55,7 @@ function App() {
             path="/"
             element={
               <Suspense fallback={<Spinner>loading</Spinner>}>
-                <Shows
-                  lastVisible={lastVisible}
-                  setLastVisible={setLastVisible}
-                />
+                <Shows/>
               </Suspense>
             }
           />

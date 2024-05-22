@@ -67,7 +67,7 @@ export default function Dashboard() {
           </button>
           <h3>Menú Ejecutivo: ${precios && precios.menuEjecutivo}</h3>
         </div>
-        {editandoPrecios && <EditPrecios setEditandoPrecios={setEditandoPrecios}/>}
+      {editandoPrecios && <EditPrecios setEditandoPrecios={setEditandoPrecios}/>}
       {editandoShows && <EditShows setEditandoShows={setEditandoShows} />}
       {editandoCarta && <EditPlatos setEditandoCarta={setEditandoCarta} />}
       <DownloadHTML />

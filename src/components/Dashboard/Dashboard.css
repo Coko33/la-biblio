@@ -67,6 +67,11 @@
   border-bottom: 1px solid black;
   line-height: 30px;
 }
+.botonDestacado {
+  background-color: rgba(0, 255, 55, 0.845);
+  border-radius: 3px;
+  border: 1px solid #696969;
+}
 .dwHTMLbutton-container {
   position: relative;
   display: flex;

@@ -7,7 +7,7 @@ font-family: 'Archivo', sans-serif;
   --gris-nav: #d8d5d4;
   --marron-logo: #231b18;
   --icon-enabled: #7f4437;
-  --icon-disabled: #b7b7b7;
+  --icon-disabled: #848484;
   --background: #e8e3df;
   --background2: #e8e3df4d;
   --blanco: #fff;
@@ -24,6 +24,9 @@ body {
   min-height: 100%;
   margin-bottom: 80px;
   background-color: var(--background);
+}
+.no-scroll {
+  overflow: hidden;
 }
 
 /* .backgroundImage {

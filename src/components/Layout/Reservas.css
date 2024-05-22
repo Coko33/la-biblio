@@ -10,6 +10,7 @@
   padding: 0;
   box-sizing: border-box;
   bottom: 0;
+  z-index: 5000;
 }
 
 .reservasText-container {

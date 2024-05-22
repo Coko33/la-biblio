@@ -8,9 +8,9 @@
   height: 90px;
   padding: 0 15px;
   box-sizing: border-box;
-  box-shadow: 0px 1px 11px 2px rgba(153, 153, 153, 1);
-  -webkit-box-shadow: 0px 1px 11px 2px rgba(153, 153, 153, 1);
-  -moz-box-shadow: 0px 1px 11px 2px rgba(153, 153, 153, 1);
+  box-shadow: 0px 1px 11px 2px rgb(32, 32, 32);
+  -webkit-box-shadow: 0px 1px 11px 2px rgb(32, 32, 32);
+  -moz-box-shadow: 0px 1px 11px 2px rgb(32, 32, 32);
 }
 
 .logo-container {
@@ -25,34 +25,59 @@
   display: flex;
 }
 .navTitulo {
-  display: none;
+  /* display: none; */
+  display: block;
+  font-size: 14px;
+  line-height: 14px;
+  margin: 33px 0 0 15px;
+  
 }
 .navDir {
-  display: none;
+  display: block;
+  font-size: 12px;
+  line-height: 12px;
+  margin: 0 0 0 15px;
 }
 
 .navButtons-container {
-  position: relative;
+  /* position: relative; */
+  position: absolute;
+  background-color: var(--gris-nav);
+  top: 90px;
+  /* width: calc(100vw - 100px); */
+  width: 100%;
+  left: 0;
+  margin-left: 0;
+  height: calc(100vh - 160px);
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  width: calc(100vw - 100px);
-  height: 90px;
-  margin-left: 18px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;  
+  /* opacity: 0; */
+  transition: left  0.3s ease-in-out; 
+  z-index: 900;
+}
+
+.navButtons-container--active {
+  left: -100%;
+  /* opacity: 1; */
 }
 
 .navButton {
   position: relative;
-  width: 30%;
-  height: 100%;
+  width: auto;
+  height: 50px;
 }
 
 .showsButton,
 .cartaButton {
-  width: 20%;
+  width: auto;
 }
 .acercaDeButton {
-  width: 25%;
+  width: auto;
+}
+.FAQsButton {
+
 }
 
 .nav-link {
@@ -92,7 +117,7 @@ a {
 .nav-notch {
   position: absolute;
   display: none;
-  width: 60%;
+  width: 30%;
   height: 5px;
   bottom: 0;
   background-color: var(--icon-enabled);
@@ -110,6 +135,56 @@ a {
   display: block;
 }
 
+/*button*/
+.nav-toggle {
+  display: block;
+  padding: 47px 19px;
+  width: 28px;
+  height: 3px;
+  border: 0;
+  box-sizing: content-box;
+  background-clip: content-box;
+  transition: background-color 500ms ease-in-out 250ms;
+  background-color: var(--marron-logo);
+  
+}
+.nav-toggle:hover {
+  cursor: pointer;
+}
+
+.nav-toggle:before,
+.nav-toggle:after {
+  position: relative;
+  content: '';
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: var(--marron-logo);
+  transition: transform 500ms ease-in-out;
+}
+
+.nav-toggle:before {
+  top: -10px;
+}
+
+.nav-toggle:after {
+  bottom: -7px;
+}
+
+.nav-toggle__text {
+  display: none;
+}
+
+.nav-toggle--active {
+  background-color: rgba(255, 255, 255, 0);
+  transition-delay: 0s;
+}
+.nav-toggle--active:before {
+  transform: translateY(10px) rotate(-225deg);
+}
+.nav-toggle--active:after {
+  transform: translateY(-10px) rotate(225deg);
+}
 @media screen and (min-width: 600px) {
   .titulo-container {
     display: flex;
@@ -136,11 +211,43 @@ a {
     font-size: 16px;
     line-height: 15px;
   }
-
   .logo-container {
     top: 0;
   }
   .navButtons-container {
+    top: 0;
+    position: relative;
+    background-color: transparent;
+    height: 90px;
     width: 40%;
+    margin-left: 18px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .navButtons-container--active {
+    left: 0;
+    /* opacity: 1; */
+  }
+  /**/
+  .nav-link {
+    justify-content: center; 
+  }
+  .navButton {
+    position: relative;
+    width: 30%;
+    height: 100%;
+  }
+  .showsButton,
+  .cartaButton {
+    width: 20%;
+  }
+  .acercaDeButton {
+    width: 25%;
+  }
+  .FAQsButton {
+    
+  }
+  .nav-notch {
+    width: 60%;
   }
 }

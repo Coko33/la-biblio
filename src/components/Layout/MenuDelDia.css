@@ -8,7 +8,7 @@
   animation: modal 2s 1s forwards;
   visibility: hidden;
   opacity: 0;
-  z-index: 500;
+  z-index: 1000;
   display: grid;
   place-items: center;
 }

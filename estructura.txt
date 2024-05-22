@@ -1,3 +1,13 @@
+ultimo deploy seguro de firebase:
+10/8/23, 12:24 a.m.	
+Foto de perfil
+labiblioteca.edith@gmail.com
+10/8/23, 12:24 a.m.
+c66384
+49
+
+
+
 /src
     /auth
     /pages

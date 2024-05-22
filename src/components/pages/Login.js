@@ -32,6 +32,7 @@ export default function Login() {
       if (err.code === "auth/wrong-password")
         setError("La contraseña no es correcta");
     }
+    setLoading(false);
   };
 
   return (

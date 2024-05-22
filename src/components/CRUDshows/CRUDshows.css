@@ -33,12 +33,16 @@
 .input-labelOrden,
 .input-labelDescripcion,
 .input-labelPrecio,
-.input-labelCategoria {
+.input-labelCategoria,
+.input-labelDiaSemana {
   display: block;
   font-size: 20px;
   margin-bottom: 4px;
   margin-top: 15px;
   font-family: Archivo, sans-serif;
+}
+.input-labelDescripcion{
+  margin-bottom: 0;
 }
 .input-imagen {
   position: relative;
@@ -49,7 +53,6 @@
   flex-direction: column;
   width: 100%;
   overflow: hidden;
-  margin: 10px 0;
 }
 .input-imagen-input::before {
   display: flex;
@@ -65,4 +68,16 @@
 .imagenPreview {
   max-width: 100%;
   position: relative;
+}
+
+.Fecha__container {
+  display: flex;
+  gap:20px;
+}
+.Fecha__checkboxes__container {
+  display: flex;
+  gap: 20px;
+}
+.fecha-texto {
+  text-transform: capitalize;
 }

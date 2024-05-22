@@ -1,9 +1,16 @@
 import { FormControlUnstyledContext } from "@mui/base";
 import { getDocs, doc, getDoc } from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cartaCollectionRef } from "../../firebase";
 import { preciosCollectionRef } from "../../firebase";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import "./Carta.css";
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import useWindowDimensions from "../../Hooks/useWindowDimensions";
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 
 export default function Carta() {
   const [laCarta, setLaCarta] = useState([]);
@@ -18,7 +25,6 @@ export default function Carta() {
   const [bebidas, setBebidas] = useState([]);
   const [cervezas, setCervezas] = useState([]);
   const [tragos, setTragos] = useState([]);
-
   const [precios, setPrecios] = useState(null); //PXVg7zkPfjA4k2QuSZu5
   useEffect(()=>{
     if (precios !== null) {
@@ -40,6 +46,8 @@ export default function Carta() {
     obtenerCarta();
     /*return obtenerCarta();*/
   }, []);
+
+  const deviceDimensions = useWindowDimensions();
 
   async function obtenerCarta() {
     try {
@@ -104,8 +112,162 @@ export default function Carta() {
     " ......................................................................................................................................................................................................................................................................................";
 
   return (
-    <div className="container-carta">
-      <div className="menuDelDia-carta-container">
+    <>
+      <Swiper
+        spaceBetween={30}
+        effect={'fade'}
+        navigation={false}
+        pagination={{
+          clickable: false,
+        }}
+        modules={[Autoplay, EffectFade, Navigation, Pagination]}
+        centeredSlides={true}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        className="swiperCarta"
+      >
+        <SwiperSlide>
+        {({ isActive }) => (
+          <>
+          <div className="descripcionFoto__container">
+            <h3>Pastel de papa</h3>
+          </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F2.png?alt=media&token=b3c22cc8-7edd-47ec-a331-385c154382f6" />
+          </>
+        )}
+        </SwiperSlide>
+        {deviceDimensions.width > 600 && <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Pastel de papa</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F3.png?alt=media&token=f04e4864-7509-4840-ab0f-95b3c0dfd774" />
+          </>
+          )}
+        </SwiperSlide>}
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Pastas</h3>
+            </div>
+            <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F4.png?alt=media&token=1a959585-9b22-441f-beee-67bffc443d9e" />
+            </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Pastas</h3>
+            </div>
+            <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F5.png?alt=media&token=0aee06d1-15a4-4b53-85f2-0d04af32cda1" />
+            </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Cazuelas</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F6.png?alt=media&token=9044e42d-5587-4bfa-a2a8-2cef768bbd86" />
+          </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Cazuelas</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F7.png?alt=media&token=b6c7316c-1d75-41d0-83f7-8689b9754cee" />
+          </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Crepes</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F8.png?alt=media&token=e93039a4-b5fd-467f-bcf9-768224af530e" />
+          </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Crepes</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F9.png?alt=media&token=8b5e61cf-353e-4210-9c24-2836c00e2dad" />
+          </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Goulash</h3>
+              <h6>(plato de la casa)</h6>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F10.png?alt=media&token=5ac54080-e422-4518-8d58-5adb177722cb" />
+          </>
+          )}
+        </SwiperSlide>
+        {deviceDimensions.width > 600 && <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Goulash</h3>
+              <h6>(plato de la casa)</h6>
+            </div>
+            <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F11.png?alt=media&token=b8c8da05-8c06-4ae2-9f86-e1a27f2178cd" />
+            </>
+          )}
+        </SwiperSlide>}
+        <SwiperSlide>
+          {({ isActive }) => (
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F12.png?alt=media&token=d94f98a6-5cc6-4cab-85fd-a9a6d8164c1d" />
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Postres</h3>
+            </div>
+            <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F13.png?alt=media&token=16908883-591d-4a9b-bb7f-f7fbda8ffb73" />
+            </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Postres</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F14.png?alt=media&token=2208d6a2-5274-477c-bc5f-9ff99000f046" />
+          </>
+          )}
+        </SwiperSlide>
+        <SwiperSlide>
+          {({ isActive }) => (
+            <>
+            <div className="descripcionFoto__container">
+              <h3>Postres</h3>
+            </div>
+          <img className={isActive && 'zoomear'} src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2F15.png?alt=media&token=b0c0c943-edd8-42d4-9f82-8ce53686bc37" />
+          </>
+          )}
+        </SwiperSlide>
+      </Swiper>
+
+    <div className="container-carta"><div className="menuDelDia-carta-container">
         <div className="menuDelDia-carta-imgContainer">
           <div className="menuDelDia-carta-almuerzoEjecutivo">
             <h6>Almuerzo Ejecutivo</h6>
@@ -399,5 +561,6 @@ export default function Carta() {
         )}
       </div> */}
     </div>
+    </>
   );
 }

@@ -26,11 +26,14 @@ export function AuthProvider({ children }) {
   const signup = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
 
-  const login = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password).then(
-      navigate("/admin")
-    );
-  };
+    const login = async (email, password) => {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/admin");
+      } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+      }
+    };
 
   const logout = () => {
     signOut(auth);
@@ -48,8 +51,8 @@ export function AuthProvider({ children }) {
       setLoading(false);
     });
 
-    //return () => unsubscribe();
-    return unsubscribe();
+    return () => unsubscribe();
+    //return unsubscribe();
   }, []);
 
   return (

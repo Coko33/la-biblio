@@ -20,12 +20,18 @@ export default function ShowForm() {
   const [titulo, setTitulo] = useState("");
   const [subtitulo, setSubtitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [fechaYHora, setFechaYHora] = useState(Date.now);
+  const [fechaYHora, setFechaYHora] = useState(null);
+  const [fechaDesde, setFechaDesde] = useState(null);
+  const [fechaHasta, setFechaHasta] = useState(null);
+  const [diaSemana, setDiaSemana] = useState(null);
+  
   const [precios, setPrecios] = useState("");
   const [habilitado, setHabilitado] = useState(true);
   const [eliminado, setEliminado] = useState(false);
   const [destacado, setDestacado] = useState(false);
   const [suspendido, setSuspendido] = useState(false);
+  const [esDiario, setEsDiario] = useState(false);
+  const [esSemanal, setEsSemanal] = useState(false);
 
   const [file, setFile] = useState(null);
 
@@ -38,11 +44,43 @@ export default function ShowForm() {
   const cambiaSubtitulo = (e) => setSubtitulo(e.target.value);
   const cambiaDescripcion = (e) => setDescripcion(e);
   const cambiaFechaYHora = (e) => setFechaYHora(e);
+  const cambiaEsDiario = (e) => {
+    setEsDiario(e);
+    e && setFechaYHora(null);
+    if (esSemanal) {
+      setEsSemanal(false);
+    };
+    if (!e & !esSemanal) {
+      setFechaDesde(null);
+      setFechaHasta(null);
+    }
+  };
+  const cambiaEsSemanal = (e) => {
+    setEsSemanal(e);
+    e && setFechaYHora(null);
+    if (esDiario) {
+      setEsDiario(false);
+    };
+    if (!e & !esDiario) {
+      setFechaDesde(null);
+      setFechaHasta(null);
+    }
+  };
+  const cambiaFechaDesde = (e) => setFechaDesde(e);
+  const cambiaFechaHasta = (e) => setFechaHasta(e);
+  const cambiaDiaSemana = (event) => setDiaSemana(event.target.value);
   const cambiaPrecios = (e) => setPrecios(e);
   const cambiaFile = (file) => setFile(file);
 
   const enviar = () => {
-    !file && setError("No se puede subir un show sin una imagen");
+    !file && setError("No se puede subir un show sin una imagen!");
+    if((esDiario || esSemanal) & (!fechaDesde || !fechaHasta)) {
+      setError("Falta la fecha de inicio o finalización!")
+    } else if((!esDiario & !esSemanal) & !fechaYHora) {
+      setError("Falta la fecha!")
+    } else if(esSemanal & !diaSemana) {
+      setError("Falta seleccionar el dia de la semana!")
+    } else resetError();
     const storageRef = ref(storage, `imagenes-shows/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
@@ -56,17 +94,22 @@ export default function ShowForm() {
         console.log(error.message);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        //bug. se setea el error pero se envía el show igualmente
+        error === null && getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           addDoc(showsCollectionRef, {
             titulo,
             subtitulo,
             descripcion,
-            fechaYHora: fechaYHora.$d,
+            fechaYHora: fechaYHora && fechaYHora.$d,
+            fechaDesde: fechaDesde && fechaDesde.$d,
+            fechaHasta: fechaHasta && fechaHasta.$d,
+            esDiario,
+            esSemanal,
+            diaSemana,
             imagenURL: downloadURL,
-            precios: precios,
+            precios,
           })
             .then((res) => {
-              console.log(res);
               setOk(`Se subió correctamente el show \n"${titulo}"`);
               setTitulo("");
               setTimeout(() => {
@@ -94,7 +137,7 @@ export default function ShowForm() {
           descripcion={descripcion}
         />
         <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
-        <Fecha cambiaFechaYHora={cambiaFechaYHora} fechaYHora={fechaYHora} />
+        <Fecha mostrarChecks={true} cambiaFechaYHora={cambiaFechaYHora} cambiaEsDiario={cambiaEsDiario} cambiaEsSemanal={cambiaEsSemanal} cambiaFechaDesde={cambiaFechaDesde} cambiaFechaHasta={cambiaFechaHasta} cambiaDiaSemana={cambiaDiaSemana} fechaYHora={fechaYHora} esDiario={esDiario} esSemanal={esSemanal} fechaDesde={fechaDesde} fechaHasta={fechaHasta} diaSemana={diaSemana}/>
         <Imagen cambiaFile={cambiaFile} />
         <div className="formShow-button-container">
           <button className="formShow-button" onClick={enviar}>

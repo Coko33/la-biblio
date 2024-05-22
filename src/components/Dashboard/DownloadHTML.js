@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import fileDownload from "js-file-download";
 import Fecha from "../CRUDshows/Fecha";
 import { showsCollectionRef } from "../../firebase";
-import { getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { getDocs, query, where, doc, getDoc, or, and } from "firebase/firestore";
 import { preciosCollectionRef } from "../../firebase";
+import { obtenerProximo } from "../../Hooks/useProximo"
 
 
 export default function DownloadHTML() {
@@ -116,9 +117,11 @@ export default function DownloadHTML() {
             <div style="width: 100%;">
               <img style="width:17px; display:inline;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/layout%2Ficono-relojito.png?alt=media&token=e4490e9e-12ea-4d4f-8c8c-b189c29b8540" alt="">
               <div style="display:inline;height: 17px;width:100%;">
-                <p style="display:inline;font-family: 'Archivo', Helvetica;font-weight: 700;">${
-                  show.fecha
-                } - ${show.hora}hs.</p>
+                <p style="display:inline;font-family: 'Archivo', Helvetica;font-weight: 700;">
+                ${show.esDiario ? "de Lunes a Viernes" : ""}
+                ${show.esSemanal ? `todos los ${show.diaSemana}` : ""}
+                ${!show.esDiario & !show.esSemanal ? show.fecha.replace(/^\w/, (c) => c.toUpperCase()) : ""} <br></br> ${show.hora + "hs."}
+                </p>
               </div>
               <p style="margin: 0px;font-family: 'Archivo', Helvetica;line-height: 20px;margin-top: 10px;">${
                 show.precios ? show.precios : ""
@@ -178,42 +181,111 @@ export default function DownloadHTML() {
     }
   }
 
-  function mostrarShows() {
+  function getFecha(showData) {
+    if (showData.esDiario || showData.esSemanal) {
+      return obtenerProximo(showData.fechaDesde, showData.esDiario, showData.esSemanal).toLocaleDateString(
+        "es-ES",
+        {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        }
+      )
+    } else {
+      return new Date(
+        showData.fechaYHora.seconds * 1000
+      ).toLocaleDateString("es-ES", {
+        month: "long",
+        weekday: "long",
+        day: "numeric",
+      })
+    }
+  }
+
+  function getHora(showData) {
+    if(showData.esDiario || showData.esSemanal) {
+      return obtenerProximo(showData.fechaDesde, showData.esDiario, showData.esSemanal).toLocaleTimeString()
+      .slice(0, -3)
+    } else {
+      return new Date(showData.fechaYHora.seconds * 1000)
+      .toLocaleTimeString()
+      .slice(0, -3)
+    }
+  }
+
+  async function mostrarShows() {
+    try {
     fechaInicio.$d && setFechaInicio(fechaInicio.$d);
     fechaFin.$d && setFechaInicio(fechaFin.$d);
+
     const q = query(
       showsCollectionRef,
       where("fechaYHora", ">=", fechaInicio),
-      where("fechaYHora", "<=", fechaFin)
+      where("fechaYHora", "<=", fechaFin),
     );
     const r = query(showsCollectionRef, where("titulo", "!=", null));
-    getDocs(q)
+    const s = query(
+      showsCollectionRef,
+      or (where("esSemanal", "==", true),
+      where("esDiario", "==", true))
+    )
+
+    const [unicosSnapshot, periodicosSnapshot] = await Promise.all([getDocs(q), getDocs(s)]);
+    
+    const unicosData = unicosSnapshot.docs.map((doc) => doc.data());
+    const periodicosData = periodicosSnapshot.docs.map((doc) => doc.data());
+
+    const showsData = [...unicosData, ...periodicosData].map((show) => ({
+      id: show.id,
+      titulo: show.titulo,
+      subtitulo: show.subtitulo,
+      descripcion: show.descripcion,
+      precios: show.precios,
+      fecha: getFecha(show),
+      hora: getHora(show),
+      imagenURL: show.imagenURL,
+      fechaYHora: show.fechaYHora ? show.fechaYHora.seconds : obtenerProximo(show.fechaDesde, show.esDiario, show.esSemanal),
+      fechaDesde: show.fechaDesde,
+      fechaHasta: show.fechaHasta,
+      esDiario: show.esDiario,
+      esSemanal: show.esSemanal,
+      diaSemana: show.diaSemana,
+      seleccionado: false,
+    }));
+    setNewsletterData(
+      showsData.sort((a, b) => a.fechaYHora - b.fechaYHora)
+    );
+    } catch (e) {
+      console.log(e)
+    }
+    
+
+    /* getDocs(q)
       .then((res) => {
+        console.log(res)
         const showsData = res.docs.map((show) => ({
           id: show.id,
           titulo: show.data().titulo,
           subtitulo: show.data().subtitulo,
           descripcion: show.data().descripcion,
           precios: show.data().precios,
-          fecha: new Date(
-            show.data().fechaYHora.seconds * 1000
-          ).toLocaleDateString("es-ES", {
-            month: "long",
-            weekday: "long",
-            day: "numeric",
-          }),
-          hora: new Date(show.data().fechaYHora.seconds * 1000)
-            .toLocaleTimeString()
-            .slice(0, -3),
+          fecha: getFecha(show.data()),
+          hora: getHora(show.data()),
           imagenURL: show.data().imagenURL,
-          fechaYHora: show.data().fechaYHora.seconds,
+          fechaYHora: show.data().fechaYHora ? show.data().fechaYHora.seconds : obtenerProximo(show.data().fechaDesde, show.data().esDiario, show.data().esSemanal),
+          fechaDesde: show.data().fechaDesde,
+          fechaHasta: show.data().fechaHasta,
+          esDiario: show.data().esDiario,
+          esSemanal: show.data().esSemanal,
+          diaSemana: show.data().diaSemana,
           seleccionado: false,
         }));
         setNewsletterData(
           showsData.sort((a, b) => a.fechaYHora - b.fechaYHora)
         );
+        console.log(showsData)
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(err.message)); */
   }
 
   function filtrarSeleccionados() {
@@ -279,7 +351,7 @@ export default function DownloadHTML() {
                 newsletterData.map((show, i) => (
                   <tr className="dwHTMLrow-show" key={i}>
                     <td className="dwHTMLcell-showFecha">
-                      {show.fecha} &nbsp; &nbsp; &nbsp; &nbsp;
+                      {show.fecha} &nbsp; {show.esDiario && "(todos los dias)"} {show.esSemanal && `(todos los ${show.diaSemana})`}&nbsp; &nbsp; &nbsp;
                     </td>
                     <td className="dwHTMLcell-showTitulo">
                       {show.titulo} &nbsp; &nbsp; &nbsp; &nbsp;
