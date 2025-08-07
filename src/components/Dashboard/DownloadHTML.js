@@ -84,12 +84,12 @@ export default function DownloadHTML() {
               <td align="center">
               <table style="width:80%;border-collapse:collapse;border-bottom: 3px solid #7f4437;border-spacing: 0px;">
                 <tr>
-                  <td style="width: 50%; text-align: center;"><img style="width: 300px; margin-bottom: 0px; margin-top: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta%2FPlato2.jpeg?alt=media&token=5d0badaa-6889-43b6-b248-facd6e3a16b0"></td>
+                  <td style="width: 50%; text-align: center;"><img style="width: 300px; margin-bottom: 0px; margin-top: 50px;" src="https://firebasestorage.googleapis.com/v0/b/la-biblio.appspot.com/o/imagenes-carta2%2Fcartapic1.jpeg?alt=media&token=762343f1-6e12-4a96-b752-5baf046237cd"></td>
                   <tr style="width: 80%;">
                     <td>
                       <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 10px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700">Almuerzo Ejecutivo</p>
                       <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">días hábiles de 12:30 a 15:00</p>
-                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">incluye plato, bebida y postre o café</p>
+                      <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">incluye plato y bebida</p>
                       <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 30px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">$${precios && precios.menuEjecutivo}</p>
                     </td>
                   </tr>
@@ -141,7 +141,7 @@ export default function DownloadHTML() {
       <table style="width: 100%;border-collapse:collapse;border-spacing: 0px;">
         <tr style="width: 80%;">
           <td>
-            <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 30px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">La Biblioteca Café esta abierta desde las 9 horas y de lunes a viernes para almorzar (plato, bebida y postre o cafe x $${precios && precios.menuEjecutivo}) y también para desayunar, tomar algo, leer un libro de sus estantes, o simplemente sentarse a descansar del ruido de Buenos Aires!</p>
+            <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 30px;margin-bottom:10px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:14px;">La Biblioteca Café esta abierta desde las 9 horas y de lunes a viernes para almorzar (plato y bebida x $${precios && precios.menuEjecutivo}) y también para desayunar, tomar algo, leer un libro de sus estantes, o simplemente sentarse a descansar del ruido de Buenos Aires!</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 0px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">tel: 4811-0673 ó 15 6515-9514</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom: 0px; margin-left:20px; margin-right:20px;line-height: 16px; font-size:16px; font-weight: 700;">email: edith@labibliotecacafe.com.ar</p>
             <p style="text-align: center;font-family: 'Archivo', Helvetica;margin-top: 5px;margin-bottom:20px; margin-left:20px; margin-right:20px;line-height: 14px; font-size:16px;font-weight: 700;">Marcelo T. de Alvear 1155 - CABA</p>
@@ -301,7 +301,7 @@ export default function DownloadHTML() {
   function descargarNews() {
     let nombre = `newsletter desde ${fechaInicio.toLocaleDateString()} hasta ${fechaFin.toLocaleDateString()} .html`;
     const elNewsletter = encabezadoNews + cuerpoNews.join("") + footerNews;
-    let textFileAsBlob = new Blob([elNewsletter], { type: "text/html" });
+    let textFileAsBlob = new Blob([elNewsletter], { type: "text/html;charset=utf-8" });
     fileDownload(textFileAsBlob, nombre);
   }
 

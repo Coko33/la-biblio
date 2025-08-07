@@ -2,11 +2,14 @@ import "./Nav.css";
 import { NavLink, Link } from "react-router-dom";
 import logo from "./../../assets/logo biblioteca café-11.svg";
 import useWindowDimensions from "../../Hooks/useWindowDimensions";
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { NavContext } from "../../context/navContext";
+
 export default function Nav() {
-  const [isActive, setIsActive] = useState(false);
+  const { isActive, setIsActive } = useContext(NavContext);
 
   const handleToggle = (e) => {
+    console.log(isActive)
     e.preventDefault();
     setIsActive(!isActive);
   };
@@ -17,6 +20,7 @@ export default function Nav() {
       document.body.classList.remove('no-scroll');
     }
   }, [isActive]);
+
   const { width } = useWindowDimensions();
   return (
     <div>
@@ -39,7 +43,7 @@ export default function Nav() {
           </button>
         }
         <div className={`navButtons-container ${!isActive ? 'navButtons-container--active' : ''}`}>
-          <div className="navButton showsButton" onClick={handleToggle}>
+          <div className="navButton showsButton" onClick={width < 600 ? handleToggle : null}>
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -53,7 +57,7 @@ export default function Nav() {
               <div className="nav-notch"></div>
             </NavLink>
           </div>
-          <div className="navButton cartaButton" onClick={handleToggle}>
+          <div className="navButton cartaButton" onClick={width < 600 ? handleToggle : null}>
             <NavLink
               to="/carta"
               className={({ isActive }) =>
@@ -67,7 +71,7 @@ export default function Nav() {
               <div className="nav-notch"></div>
             </NavLink>
           </div>
-          <div className="navButton acercaDeButton" onClick={handleToggle}>
+          <div className="navButton acercaDeButton" onClick={width < 600 ? handleToggle : null}>
             <NavLink
               to="/acercaDe"
               className={({ isActive }) =>
@@ -75,14 +79,13 @@ export default function Nav() {
               }
             >
               <div className="nav-icon">
-                {/*                 <i class="material-icons">favorite</i>
-                 */}
+                {/*<i class="material-icons">favorite</i>*/}
                 <p className="icon-text">Acerca de</p>
               </div>
               <div className="nav-notch"></div>
             </NavLink>
           </div>
-          <div className="navButton FAQsButton" onClick={handleToggle}>
+          <div className="navButton FAQsButton" onClick={width < 600 ? handleToggle : null}>
             <NavLink
               to="/faqs"
               className={({ isActive }) =>
@@ -90,8 +93,7 @@ export default function Nav() {
               }
             >
               <div className="nav-icon">
-                {/*                 <i class="material-icons">favorite</i>
-                 */}
+                {/*<i class="material-icons">favorite</i>*/}
                 <p className="icon-text">
                   Preguntas
                   <br />

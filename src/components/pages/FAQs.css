@@ -16,6 +16,9 @@
 .pregunta-FAQs {
   font-weight: 700;
 }
+.bLink {
+  color: #007aff;
+}
 
 @media screen and (min-width: 600px) {
   .lista-FAQs {

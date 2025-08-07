@@ -12,6 +12,7 @@ import BotonWsp from "./components/Layout/BotonWsp";
 import AcercaDe from "./components/pages/AcercaDe";
 import MenuDelDia from "./components/Layout/MenuDelDia";
 import Marquesina from "./components/pages/Marquesina";
+import { NavProvider } from "./context/navContext";
 
 function App() {
   const Shows = lazy(() => import("./components/pages/Shows"));
@@ -25,11 +26,12 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
-      <Nav></Nav>
-      {/* <Marquesina></Marquesina> */}
-      {isOpenMenuDelDia && (
-        <MenuDelDia closeMenuDelDia={closeMenuDelDia}></MenuDelDia>
-      )}
+      <NavProvider>
+        <Nav></Nav>
+      </NavProvider>
+        {isOpenMenuDelDia && (
+          <MenuDelDia closeMenuDelDia={closeMenuDelDia}></MenuDelDia>
+        )}
       <AuthProvider>
         <Routes>
           <Route

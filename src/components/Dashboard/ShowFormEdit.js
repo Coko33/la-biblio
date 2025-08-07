@@ -41,8 +41,8 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
   const [fechaDesde, setFechaDesde] = useState(null);
   const [fechaHasta, setFechaHasta] = useState(null);
   const [diaSemana, setDiaSemana] = useState("");
-  const [fecha, setFecha] = useState(null)
-  const [hora, setHora] = useState(null)
+  const [fecha, setFecha] = useState(null);
+  const [hora, setHora] = useState(null);
 
   useEffect(() => {
     getSingle(elId);
@@ -63,6 +63,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
       setEsSemanal(elDoc.data().esSemanal || false);
       setImagenURL(elDoc.data().imagenURL);
       setDiaSemana(elDoc.data().diaSemana || null);
+      setDestacado(elDoc.data().destacado || null);
       console.log(elDoc.data().fechaYHora)
     } else {
       console.log("No such document!");
@@ -139,7 +140,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
               esSemanal,
               imagenURL: downloadURL,
               diaSemana: diaSemana ? diaSemana : null,
-
+              destacado: destacado ? destacado : false
             })
               .then((res) => {
                 console.log(res);
@@ -171,7 +172,8 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
         esDiario,
         esSemanal,
         imagenURL: imagenURL,
-        diaSemana: diaSemana ? diaSemana : null
+        diaSemana: diaSemana ? diaSemana : null,
+        destacado: destacado ? destacado : false
       })
         .then((res) => {
           console.log(res);

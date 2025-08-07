@@ -23,6 +23,10 @@ export default function FAQs() {
   },[precios])
   const navigate = useNavigate();
 
+  const irACarta = () => {
+    navigate('/carta');
+  };
+
   return (
     <div className="container-FAQs">
       <ul className="lista-FAQs">
@@ -51,16 +55,30 @@ export default function FAQs() {
             ¿Se requiere un gasto mínimo por persona?
           </span>{" "}
           Sí. Además de la entrada al show, hay una consumición mínima por
-          persona, que en este momento es de ${precios && precios.consumicionMinima}. Consultar{" "}
-          <a href="/carta">CARTA</a>
+          persona, que en este momento es de ${precios && precios.consumicionMinima}. Consultar {" "}
+          <a onClick={irACarta}><b className="bLink">carta</b></a>.
         </li>
         <li className="itemLista-FAQs">
           <span className="pregunta-FAQs">
             ¿Se puede cenar en La Biblioteca Café?{" "}
           </span>{" "}
-          Sí. Se puede cenar a la carta, o también tenemos una cena sugerida que
-          incluye plato, postre, y derecho a show. No es menú fijo. Hay
-          opciones. El precio varía por espectáculo.
+            Sí. Se puede cenar a la <a onClick={irACarta}><b className="bLink">carta</b></a> que figura en esta página! 
+            Cada dia hay por lo menos 3 platos principales de los que 
+            figuran en la carta, y siempre las entradas, postres y por 
+            supuesto las opciones para dietas.
+        </li>
+        <li className="itemLista-FAQs">
+          <span className="pregunta-FAQs">
+            ¿En que horarios esta abierta La Biblioteca Café?{" "}
+          </span>{" "}
+            Ademas de los horarios de show, de lunes a viernes abrimos 
+            desde las 8.30 de la mañana para ofrecer desayuno, almuerzo ejecutivo, 
+            Happy Hour con jazz y tragos, o para tomar un cafe, leer un libro... 
+            hasta el comienzo de la programacion nocturna.
+            Queda abierto hasta la hora en que se va el ultimo asistente, alrededor de las 12.30 
+            <br></br>
+            Los fines de semana abrimos a las 5 de la tarde para dar comienzo 
+            a nuestras meriendas musicales, y luego por la noche continuar con las cenas show.
         </li>
         <li className="itemLista-FAQs">
           <span className="pregunta-FAQs">¿Hay estacionamiento cerca? </span> A
@@ -88,8 +106,8 @@ export default function FAQs() {
           </span>{" "}
           ¡Si! A La Biblioteca Café le encantaría organizar tu próximo evento.
           Para obtener información, llamar al 11-6515-9514 o enviar un mail a{" "}
-          <a href="mailto:edith@labibliotecacafe.com.ar">
-            edith@labibliotecacafe.com.ar
+          <a className="bLink" href="mailto:edith@labibliotecacafe.com.ar">
+            <b>edith@labibliotecacafe.com.ar</b>
           </a>
         </li>
         <li className="itemLista-FAQs">
@@ -98,8 +116,8 @@ export default function FAQs() {
           </span>{" "}
           ¡Absolutamente! Para obtener información, llamar al 11-6515-9514 o
           enviar un mail a{" "}
-          <a href="mailto:edith@labibliotecacafe.com.ar">
-            edith@labibliotecacafe.com.ar
+          <a className="bLink" href="mailto:edith@labibliotecacafe.com.ar">
+          <b>edith@labibliotecacafe.com.ar</b>
           </a>
         </li>
         <li className="itemLista-FAQs">

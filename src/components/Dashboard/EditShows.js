@@ -136,6 +136,7 @@ export default function EditShows({ setEditandoShows }) {
       });
   }
   function destacarUnShow(show) {
+    console.log(show.fechaHasta)
     setDoc(doc(showsCollectionRef, show.id), {
       titulo: show.titulo,
       subtitulo: show.subtitulo || null,
@@ -143,8 +144,8 @@ export default function EditShows({ setEditandoShows }) {
       fechaYHora: !show.esSemanal & !show.esDiario ? new Date(show.fechaYHora * 1000) : null, //(esDiario || esSemanal) ? null : fechaYHora
       imagenURL: show.imagenURL,
       precios: show.precios,
-      fechaDesde: show.fechaDesde ? new Date(show.fechaDesde * 1000) : null,
-      fechaHasta: show.fechaHasta ? new Date(show.fechaHasta * 1000) : null,
+      fechaDesde: show.fechaDesde ? new Date(show.fechaDesde.seconds * 1000) : null,
+      fechaHasta: show.fechaHasta ? new Date(show.fechaHasta.seconds * 1000) : null,
       esDiario: show.esDiario || null,
       esSemanal: show.esSemanal || null,
       diaSemana: show.diaSemana || null,

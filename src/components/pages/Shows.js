@@ -246,6 +246,7 @@ const Shows = () => {
       }
     });  
     const losTodos = [...losShows, ...losPeriodicos];
+    console.log(losTodos)
     setTodos(losTodos.sort((a, b) => a.fechaYHora - b.fechaYHora));
     } catch (err) {
       console.log(err)

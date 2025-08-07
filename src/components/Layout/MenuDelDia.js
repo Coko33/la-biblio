@@ -10,7 +10,7 @@ export default function MenuDelDia({closeMenuDelDia}) {
           <h2>Almuerzo Ejecutivo</h2>
           <p>
             La Biblioteca Café ofrece almuerzo ejecutivo los dias hábiles de 12:30 a 15hs. <br></br>
-            incluye plato, bebida y postre o café.
+            incluye plato y bebida.
           </p>
           <p>¡Consultá la carta!</p>
         </div>
