@@ -15,6 +15,7 @@ import { showsCollectionRef } from "../../firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase";
 import Precios from "../CRUDshows/Precios";
+import Link from "../CRUDshows/Link";
 
 export default function ShowForm() {
   const [titulo, setTitulo] = useState("");
@@ -24,6 +25,7 @@ export default function ShowForm() {
   const [fechaDesde, setFechaDesde] = useState(null);
   const [fechaHasta, setFechaHasta] = useState(null);
   const [diaSemana, setDiaSemana] = useState(null);
+  const [link, setLink] = useState(null)
   
   const [precios, setPrecios] = useState("");
   const [habilitado, setHabilitado] = useState(true);
@@ -71,6 +73,7 @@ export default function ShowForm() {
   const cambiaDiaSemana = (event) => setDiaSemana(event.target.value);
   const cambiaPrecios = (e) => setPrecios(e);
   const cambiaFile = (file) => setFile(file);
+  const cambiaLink = (e) => setLink(e.target.value)
 
   const enviar = () => {
     !file && setError("No se puede subir un show sin una imagen!");
@@ -108,6 +111,7 @@ export default function ShowForm() {
             diaSemana,
             imagenURL: downloadURL,
             precios,
+            link
           })
             .then((res) => {
               setOk(`Se subió correctamente el show \n"${titulo}"`);
@@ -139,6 +143,7 @@ export default function ShowForm() {
         <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
         <Fecha mostrarChecks={true} cambiaFechaYHora={cambiaFechaYHora} cambiaEsDiario={cambiaEsDiario} cambiaEsSemanal={cambiaEsSemanal} cambiaFechaDesde={cambiaFechaDesde} cambiaFechaHasta={cambiaFechaHasta} cambiaDiaSemana={cambiaDiaSemana} fechaYHora={fechaYHora} esDiario={esDiario} esSemanal={esSemanal} fechaDesde={fechaDesde} fechaHasta={fechaHasta} diaSemana={diaSemana}/>
         <Imagen cambiaFile={cambiaFile} />
+        <Link cambiaLink={cambiaLink}></Link>
         <div className="formShow-button-container">
           <button className="formShow-button" onClick={enviar}>
             Enviar

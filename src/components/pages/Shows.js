@@ -112,6 +112,7 @@ const Shows = () => {
         .slice(0, -3),
       imagenURL: show.data().imagenURL,
       fechaYHora: new Date(show.data().fechaYHora.seconds * 1000), 
+      link: show.data().link,
     }));
     setLosShows(showsData);
     setIsLoading(false);
@@ -234,7 +235,8 @@ const Shows = () => {
       esSemanal: show.esSemanal,
       diaSemana: show.diaSemana,
       imagenURL: show.imagenURL,
-      precios: show.precios
+      precios: show.precios,
+      link: show.link
     })); 
     const losPeriodicos = periodicosData.filter((periodico) => {
       if (periodico.esDiario) {
@@ -325,12 +327,18 @@ const Shows = () => {
                       {show.esSemanal ? `todos los ${show.diaSemana}` : null}
                       {!show.esDiario & !show.esSemanal ? show.fecha.replace(/^\w/, (c) => c.toUpperCase()) : null} {<br></br>} {show.hora + "hs."}
                     </p>
-                    <button
+                    {/* <button
                       onClick={() => openUnShow(show.id)}
                       className="fecha-button"
                     >
                       + Información
-                    </button>
+                    </button> */}
+                    <a 
+                      target="_blank"
+                      rel="noopener noreferrer" 
+                      href={show.link || `https://wa.me/541565159514/?text=${encodeURIComponent(`Hola, Edith. Me gustaría reservar una mesa para el show ${show.titulo}`)}`}>
+                      <button className="comprar-button">Comprar</button>
+                    </a>
                   </div>
                 </div>
               </div>

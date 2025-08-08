@@ -31,7 +31,7 @@ export const auth = getAuth(app);
 export const cartaCollectionRef = collection(db, "carta");
 export const preciosCollectionRef = collection(db, "precios");
 //referencia a la base de datos TEST
-export const showsCollectionRef = collection(db, "shows");
+export const showsCollectionRef = collection(db, "shows-test");
 //Storage
 export const storage = getStorage();
 

@@ -119,6 +119,18 @@
   border: none;
   right: 12px;
 }
+.comprar-button {
+  position: absolute;
+  height: 32px;
+  padding: 0 14px;
+  color: var(--background);
+  font-size: clamp(9px, 0.8vw, 14px);
+  font-weight: 700;
+  background-color: rgb(0, 118, 228);
+  border-radius: 8px;
+  border: none;
+  right: 12px;
+}
 .shows-noHayMas {
   display: block;
   width: 80vw;

@@ -4,6 +4,7 @@
 }
 
 .input-titulo,
+.input-link,
 .input-selectCategoria,
 .input-orden {
   border: 1px solid #ccc;
@@ -34,7 +35,8 @@
 .input-labelDescripcion,
 .input-labelPrecio,
 .input-labelCategoria,
-.input-labelDiaSemana {
+.input-labelDiaSemana,
+.input-labelLink {
   display: block;
   font-size: 20px;
   margin-bottom: 4px;
