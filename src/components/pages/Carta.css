@@ -149,7 +149,7 @@
   font-weight: 500;
   width: 84%;
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 .carta-itemPrecio {
   font-family: Archivo, sans-serif;
