@@ -227,6 +227,7 @@ const Shows = () => {
           day: "numeric",
         }
       ),
+      //hora: new Date(show.data().fechaYHora.seconds * 1000).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }),
       hora: obtenerProximo(show.fechaDesde, show.esDiario, show.esSemanal).toLocaleTimeString()
       .slice(0, -3),
       fechaDesde: show.fechaDesde,
@@ -319,26 +320,30 @@ const Shows = () => {
                     
                   </div>
                   <div className="fecha-container">
-                    <div className="fecha-iconoSchedule">
-                      <i className="material-icons">schedule</i>
+                    <div className="iconoYFecha-container">
+                      <div className="fecha-iconoSchedule">
+                        <i className="material-icons">schedule</i>
+                      </div>
+                      <p className="fecha-texto">
+                        {show.esDiario ? "de Lunes a Viernes" : null}
+                        {show.esSemanal ? `todos los ${show.diaSemana}` : null}
+                        {!show.esDiario & !show.esSemanal ? show.fecha.replace(/^\w/, (c) => c.toUpperCase()) : null} {<br></br>} {show.hora + "hs."}
+                      </p>
                     </div>
-                    <p className="fecha-texto">
-                      {show.esDiario ? "de Lunes a Viernes" : null}
-                      {show.esSemanal ? `todos los ${show.diaSemana}` : null}
-                      {!show.esDiario & !show.esSemanal ? show.fecha.replace(/^\w/, (c) => c.toUpperCase()) : null} {<br></br>} {show.hora + "hs."}
-                    </p>
-                    {/* <button
-                      onClick={() => openUnShow(show.id)}
-                      className="fecha-button"
-                    >
-                      + Información
-                    </button> */}
-                    <a 
-                      target="_blank"
-                      rel="noopener noreferrer" 
-                      href={show.link || `https://wa.me/541565159514/?text=${encodeURIComponent(`Hola, Edith. Me gustaría reservar una mesa para el show ${show.titulo}`)}`}>
-                      <button className="comprar-button">Comprar</button>
-                    </a>
+                    <div className="fechaBoton-container">
+                      {/* <button
+                        onClick={() => openUnShow(show.id)}
+                        className="fecha-button"
+                      >
+                        + Información
+                      </button> */}
+                      <a 
+                        target="_blank"
+                        rel="noopener noreferrer" 
+                        href={show.link || `https://wa.me/541565159514/?text=${encodeURIComponent(`Hola, Edith. Me gustaría reservar una mesa para el show "${show.titulo}"`)}`}>
+                        <button className="comprar-button">Comprar</button>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

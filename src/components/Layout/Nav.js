@@ -1,6 +1,6 @@
 import "./Nav.css";
 import { NavLink, Link } from "react-router-dom";
-import logo from "./../../assets/logo biblioteca café-11.svg";
+import logo from "./../../assets/logo biblioteca café-12.svg";
 import useWindowDimensions from "../../Hooks/useWindowDimensions";
 import { useEffect, useContext } from "react";
 import { NavContext } from "../../context/navContext";

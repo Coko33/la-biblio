@@ -87,6 +87,7 @@ export default function EditShows({ setEditandoShows }) {
         esSemanal: show.data().esSemanal,
         diaSemana: show.data().diaSemana,
         destacado: show.data().destacado,
+        link: show.data().link
       }));
       console.log(showsData);
       //showsData.forEach((show) => console.log(show.titulo + ": " + (new Date(show.fechaYHora) || null)));
@@ -123,6 +124,7 @@ export default function EditShows({ setEditandoShows }) {
       esSemanal: show.esSemanal || null,
       diaSemana: show.diaSemana || null,
       destacado: false,
+      link: show.link || null
     })
       .then((res) => {
         getShows();
@@ -150,6 +152,7 @@ export default function EditShows({ setEditandoShows }) {
       esSemanal: show.esSemanal || null,
       diaSemana: show.diaSemana || null,
       destacado: !show.destacado,
+      link: show.link || null
     })
       .then((res) => {
         console.log(res);

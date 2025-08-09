@@ -30,7 +30,7 @@
   font-size: 14px;
   line-height: 14px;
   margin: 33px 0 0 15px;
-  
+  color: var(--icon-enabled);
 }
 .navDir {
   display: block;
@@ -106,7 +106,7 @@ a {
 .icon-text {
   margin: 0;
   color: var(--icon-disabled);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-family: "Archivo", sans-serif;
 }

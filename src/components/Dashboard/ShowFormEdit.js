@@ -5,6 +5,8 @@ import Subtitulo from "../CRUDshows/Subtitulo";
 import Descripcion from "../CRUDshows/Descripcion";
 import Fecha from "../CRUDshows/Fecha";
 import Imagen from "../CRUDshows/Imagen";
+import Link from "../CRUDshows/Link";
+
 import { Alert } from "../Layout/Alert";
 import { obtenerProximo } from "../../Hooks/useProximo";
 
@@ -43,6 +45,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
   const [diaSemana, setDiaSemana] = useState("");
   const [fecha, setFecha] = useState(null);
   const [hora, setHora] = useState(null);
+  const [link, setLink] = useState(null)
 
   useEffect(() => {
     getSingle(elId);
@@ -64,6 +67,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
       setImagenURL(elDoc.data().imagenURL);
       setDiaSemana(elDoc.data().diaSemana || null);
       setDestacado(elDoc.data().destacado || null);
+      setLink(elDoc.data().link || null);
       console.log(elDoc.data().fechaYHora)
     } else {
       console.log("No such document!");
@@ -107,6 +111,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
   const cambiaFechaHasta = (e) => setFechaHasta(new Date(e.$d));
   const cambiaFile = (file) => setFile(file);
   const cambiaDiaSemana = (e) => setDiaSemana(e.target.value);
+  const cambiaLink = (e) => setLink(e.target.value);
 
   const enviarEditado = () => {
     !file & !imagenURL && setError("No se puede subir un show sin una imagen");
@@ -140,7 +145,8 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
               esSemanal,
               imagenURL: downloadURL,
               diaSemana: diaSemana ? diaSemana : null,
-              destacado: destacado ? destacado : false
+              destacado: destacado ? destacado : false,
+              link: link ? link : null
             })
               .then((res) => {
                 console.log(res);
@@ -173,7 +179,8 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
         esSemanal,
         imagenURL: imagenURL,
         diaSemana: diaSemana ? diaSemana : null,
-        destacado: destacado ? destacado : false
+        destacado: destacado ? destacado : false,
+        link: link ? link : null
       })
         .then((res) => {
           console.log(res);
@@ -211,6 +218,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
           <Precios cambiaPrecios={cambiaPrecios} precios={precios}></Precios>
           <Fecha mostrarChecks={true} cambiaFechaYHora={cambiaFechaYHora} cambiaEsDiario={cambiaEsDiario} cambiaEsSemanal={cambiaEsSemanal} cambiaFechaDesde={cambiaFechaDesde} cambiaFechaHasta={cambiaFechaHasta} cambiaDiaSemana={cambiaDiaSemana} fechaYHora={fechaYHora} esDiario={esDiario} esSemanal={esSemanal} fechaDesde={fechaDesde} fechaHasta={fechaHasta} diaSemana={diaSemana}/>
           <Imagen cambiaFile={cambiaFile} imagenURL={imagenURL} />
+          <Link cambiaLink={cambiaLink} link={link}></Link>
           <div className="formShow-button-container">
             <button className="formShow-button" onClick={enviarEditado}>
               Enviar

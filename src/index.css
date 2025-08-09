@@ -4,13 +4,20 @@ font-family: 'DM Serif Display', serif;
 font-family: 'Archivo', sans-serif;
 */
 :root {
-  --gris-nav: #d8d5d4;
+  /* --gris-nav: #d8d5d4 */
+  --gris-nav: #ebe7e1;
   --marron-logo: #231b18;
-  --icon-enabled: #7f4437;
+  --icon-enabled: #680c19;
+  /* --icon-enabled: #7f4437; */
   --icon-disabled: #848484;
-  --background: #e8e3df;
+  /* --background: #e8e3df; */
+  --background: #ebe7e1;
   --background2: #e8e3df4d;
+  --background3: #ccc7b84d;
+  --background4: #ccc7b8;
   --blanco: #fff;
+  --azulActivo: rgb(0, 118, 228);
+  --azulApagado: rgb(74, 147, 215);
   font-family: "DM Serif Display", serif;
   min-height: 150vh;
   position: relative;
