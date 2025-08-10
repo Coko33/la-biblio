@@ -8,7 +8,7 @@ export default function Link({ cambiaLink, link }) {
       <input
         type="text"
         className="input-link"
-        placeholder="Link del boton comprar"
+        placeholder="Link de passline. Si queda vacío lleva al whatsapp"
         value={link}
         onChange={cambiaLink}
       />

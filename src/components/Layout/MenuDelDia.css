@@ -17,12 +17,13 @@
   width: 40px;
   height: 40px;
   top: calc(50% - 134px);
-  right: calc(10% + 6px);
+  right: calc(10% + 10px);
   background-color: var(--icon-enabled);
   border: none;
   border-radius: 20px;
   color: #fff;
   font-size: 20px;
+  padding-bottom: 5px;
 }
 .menuDelDia-modal {
   margin: auto;
@@ -37,6 +38,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  top: 20px;
   padding-left: 20px;
   flex-direction: column-reverse;
 }
@@ -66,21 +68,27 @@
 }
 
 @media screen and (min-width: 600px) {
-  .menuDelDia-modal {
+
+}
+@media screen and (min-width: 1000px) {
+    .menuDelDia-modal {
     width: 40%;
     height: 200px;
   }
   .menuDelDia-cerrar {
-    right: calc(30% + 6px); 
-    top: calc(50% - 94px);
+    right: calc(30% + 10px); 
+    top: calc(50% - 90px);
   }
-  .menuDelDia-contenidoYLogo {
-    flex-direction: row;
-  }
+
   .menuDelDia-contenido {
     width: calc(100% - 100px);
-}
-.menuDelDia-logo {
-  margin-top: 0px;
-}
+  }
+  .menuDelDia-logo {
+    margin-top: 0px;
+  }
+    .menuDelDia-contenidoYLogo {
+    top: 0px;
+    flex-direction: row;
+    align-items: inherit;
+  }
 }

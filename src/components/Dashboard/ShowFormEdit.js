@@ -132,7 +132,6 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log(fechaYHora)
             setDoc(doc(showsCollectionRef, elId), {
               titulo,
               subtitulo: subtitulo || "",
@@ -149,7 +148,6 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
               link: link ? link : null
             })
               .then((res) => {
-                console.log(res);
                 setOk(`Se editó correctamente el show \n"${titulo}"`);
                 getShows();
                 setTimeout(() => {
@@ -203,7 +201,7 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
     <div>
       {error && <Alert message={error} resetError={resetError} />}
       {ok && <Alert message={ok} resetError={resetOk} />}
-      {titulo && (
+      {titulo !== null && (
         <div className="formShow-container">
           <button className="formShow-button" onClick={() => closeSingle()}>
             Cerrar

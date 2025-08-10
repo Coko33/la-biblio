@@ -93,7 +93,33 @@ const Shows = () => {
       );
     }
     const documentSnapshots = await getDocs(q);
-    const showsData = documentSnapshots.docs.map((show) => ({
+    const showsData = documentSnapshots.docs.map((show) => {
+      const fechaYHoraDate = new Date(show.data().fechaYHora.seconds * 1000);
+      return {
+        id: show.id,
+        titulo: show.data().titulo,
+        subtitulo: show.data().subtitulo,
+        descripcion: show.data().descripcion,
+        precios: show.data().precios,
+        fechaYHora: fechaYHoraDate,
+        fecha: fechaYHoraDate.toLocaleDateString("es-ES", {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        }),
+        // <- formato fijo: 24h, sólo hora y minuto
+        hora: fechaYHoraDate.toLocaleTimeString("es-AR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }),
+        imagenURL: show.data().imagenURL,
+        link: show.data().link,
+      };
+    });
+    /* 
+      2
+      const showsData = documentSnapshots.docs.map((show) => ({
       id: show.id,
       titulo: show.data().titulo,
       subtitulo: show.data().subtitulo,
@@ -113,7 +139,7 @@ const Shows = () => {
       imagenURL: show.data().imagenURL,
       fechaYHora: new Date(show.data().fechaYHora.seconds * 1000), 
       link: show.data().link,
-    }));
+    })); */
     setLosShows(showsData);
     setIsLoading(false);
     documentSnapshots && setLastVisible(documentSnapshots.docs[documentSnapshots.docs.length - 1]);
@@ -190,7 +216,9 @@ const Shows = () => {
 
     //const [querySnapshot1, querySnapshot2] = await Promise.all([getDocs(q1), getDocs(q2)]);
     const documentSnapshots = [...periodicosSemanales, ...periodicosDiarios];
-    /* const periodicosData = documentSnapshots.map((show) => ({
+    /*
+      1
+      const periodicosData = documentSnapshots.map((show) => ({
       id: show.id,
       titulo: show.data().titulo,
       subtitulo: show.data().subtitulo,
@@ -213,7 +241,9 @@ const Shows = () => {
       diaSemana: show.data().diaSemana,
       imagenURL: show.data().imagenURL,
     }));  */
-    const periodicosData = documentSnapshots.map((show) => ({
+    /* 
+      2
+      const periodicosData = documentSnapshots.map((show) => ({
       id: show.id,
       titulo: show.titulo,
       subtitulo: show.subtitulo,
@@ -238,7 +268,39 @@ const Shows = () => {
       imagenURL: show.imagenURL,
       precios: show.precios,
       link: show.link
-    })); 
+    }));  */
+    
+    const periodicosData = documentSnapshots.map((show) => {
+      // show.fechaDesde es el timestamp Firestore (tiene .seconds)
+      const prox = obtenerProximo(show.fechaDesde, show.esDiario, show.esSemanal);
+
+      return {
+        id: show.id,
+        titulo: show.titulo,
+        subtitulo: show.subtitulo,
+        descripcion: show.descripcion,
+        fechaYHora: prox,
+        fecha: prox.toLocaleDateString("es-ES", {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        }),
+        hora: prox.toLocaleTimeString("es-AR", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }),
+        fechaDesde: show.fechaDesde,
+        fechaHasta: show.fechaHasta,
+        esDiario: show.esDiario,
+        esSemanal: show.esSemanal,
+        diaSemana: show.diaSemana,
+        imagenURL: show.imagenURL,
+        precios: show.precios,
+        link: show.link,
+      };
+    });
+
     const losPeriodicos = periodicosData.filter((periodico) => {
       if (periodico.esDiario) {
         return true
