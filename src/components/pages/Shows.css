@@ -19,20 +19,23 @@
   flex-direction: column;
   border-radius: 10px;
 }
-.show-img__container {
+.show-img__container{
   position: relative;
   width: 100%;
-  /* overflow: hidden; */
-  aspect-ratio: auto 4 / 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
+  aspect-ratio: 4 / 3;   
+  overflow: hidden;      
+  display: block;        
+  flex: none; 
 }
-.show-img {
+.show-img{
   position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;          
+  object-fit: cover;     
+  display: block;
   border-radius: 10px 10px 0 0;
+  position: relative; width: 100%; height: auto; display: block;
 }
 .show-titulo {
   font-size: 32px;
@@ -53,35 +56,12 @@
   overflow: hidden;
   margin-bottom: 20px;
 }
-
 .descripcion-container p {
   font-family: "Archivo", sans-serif;
   margin: 0 19px;
   font-size: 14px;
   color: var(--marron-logo);
 }
-
-/* .line-clamp {
-  display: -webkit-box;
-  display: -webkit-flex;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
-
-/*esta*/
-/* .line-clamp {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  -webkit-box-decoration-break: clone; 
-  box-decoration-break: clone;
-  mask-image: linear-gradient(to top, transparent, black); 
-} */
-
 .fecha-container {
   position: relative;
   margin-top: 10px;
