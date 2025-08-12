@@ -8,6 +8,9 @@
 /.pnp
 .pnp.js
 
+# deploy
+.firebase/
+
 # testing
 /coverage
 
