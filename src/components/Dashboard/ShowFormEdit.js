@@ -68,7 +68,6 @@ export default function ShowFormEdit({ elId, closeSingle, getShows }) {
       setDiaSemana(elDoc.data().diaSemana || null);
       setDestacado(elDoc.data().destacado || null);
       setLink(elDoc.data().link || null);
-      console.log(elDoc.data().fechaYHora)
     } else {
       console.log("No such document!");
     }
