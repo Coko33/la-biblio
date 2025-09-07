@@ -1,6 +1,6 @@
 import "./Dashboard.css";
 import { useEffect, useState } from "react";
-import { getDocs, addDoc, setDoc, doc } from "firebase/firestore";
+import { getDocs, addDoc, setDoc, doc, query, where, orderBy, Timestamp } from "firebase/firestore";
 import { useModal } from "./../../Hooks/useModal";
 import { showsCollectionRef } from "../../firebase";
 import ShowFormEdit from "./ShowFormEdit";
@@ -10,8 +10,10 @@ import { obtenerProximo } from "../../Hooks/useProximo";
 
 export default function EditShows({ setEditandoShows }) {
   const [losShows, setLosShows] = useState([]);
+  const [losShowsPasados, setLosShowsPasados] = useState([]);
   const [isOpenSingle, openSingle, closeSingle] = useModal(false);
   const [isOpenEliminar, openEliminar, closeEliminar] = useModal(false);
+  const [verPasados, setVerPasados] = useState(false);
   const [elId, setElId] = useState(null);
   const [elTitulo, setElTitulo] = useState("");
 
@@ -45,130 +47,187 @@ export default function EditShows({ setEditandoShows }) {
     return null;
   }
 
-  /* function getFecha(showData) {
-    if (showData.esDiario || showData.esSemanal) {
-      return obtenerProximo(showData.fechaDesde, showData.esDiario, showData.esSemanal).toLocaleDateString("es-ES", {
-        month: "short",
-        day: "numeric",
-      })
-    } else {
-      return new Date(showData.fechaYHora.seconds * 1000).toLocaleDateString("es-ES", {
-        month: "short",
-        day: "numeric",
-      })
-    }
-  }
-
-  function getHora(showData) {
-    if(showData.esDiario || showData.esSemanal) {
-      return obtenerProximo(showData.fechaDesde, showData.esDiario, showData.esSemanal).toLocaleTimeString()
-      .slice(0, -3)
-    } else {
-      return new Date(showData.fechaYHora.seconds * 1000)
-      .toLocaleTimeString()
-      .slice(0, -3)
-    }
-  } */
-
-  function getFecha(showData) {
-    if (showData.esDiario || showData.esSemanal) {
-      const base = toDate(showData.fechaDesde);
-      const prox = base ? obtenerProximo(base, showData.esDiario, showData.esSemanal) : null;
-      return prox ? prox.toLocaleDateString("es-ES", { month: "short", day: "numeric" }) : "";
-    } else {
-      const fh = toDate(showData.fechaYHora);
-      return fh ? fh.toLocaleDateString("es-ES", { month: "short", day: "numeric" }) : "";
-    }
-  }
-
-  function getHora(showData) {
-    if (showData.esDiario || showData.esSemanal) {
-      const base = toDate(showData.fechaDesde);
-      const prox = base ? obtenerProximo(base, showData.esDiario, showData.esSemanal) : null;
-      return prox ? prox.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : "";
-    } else {
-      const fh = toDate(showData.fechaYHora);
-      return fh ? fh.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : "";
-    }
-  }
-  
-  /* async function getShows() {
-    try {
-      const res = await getDocs(showsCollectionRef);
-      const showsData = res.docs.map((show) => ({
-        id: show.id,
-        titulo: show.data().titulo,
-        subtitulo: show.data().subtitulo,
-        descripcion: show.data().descripcion,
-        fecha: show.data().fechaYHora ? getFecha(show.data()) : null,
-        hora: show.data().fechaYHora ? getHora(show.data()) : null,
-        imagenURL: show.data().imagenURL,
-        fechaYHora: show.data().fechaYHora ? show.data().fechaYHora.seconds : obtenerProximo(show.data().fechaDesde, show.data().esDiario, show.data().esSemanal),
-        precios: show.data().precios,
-        fechaDesde: show.data().fechaDesde,
-        fechaHasta: show.data().fechaHasta,
-        esDiario: show.data().esDiario,
-        esSemanal: show.data().esSemanal,
-        diaSemana: show.data().diaSemana,
-        destacado: show.data().destacado,
-        link: show.data().link
-      }));
-      console.log(showsData);
-      //showsData.forEach((show) => console.log(show.titulo + ": " + (new Date(show.fechaYHora) || null)));
-      setLosShows(showsData.sort((a, b) => b.fechaYHora - a.fechaYHora));
-    } catch (err) {
-      console.log(err.message);
-    }
-  } */
-
   async function getShows() {
     try {
-      const res = await getDocs(showsCollectionRef);
-      const showsData = res.docs.map((d) => {
-      const raw = d.data();
-      const esDiario = !!raw.esDiario;
-      const esSemanal = !!raw.esSemanal;
+        const ahora = new Date();
+        const hace48hs = new Date(ahora.getTime() - 48 * 60 * 60 * 1000);
 
-      const fechaDesde = toDate(raw.fechaDesde);
-      const fechaHasta = toDate(raw.fechaHasta);
-      const fechaYHora = toDate(raw.fechaYHora);
+        const qUnicos = query(
+          showsCollectionRef, 
+          where("fechaYHora", ">", hace48hs),
+          orderBy("fechaYHora", "asc")
+        );
 
-      const proximo = (esDiario || esSemanal) && fechaDesde
-        ? obtenerProximo(fechaDesde, esDiario, esSemanal)
-        : null;
+        const qDiarios = query(
+          showsCollectionRef,
+          where("esDiario", "==", true),
+          where("fechaHasta", ">=", hace48hs),
+          orderBy("fechaHasta", "asc")
+        );
 
-      const sortKey = (esDiario || esSemanal)
-        ? (proximo ? proximo.getTime() : 0)
-        : (fechaYHora ? fechaYHora.getTime() : 0);
+        const qSemanales = query(
+          showsCollectionRef,
+          where("esSemanal", "==", true),
+          where("fechaHasta", ">=", hace48hs),
+          orderBy("fechaHasta", "asc")
+        );
 
-      return {
-        id: d.id,
-        titulo: raw.titulo,
-        subtitulo: raw.subtitulo,
-        descripcion: raw.descripcion,
-        fecha: (esDiario || esSemanal)
-          ? (proximo ? proximo.toLocaleDateString("es-ES", { month: "short", day: "numeric" }) : "")
-          : (fechaYHora ? fechaYHora.toLocaleDateString("es-ES", { month: "short", day: "numeric" }) : ""),
-        hora: (esDiario || esSemanal)
-          ? (proximo ? proximo.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : "")
-          : (fechaYHora ? fechaYHora.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : ""),
-        imagenURL: raw.imagenURL,
-        // guardá también las Date originales para reusar en duplicar/destacar
-        fechaYHora,
-        fechaDesde,
-        fechaHasta,
-        esDiario,
-        esSemanal,
-        diaSemana: raw.diaSemana,
-        destacado: !!raw.destacado,
-        link: raw.link,
-        _sortKey: sortKey,
-      };
-    });
-    setLosShows(showsData.sort((a, b) => b._sortKey - a._sortKey));
+        const [resUnicos, resDiarios, resSemanales] = await Promise.all([
+          getDocs(qUnicos),
+          getDocs(qDiarios),
+          getDocs(qSemanales),
+        ]);
+
+        const showsData = [
+          ...resUnicos.docs,
+          ...resDiarios.docs,
+          ...resSemanales.docs,
+        ].map((d) => {
+        const raw = d.data();
+        const esDiario = !!raw.esDiario;
+        const esSemanal = !!raw.esSemanal;
+
+        const fechaDesde = toDate(raw.fechaDesde);
+        const fechaHasta = toDate(raw.fechaHasta);
+        const fechaYHora = toDate(raw.fechaYHora);
+
+        const proximo = (esDiario || esSemanal) && fechaDesde
+          ? obtenerProximo(fechaDesde, esDiario, esSemanal)
+          : null;
+
+        const sortKey = (esDiario || esSemanal)
+          ? (proximo ? proximo.getTime() : 0)
+          : (fechaYHora ? fechaYHora.getTime() : 0);
+
+        const group = esDiario ? 0 : esSemanal ? 1 : 2;
+
+        return {
+          id: d.id,
+          titulo: raw.titulo,
+          subtitulo: raw.subtitulo,
+          descripcion: raw.descripcion,
+          precios: raw.precios,
+          fecha: (esDiario || esSemanal)
+            ? (proximo ? proximo.toLocaleDateString("es-ES", { month: "short", day: "numeric", year: "2-digit" }) : "")
+            : (fechaYHora ? fechaYHora.toLocaleDateString("es-ES", { month: "short", day: "numeric", year: "2-digit" }) : ""),
+          hora: (esDiario || esSemanal)
+            ? (proximo ? proximo.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : "")
+            : (fechaYHora ? fechaYHora.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : ""),
+          imagenURL: raw.imagenURL,
+          fechaYHora,
+          fechaDesde,
+          fechaHasta,
+          esDiario,
+          esSemanal,
+          diaSemana: raw.diaSemana,
+          destacado: !!raw.destacado,
+          link: raw.link,
+          _sortKey: sortKey,
+          _group: group,
+        };
+      });
+      showsData.sort((a, b) => {
+        if (a._group !== b._group) return a._group - b._group;
+        return a._nextTime - b._nextTime; 
+      });
+      setLosShows(showsData);
     } catch (err) {
       console.log(err.message);
     }
+  }
+
+  async function getPasados() {
+    try {
+        const ahora = new Date();
+        const hace48hs = new Date(ahora.getTime() - 48 * 60 * 60 * 1000);
+
+        const qUnicos = query(
+          showsCollectionRef, 
+          where("fechaYHora", "<=", hace48hs),
+          orderBy("fechaYHora", "desc")
+        );
+
+        const qDiarios = query(
+          showsCollectionRef,
+          where("esDiario", "==", true),
+          where("fechaHasta", "<=", hace48hs),
+          orderBy("fechaHasta", "desc")
+        );
+
+        const qSemanales = query(
+          showsCollectionRef,
+          where("esSemanal", "==", true),
+          where("fechaHasta", "<=", hace48hs),
+          orderBy("fechaHasta", "desc")
+        );
+
+        const [resUnicos, resDiarios, resSemanales] = await Promise.all([
+          getDocs(qUnicos),
+          getDocs(qDiarios),
+          getDocs(qSemanales),
+        ]);
+
+        const showsData = [
+          ...resUnicos.docs,
+          ...resDiarios.docs,
+          ...resSemanales.docs,
+        ].map((d) => {
+        const raw = d.data();
+        const esDiario = !!raw.esDiario;
+        const esSemanal = !!raw.esSemanal;
+
+        const fechaDesde = toDate(raw.fechaDesde);
+        const fechaHasta = toDate(raw.fechaHasta);
+        const fechaYHora = toDate(raw.fechaYHora);
+
+        const proximo = (esDiario || esSemanal) && fechaDesde
+          ? obtenerProximo(fechaDesde, esDiario, esSemanal)
+          : null;
+
+        const sortKey = (esDiario || esSemanal)
+          ? (proximo ? proximo.getTime() : 0)
+          : (fechaYHora ? fechaYHora.getTime() : 0);
+
+        const group = esDiario ? 0 : esSemanal ? 1 : 2;
+
+        return {
+          id: d.id,
+          titulo: raw.titulo,
+          subtitulo: raw.subtitulo,
+          descripcion: raw.descripcion,
+          precios: raw.precios,
+          fecha: (esDiario || esSemanal)
+            ? (proximo ? proximo.toLocaleDateString("es-ES", { month: "short", day: "numeric", year: "2-digit" }) : "")
+            : (fechaYHora ? fechaYHora.toLocaleDateString("es-ES", { month: "short", day: "numeric", year: "2-digit" }) : ""),
+          hora: (esDiario || esSemanal)
+            ? (proximo ? proximo.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : "")
+            : (fechaYHora ? fechaYHora.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false }) : ""),
+          imagenURL: raw.imagenURL,
+          fechaYHora,
+          fechaDesde,
+          fechaHasta,
+          esDiario,
+          esSemanal,
+          diaSemana: raw.diaSemana,
+          destacado: !!raw.destacado,
+          link: raw.link,
+          _sortKey: sortKey,
+          _group: group,
+        };
+      });
+      showsData.sort((a, b) => {
+        if (a._group !== b._group) return a._group - b._group;
+        return b._sortKey - a._sortKey; 
+      });
+      setLosShowsPasados(showsData);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  function mostrarPasados() {
+    getPasados();
+    setVerPasados(v => !v);
   }
 
   function editarUnShow(id) {
@@ -184,16 +243,18 @@ export default function EditShows({ setEditandoShows }) {
   }
 
   function duplicarUnShow(show) {
-    console.log(show)
     addDoc(showsCollectionRef, {
       titulo: show.titulo + " (copia)",
       subtitulo: show.subtitulo || null,
       descripcion: show.descripcion,
-      fechaYHora: (!show.esDiario && !show.esSemanal) ? new Date(show.fechaYHora * 1000) : null,
+      /* fechaYHora: (!show.esDiario && !show.esSemanal) ? new Date(show.fechaYHora * 1000) : null,
+      fechaDesde: show.fechaDesde ? show.fechaDesde.seconds : null,
+      fechaHasta: show.fechaHasta ? show.fechaHasta.seconds : null, */
+      fechaYHora: (!show.esDiario && !show.esSemanal) ? (show.fechaYHora ? Timestamp.fromDate(show.fechaYHora) : null) : null,
+      fechaDesde: show.fechaDesde ? Timestamp.fromDate(show.fechaDesde) : null,
+      fechaHasta: show.fechaHasta ? Timestamp.fromDate(show.fechaHasta) : null,
       imagenURL: show.imagenURL,
       precios: show.precios,
-      fechaDesde: show.fechaDesde ? show.fechaDesde.seconds : null,
-      fechaHasta: show.fechaHasta ? show.fechaHasta.seconds : null,
       esDiario: show.esDiario || null,
       esSemanal: show.esSemanal || null,
       diaSemana: show.diaSemana || null,
@@ -212,16 +273,18 @@ export default function EditShows({ setEditandoShows }) {
       });
   }
   function destacarUnShow(show) {
-    console.log(show.fechaHasta)
     setDoc(doc(showsCollectionRef, show.id), {
       titulo: show.titulo,
       subtitulo: show.subtitulo || null,
       descripcion: show.descripcion,
-      fechaYHora: !show.esSemanal && !show.esDiario ? new Date(show.fechaYHora * 1000) : null, //(esDiario || esSemanal) ? null : fechaYHora
+      /* fechaYHora: !show.esSemanal && !show.esDiario ? new Date(show.fechaYHora * 1000) : null, 
+      fechaDesde: show.fechaDesde ? new Date(show.fechaDesde.seconds * 1000) : null,
+      fechaHasta: show.fechaHasta ? new Date(show.fechaHasta.seconds * 1000) : null, */
+      fechaYHora: (!show.esSemanal && !show.esDiario) ? (show.fechaYHora ? Timestamp.fromDate(show.fechaYHora) : null) : null,
+      fechaDesde: show.fechaDesde ? Timestamp.fromDate(show.fechaDesde) : null,
+      fechaHasta: show.fechaHasta ? Timestamp.fromDate(show.fechaHasta) : null,
       imagenURL: show.imagenURL,
       precios: show.precios,
-      fechaDesde: show.fechaDesde ? new Date(show.fechaDesde.seconds * 1000) : null,
-      fechaHasta: show.fechaHasta ? new Date(show.fechaHasta.seconds * 1000) : null,
       esDiario: show.esDiario || null,
       esSemanal: show.esSemanal || null,
       diaSemana: show.diaSemana || null,
@@ -240,8 +303,6 @@ export default function EditShows({ setEditandoShows }) {
         setError(err.message);
       });
   }
-
-  
 
   return (
     <div>
@@ -326,6 +387,69 @@ export default function EditShows({ setEditandoShows }) {
             </tbody>
           </table>
         </div>
+
+        <button
+          className="formShow-button "
+          onClick={() => mostrarPasados()}
+        >
+          {!verPasados ? "Ver pasados" : "Ocultar pasados"}
+        </button>
+        {verPasados && <div className="containter-tablaEditar">
+          <table className="dwHTMLtable">
+            <thead className="tablaHead">
+              <tr>
+                <th>Fecha</th>
+                <th>Título</th>
+                <th></th>
+                <th>Acciones</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {losShowsPasados ? (
+                losShowsPasados.map((show, i) => (
+                  <tr className="dwHTMLrow-show" key={i}>
+                    <td className="dwHTMLcell-showFecha">
+                    {(!show.esSemanal && !show.esDiario) ? show.fecha : show.esDiario ? "de Lunes a Viernes" : show.esSemanal ? `todos los ${show.diaSemana}` : ''}&nbsp; &nbsp; &nbsp; &nbsp;
+                    </td>
+                    <td className="dwHTMLcell-showTitulo">
+                      {show.titulo}&nbsp; &nbsp; &nbsp; &nbsp;
+                    </td>
+                    <td>
+                      &nbsp;&nbsp;
+                      <button onClick={() => editarUnShow(show.id)}>
+                        editar
+                      </button>
+                    </td>
+                    <td>
+                      &nbsp;&nbsp;
+                      <button
+                        onClick={() => eliminarUnShow(show.id, show.titulo)}
+                      >
+                        borrar
+                      </button>
+                    </td>
+                    <td>
+                      &nbsp;&nbsp;
+                      <button onClick={() => duplicarUnShow(show)}>
+                        duplicar
+                      </button>
+                    </td>
+                    <td>
+                      &nbsp;&nbsp;
+                      <button className={show.destacado && 'botonDestacado'} onClick={() => destacarUnShow(show)}>
+                        {show.destacado ? "en marquesina" : "destacar"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <h3>Sin Shows</h3>
+              )}
+            </tbody>
+          </table>
+        </div>}
       </div>
     </div>
   );
